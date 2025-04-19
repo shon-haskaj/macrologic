@@ -5,84 +5,74 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>MacroLogic</title>
   <style>
-    /* Reset & Base */
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color:#333; line-height:1.6; }
-    a { color: #0066cc; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    /* Layout */
-    header, section, footer { width: 90%; max-width: 800px; margin: auto; }
-    header { padding: 2rem 0; text-align: center; }
-    section { padding: 4rem 0; }
-    footer { padding: 2rem 0; text-align: center; font-size: 0.9rem; color:#666; }
-
-    /* Header */
-    .logo { font-size: 2.5rem; font-weight: bold; letter-spacing: -1px; }
-    .tagline { margin-top: 0.5rem; font-size: 1.2rem; color:#555; }
-
-    /* Hero Button */
-    .btn { display: inline-block; padding: 0.75rem 1.5rem; margin-top: 1.5rem; background:#0066cc; color:#fff; border-radius:4px; transition: background 0.2s; }
-    .btn:hover { background: #005bb5; }
-
-    /* Features Grid */
-    .features { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap:2rem; }
-    .feature { text-align:center; }
-    .feature-icon { font-size: 2rem; margin-bottom: 0.5rem; color:#0066cc; }
-    .feature h3 { margin:0.5rem 0; font-size:1.1rem; }
-    .feature p { color:#555; }
-
-    /* Contact */
-    .contact a { display:inline-block; margin-top:1rem; padding:0.5rem 1rem; border:1px solid #0066cc; border-radius:4px; }
-
-    /* Responsive text sizing */
-    @media (min-width:600px) {
-      .tagline { font-size:1.4rem; }
-      .logo { font-size:3rem; }
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #333333;
+      --accent-color: #0066cc;
+      --btn-bg: var(--accent-color);
+      --btn-text: #ffffff;
     }
+    .dark {
+      --bg-color: #121212;
+      --text-color: #e0e0e0;
+      --accent-color: #3399ff;
+      --btn-bg: var(--accent-color);
+      --btn-text: #ffffff;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg-color); color: var(--text-color); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; text-align: center; }
+    header, section, footer { width: 90%; max-width: 600px; }
+    header { margin-bottom: 2rem; }
+    h1 { font-size: 2.5rem; font-weight: bold; }
+    p.tagline { margin-top: 0.5rem; font-size: 1.2rem; color: var(--text-color); }
+    .controls { margin-top: 1rem; display: flex; gap: 1rem; justify-content: center; }
+    .btn { padding: 0.75rem 1.5rem; background: var(--btn-bg); color: var(--btn-text); border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; }
+    .btn-secondary { background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); }
+    section { margin: 2rem 0; }
+    .features { display: grid; gap: 2rem; }
+    @media(min-width: 600px) { .features { grid-template-columns: repeat(2, 1fr); } }
+    .feature { padding: 1rem; }
+    .feature h3 { margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .feature p { color: var(--text-color); }
+    footer { margin-top: 2rem; font-size: 0.9rem; color: var(--text-color); }
   </style>
 </head>
 <body>
-
-  <!-- Header / Hero -->
   <header>
-    <div class="logo">MacroLogic</div>
-    <div class="tagline">Automate. Simplify. Scale.</div>
-    <a href="mailto:hello@macrologic.ca" class="btn">Get Started</a>
+    <h1>MacroLogic</h1>
+    <p class="tagline">Automate. Simplify. Scale.</p>
+    <div class="controls">
+      <button id="dark-toggle" class="btn-secondary">Toggle Dark Mode</button>
+      <button class="btn">Get Started</button>
+    </div>
   </header>
-
-  <!-- Features Section -->
   <section>
     <div class="features">
       <div class="feature">
-        <div class="feature-icon">📈</div>
         <h3>Lead Tracking</h3>
-        <p>Capture and organize leads automatically in Google Sheets or Notion.</p>
+        <p>Automatically capture and manage leads in your preferred CRM.</p>
       </div>
       <div class="feature">
-        <div class="feature-icon">✉️</div>
-        <h3>Instant Follow‐Ups</h3>
-        <p>Send personalized email responses the moment a new lead appears.</p>
+        <h3>Instant Follow‑Ups</h3>
+        <p>Send personalized email responses immediately upon lead entry.</p>
       </div>
       <div class="feature">
-        <div class="feature-icon">⚙️</div>
         <h3>Workflow Automation</h3>
-        <p>Chain tasks together across Gmail, Calendly, Stripe, and more.</p>
+        <p>Connect Gmail, Sheets, Calendly, and more with seamless Zaps.</p>
       </div>
       <div class="feature">
-        <div class="feature-icon">🚀</div>
         <h3>Scale Quickly</h3>
-        <p>Turn proven automations into templates or a lightweight SaaS.</p>
+        <p>Transform proven automations into reusable templates or a SaaS.</p>
       </div>
     </div>
   </section>
-
-  <!-- Contact / Footer -->
-  <footer class="contact">
-    <div>Questions? Reach out:</div>
-    <a href="mailto:hello@macrologic.ca">hello@macrologic.ca</a>
-    <div style="margin-top:1rem;">&copy; 2025 MacroLogic</div>
+  <footer>
+    <p>© 2025 MacroLogic</p>
+    <p><a href="mailto:hello@macrologic.ca">hello@macrologic.ca</a></p>
   </footer>
-
+  <script>
+    const btn = document.getElementById('dark-toggle');
+    btn.addEventListener('click', () => document.body.classList.toggle('dark'));
+  </script>
 </body>
 </html>
