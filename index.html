@@ -2,62 +2,67 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MacroLogic</title>
   <style>
     :root {
       --bg-color: #ffffff;
       --text-color: #333333;
       --accent-color: #0066cc;
-      --btn-bg: var(--accent-color);
-      --btn-text: #ffffff;
+      --modal-bg: rgba(0, 0, 0, 0.5);
     }
     .dark {
       --bg-color: #121212;
       --text-color: #e0e0e0;
       --accent-color: #3399ff;
-      --btn-bg: var(--accent-color);
-      --btn-text: #ffffff;
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { background: var(--bg-color); color: var(--text-color); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 100vh; text-align: center; padding-top: 3rem; }
-    header, section, footer { width: 90%; max-width: 600px; }
-    h1 { font-size: 2.5rem; font-weight: bold; }
-    p.tagline { margin-top: 0.5rem; font-size: 1.2rem; color: var(--text-color); }
-    .controls { margin-top: 1.5rem; }
-    .btn { padding: 0.75rem 1.5rem; background: var(--btn-bg); color: var(--btn-text); border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; }
-    .btn-secondary { background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); }
-    section { margin: 2rem 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg-color); color: var(--text-color); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+    header { position: fixed; top: 0; left: 0; width: 100%; background: var(--bg-color); display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 10; }
+    .logo { font-size: 1.5rem; font-weight: bold; }
+    nav a { margin-left: 1.5rem; color: var(--text-color); text-decoration: none; font-weight: 500; }
+    nav a:hover { color: var(--accent-color); }
+    #dark-toggle { background: none; border: none; color: var(--accent-color); cursor: pointer; font-size: 0.9rem; }
+    main { margin-top: 80px; width: 90%; max-width: 800px; margin-left: auto; margin-right: auto; padding: 2rem 0; text-align: center; }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    p.tagline { font-size: 1.2rem; color: var(--text-color); margin-bottom: 1.5rem; }
+    .btn { padding: 0.75rem 1.5rem; background: var(--accent-color); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; }
+    .btn:hover { opacity: 0.9; }
+    section { margin: 3rem 0; }
     .features { display: grid; gap: 2rem; }
-    @media(min-width: 600px) { .features { grid-template-columns: repeat(2, 1fr); } }
-    .feature { padding: 1rem; }
+    @media (min-width: 600px) { .features { grid-template-columns: repeat(2, 1fr); } }
+    .feature { padding: 1rem; border: 1px solid var(--accent-color); border-radius: 4px; }
     .feature h3 { margin-bottom: 0.5rem; font-size: 1.1rem; }
-    .feature p { color: var(--text-color); }
-    footer { margin-top: auto; margin-bottom: 2rem; font-size: 0.9rem; color: var(--text-color); }
-    #dark-toggle {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-      background: var(--btn-text);
-      color: var(--accent-color);
-      border: 1px solid var(--accent-color);
-      border-radius: 4px;
-      cursor: pointer;
-    }
+    .feature p { font-size: 0.95rem; }
+    footer { margin-top: auto; padding: 2rem 0; font-size: 0.9rem; text-align: center; }
+    /* Modal */
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--modal-bg); align-items: center; justify-content: center; }
+    .modal-content { background: var(--bg-color); padding: 2rem; border-radius: 4px; width: 90%; max-width: 400px; text-align: left; }
+    .modal-content h2 { margin-bottom: 1rem; font-size: 1.5rem; }
+    .modal-content label { display: block; margin: 0.5rem 0 0.25rem; font-size: 0.9rem; }
+    .modal-content input { width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; }
+    .modal-actions { text-align: right; }
+    .close-btn { background: none; border: none; font-size: 1rem; cursor: pointer; color: var(--accent-color); margin-bottom: 1rem; }
   </style>
 </head>
 <body>
-  <button id="dark-toggle" class="btn-secondary">Toggle Dark Mode</button>
   <header>
+    <div class="logo">MacroLogic</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button id="dark-toggle">Dark Mode</button>
+  </header>
+
+  <main id="home">
     <h1>MacroLogic</h1>
     <p class="tagline">Automate. Simplify. Scale.</p>
-    <div class="controls">
-      <button class="btn">Get Started</button>
-    </div>
-  </header>
-  <section>
+    <button id="start-btn" class="btn">Get Started</button>
+  </main>
+
+  <section id="features">
     <div class="features">
       <div class="feature">
         <h3>Lead Tracking</h3>
@@ -77,13 +82,48 @@
       </div>
     </div>
   </section>
-  <footer>
-    <p>© 2025 MacroLogic</p>
+
+  <footer id="contact">
+    <p>&copy; 2025 MacroLogic</p>
     <p><a href="mailto:hello@macrologic.ca">hello@macrologic.ca</a></p>
   </footer>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" id="close-modal">Close</button>
+      <h2>Get Started</h2>
+      <label for="email-input">Email Address</label>
+      <input type="email" id="email-input" placeholder="your.email@domain.com">
+      <div class="modal-actions">
+        <button class="btn">Submit</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    const btn = document.getElementById('dark-toggle');
-    btn.addEventListener('click', () => document.body.classList.toggle('dark'));
+    const body = document.body;
+    const darkToggle = document.getElementById('dark-toggle');
+    const startBtn = document.getElementById('start-btn');
+    const modal = document.getElementById('modal');
+    const closeModal = document.getElementById('close-modal');
+
+    darkToggle.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      darkToggle.textContent = body.classList.contains('dark') ? 'Light Mode' : 'Dark Mode';
+    });
+
+    startBtn.addEventListener('click', () => {
+      modal.style.display = 'flex';
+    });
+
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    // Close modal on outside click
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) modal.style.display = 'none';
+    });
   </script>
 </body>
 </html>
