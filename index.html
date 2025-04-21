@@ -41,7 +41,7 @@
     .section-header.visible { opacity:1; transform:translateY(0); }
     .section-header:hover { letter-spacing:1px; color:var(--text); }
     .features, .services, .testimonials { display:grid; grid-gap:2rem; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
-    .card { transform-style: preserve-3d; background:var(--card-bg); padding:2rem; border-radius:8px; box-shadow:0 2px 8px var(--shadow); opacity:0; transition: transform 1s ease, opacity var(--fade-duration) ease-out; }
+    .card { perspective: 1000px; transform-style: preserve-3d; background:var(--card-bg); padding:2rem; border-radius:8px; box-shadow:0 2px 8px var(--shadow); opacity:0; transition: transform 1s ease, opacity var(--fade-duration) ease-out; }
     .card.visible { opacity:1; }
     .card:hover { transform: rotateY(360deg); }
     .card.tapped { transform: rotateY(360deg); }
@@ -66,6 +66,7 @@
     const obs = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle('visible', e.isIntersecting)), { threshold: 0.2 });
     document.querySelectorAll('.observe, .section-header').forEach(el => obs.observe(el));
     const btn = document.getElementById('menu-toggle'), mobileNav = document.getElementById('mobile-nav');
+    btn.addEventListener('click', () => mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex');
 
     document.querySelectorAll('.card').forEach(card => {
       card.addEventListener('touchstart', () => {
