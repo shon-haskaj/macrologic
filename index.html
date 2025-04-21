@@ -6,7 +6,7 @@
   <meta name="description" content="MacroLogic provides powerful automation solutions for real estate teams—automate lead tracking, follow-ups, and workflow management.">
   <meta name="keywords" content="MacroLogic, real estate automation, lead tracking, workflow automation, follow-ups, automation software">
   <meta name="author" content="MacroLogic">
-  <title>MacroLogic | Real Estate Automation Software</title>
+  <title>MacroLogic | Home</title>
   <link rel="canonical" href="https://macrologic.ca/">
   <script type="application/ld+json">
     {
@@ -59,9 +59,21 @@
     .section-header.visible { opacity:1; transform:translateY(0); }
     .section-header:hover { letter-spacing:1px; color:var(--text); }
     .features, .services, .testimonials { display:grid; grid-gap:2rem; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
-    .card { background:var(--card-bg); padding:2rem; border-radius:8px; box-shadow:0 2px 8px var(--shadow); opacity:0; transform:translateY(20px); transition:opacity var(--fade-duration) ease-out, transform var(--fade-duration) ease-out, transform 1s ease; }
+    .card {
+      background:var(--card-bg);
+      padding:2rem;
+      border-radius:8px;
+      box-shadow:0 2px 8px var(--shadow);
+      opacity:0;
+      transform:translateY(20px);
+      transition:opacity var(--fade-duration) ease-out, transform 1s ease;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
     .card.visible { opacity:1; transform:translateY(0); }
-    .card:hover { transform:rotateY(360deg); }
+    .card:hover {
+      transform:rotateY(360deg);
+    }
     .card h3 { color:var(--primary); margin-bottom:0.5rem; transition: letter-spacing 0.3s ease; }
     .card h3:hover { letter-spacing:1px; color:var(--text); }
     .card p { color:#ccc; line-height:1.6; }
@@ -151,8 +163,6 @@
     document.querySelectorAll('.observe, .section-header').forEach(el => obs.observe(el));
     const btn = document.getElementById('menu-toggle'), mobileNav = document.getElementById('mobile-nav');
     btn.addEventListener('click', () => mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex');
-
-    // Add tap support for mobile rotation
     document.querySelectorAll('.card').forEach(card => {
       card.addEventListener('touchstart', () => {
         card.classList.add('tapped');
