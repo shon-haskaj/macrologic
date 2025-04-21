@@ -6,328 +6,191 @@
   <title>MacroLogic</title>
   <style>
     :root {
-      --bg-color: #ffffff;
-      --text-color: #333333;
-      --accent-color: #0066cc;
-      --modal-bg: rgba(0, 0, 0, 0.5);
-      --header-height: 3rem;
-    }
-    .dark {
-      --bg-color: #121212;
-      --text-color: #e0e0e0;
-      --accent-color: #3399ff;
-    }
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      --color-bg: #f7f9fc;
+      --color-text: #2e3a59;
+      --color-primary: #1abc9c;
+      --color-secondary: #34495e;
+      --color-card: #ffffff;
+      --color-shadow: rgba(0, 0, 0, 0.1);
+      --header-height: 4rem;
+      --transition: 0.5s ease;
+      --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
     body {
-      background: var(--bg-color);
-      color: var(--text-color);
-      font-family: Helvetica, Arial, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      padding-top: var(--header-height);
+      margin: 0;
+      padding: 0;
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-family);
+      overflow-x: hidden;
     }
     header {
       position: fixed;
       top: 0;
-      left: 0;
       width: 100%;
       height: var(--header-height);
-      background: var(--bg-color);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
       display: flex;
-      justify-content: center;
       align-items: center;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-      padding: 0 1rem;
-      z-index: 10;
+      justify-content: space-between;
+      padding: 0 2rem;
+      box-shadow: 0 2px 4px var(--color-shadow);
+      z-index: 1000;
     }
-    .logo {
-      position: absolute;
-      left: 1rem;
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
+    .logo { font-size: 1.5rem; font-weight: bold; color: var(--color-primary); }
     nav {
       display: flex;
-      gap: 1rem;
+      gap: 2rem;
     }
     nav a {
-      color: var(--text-color);
       text-decoration: none;
+      color: var(--color-secondary);
       font-weight: 500;
+      position: relative;
     }
-    nav a:hover {
-      color: var(--accent-color);
-    }
-    #settings-btn {
+    nav a::after {
+      content: '';
       position: absolute;
-      right: 1rem;
+      bottom: -0.5rem;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--color-primary);
+      transition: width var(--transition);
+    }
+    nav a:hover::after { width: 100%; }
+    #settings-btn {
+      font-size: 1.25rem;
+      color: var(--color-secondary);
       background: none;
       border: none;
-      color: var(--text-color);
       cursor: pointer;
-      font-size: 1.5rem;
-    }
-    main,
-    section,
-    footer {
-      scroll-margin-top: var(--header-height);
     }
     main {
-      width: 90%;
-      max-width: 800px;
-      margin: auto;
-      padding: 2rem 0;
-      text-align: center;
+      padding-top: var(--header-height);
     }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-    p.tagline {
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
-    }
-    .btn {
-      padding: 0.5rem 1rem;
-      background: var(--accent-color);
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-    .btn:hover {
-      opacity: 0.9;
-    }
-    section {
-      margin: 3rem 0;
-    }
-    .info-section {
+    .hero {
+      height: 100vh;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
-      margin-bottom: 4rem;
+      text-align: center;
+      color: #fff;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+      max-width: 800px;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      opacity: 0.9;
+    }
+    .hero .btn-primary {
+      background: #fff;
+      color: var(--color-primary);
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px var(--color-shadow);
+      transition: transform var(--transition);
+    }
+    .hero .btn-primary:hover {
+      transform: translateY(-3px);
+    }
+    section.features {
+      padding: 4rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      background: var(--color-bg);
+    }
+    .card {
+      background: var(--color-card);
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 2px 8px var(--color-shadow);
       opacity: 0;
       transform: translateY(20px);
-      transition: all 0.6s ease-out;
+      transition: all var(--transition);
     }
-    .info-section.visible {
+    .card.visible {
       opacity: 1;
       transform: translateY(0);
     }
-    .info-section h2 {
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
-    }
-    .info-section p {
-      max-width: 600px;
+    .card h3 {
       margin-bottom: 1rem;
+      font-size: 1.5rem;
+      color: var(--color-primary);
     }
-    .image-placeholder {
-      width: 100%;
-      max-width: 600px;
-      padding-bottom: 56%;
-      background: #e0e0e0;
-      border: 1px dashed #ccc;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #777;
+    .card p {
       font-size: 1rem;
-    }
-    @media (min-width: 600px) {
-      .info-section {
-        flex-direction: row;
-        text-align: left;
-      }
-      .info-section:nth-child(even) {
-        flex-direction: row-reverse;
-      }
-      .info-text,
-      .image-placeholder {
-        flex: 1;
-      }
-      .info-text {
-        padding: 0 1rem;
-      }
+      line-height: 1.6;
+      color: var(--color-secondary);
     }
     footer {
-      margin-top: auto;
-      padding: 2rem 0;
-      font-size: 0.9rem;
-      text-align: center;
-    }
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--modal-bg);
-      align-items: center;
-      justify-content: center;
-    }
-    .modal-content {
-      background: var(--bg-color);
       padding: 2rem;
-      border-radius: 4px;
-      width: 90%;
-      max-width: 400px;
-      text-align: left;
+      text-align: center;
+      background: var(--color-card);
+      color: var(--color-secondary);
     }
-    .close-btn {
-      background: none;
-      border: none;
-      font-size: 1rem;
-      cursor: pointer;
-      color: var(--accent-color);
-      margin-bottom: 1rem;
-    }
-    .settings-menu {
-      display: none;
-      position: fixed;
-      top: calc(var(--header-height) + 0.5rem);
-      right: 1rem;
-      width: 200px;
-      background: var(--bg-color);
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      z-index: 20;
-    }
-    .settings-menu ul {
-      list-style: none;
-    }
-    .settings-menu li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid #eee;
-    }
-    .settings-menu li:last-child {
-      border-bottom: none;
-    }
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 36px;
-      height: 20px;
-    }
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: #ccc;
-      border-radius: 20px;
-      transition: 0.4s;
-    }
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 16px;
-      width: 16px;
-      left: 2px;
-      bottom: 2px;
-      background: white;
-      border-radius: 50%;
-      transition: 0.4s;
-    }
-    .switch input:checked + .slider {
-      background: var(--accent-color);
-    }
-    .switch input:checked + .slider:before {
-      transform: translateX(16px);
-    }
+    footer p { margin: 0.5rem 0; }
+    /* Intersection Observer Anim */
+    .observe { will-change: opacity, transform; }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">MacroLogic</div>
     <nav>
-      <a href="#home">Home</a>
+      <a href="#hero">Home</a>
       <a href="#features">Features</a>
       <a href="#contact">Contact</a>
     </nav>
-    <button id="settings-btn">&#9881;</button>
+    <button id="settings-btn">⚙️</button>
   </header>
-  <div id="settings-menu" class="settings-menu">
-    <ul>
-      <li>
-        <span>Dark Mode</span>
-        <label class="switch">
-          <input type="checkbox" id="dark-mode-switch">
-          <span class="slider"></span>
-        </label>
-      </li>
-    </ul>
-  </div>
-  <main id="home">
-    <h1>MacroLogic</h1>
-    <p class="tagline">Automate. Simplify. Scale.</p>
-    <button id="start-btn" class="btn">Get Started</button>
+
+  <main>
+    <div id="hero" class="hero">
+      <h1>Automation Solutions<br>that Drive Growth</h1>
+      <p>Create seamless workflows across your tools, so you can focus on what truly matters: scaling your business.</p>
+      <button class="btn-primary">Get Started</button>
+    </div>
+
+    <section id="features" class="features">
+      <div class="card observe">
+        <h3>Lead Tracking</h3>
+        <p>Automatically capture and organize leads from multiple sources into a unified dashboard, so no opportunity slips through the cracks.</p>
+      </div>
+      <div class="card observe">
+        <h3>Instant Follow-Ups</h3>
+        <p>Engage your prospects immediately with personalized emails triggered the moment a new lead arrives.</p>
+      </div>
+      <div class="card observe">
+        <h3>Tool Integration</h3>
+        <p>Connect Gmail, Sheets, Calendly, Stripe, and more to create workflows that just work—without writing a single line of code.</p>
+      </div>
+      <div class="card observe">
+        <h3>Scale on Demand</h3>
+        <p>Turn successful automations into shareable templates or a subscription-based service, scaling your value effortlessly.</p>
+      </div>
+    </section>
+
+    <footer id="contact">
+      <p>&copy; 2025 MacroLogic</p>
+      <p><a href="mailto:hello@macrologic.ca">hello@macrologic.ca</a></p>
+    </footer>
   </main>
-  <section id="features">
-    <div class="info-section">
-      <div class="image-placeholder">Image Placeholder</div>
-      <div class="info-text">
-        <h2>Lead Tracking</h2>
-        <p>MacroLogic automatically captures incoming leads from your forms or landing pages and organizes them in your preferred CRM or spreadsheet, ensuring you never miss an opportunity.</p>
-      </div>
-    </div>
-    <div class="info-section">
-      <div class="image-placeholder">Image Placeholder</div>
-      <div class="info-text">
-        <h2>Instant Follow-Ups</h2>
-        <p>Configure personalized email responses that trigger instantly when new leads arrive, maintaining prompt engagement and increasing conversion rates.</p>
-      </div>
-    </div>
-    <div class="info-section">
-      <div class="image-placeholder">Image Placeholder</div>
-      <div class="info-text">
-        <h2>Workflow Automation</h2>
-        <p>Seamlessly integrate tools like Gmail, Google Sheets, Calendly, and more, automating repetitive tasks and freeing up your time for high-value work.</p>
-      </div>
-    </div>
-    <div class="info-section">
-      <div class="image-placeholder">Image Placeholder</div>
-      <div class="info-text">
-        <h2>Scalable Solutions</h2>
-        <p>Package successful automations into reusable templates or a lightweight SaaS, allowing you to scale your operations without added complexity.</p>
-      </div>
-    </div>
-  </section>
-  <footer id="contact">
-    <p>&copy; 2025 MacroLogic</p>
-    <p><a href="mailto:hello@macrologic.ca">hello@macrologic.ca</a></p>
-  </footer>
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <button class="close-btn" id="close-modal">Close</button>
-      <h2>Get Started</h2>
-      <label for="email-input">Email Address</label>
-      <input type="email" id="email-input" placeholder="your.email@domain.com">
-      <div class="modal-actions">
-        <button class="btn">Submit</button>
-      </div>
-    </div>
-  </div>
+
   <script>
-    // Intersection Observer for info sections
-    const sections = document.querySelectorAll('.info-section');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -336,27 +199,7 @@
         }
       });
     }, { threshold: 0.1 });
-    sections.forEach(section => observer.observe(section));
-    // Dark mode toggle
-    document.getElementById('dark-mode-switch').addEventListener('change', e => {
-      document.body.classList.toggle('dark', e.target.checked);
-    });
-    // Settings menu toggle
-    const settingsBtnEl = document.getElementById('settings-btn');
-    const settingsMenuEl = document.getElementById('settings-menu');
-    settingsBtnEl.addEventListener('click', () => {
-      settingsMenuEl.style.display = settingsMenuEl.style.display === 'block' ? 'none' : 'block';
-    });
-    window.addEventListener('click', e => {
-      if (e.target !== settingsBtnEl && !settingsMenuEl.contains(e.target)) settingsMenuEl.style.display = 'none';
-    });
-    // Modal functionality
-    const startBtn = document.getElementById('start-btn');
-    const modalEl = document.getElementById('modal');
-    const closeModalEl = document.getElementById('close-modal');
-    startBtn.addEventListener('click', () => modalEl.style.display = 'flex');
-    closeModalEl.addEventListener('click', () => modalEl.style.display = 'none');
-    window.addEventListener('click', e => { if (e.target === modalEl) modalEl.style.display = 'none'; });
+    document.querySelectorAll('.observe').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
