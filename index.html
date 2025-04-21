@@ -18,15 +18,15 @@
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg-color); color: var(--text-color); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
-    header { position: fixed; top: 0; left: 0; width: 100%; background: var(--bg-color); display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 10; }
+    header { position: fixed; top: 0; left: 0; width: 100%; background: var(--bg-color); display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.1); z-index: 10; }
     .logo { font-size: 1.5rem; font-weight: bold; }
     nav a { margin-left: 1.5rem; color: var(--text-color); text-decoration: none; font-weight: 500; }
     nav a:hover { color: var(--accent-color); }
-    #dark-toggle { background: none; border: none; color: var(--accent-color); cursor: pointer; font-size: 0.9rem; }
-    main { margin-top: 80px; width: 90%; max-width: 800px; margin-left: auto; margin-right: auto; padding: 2rem 0; text-align: center; }
+    #settings-btn { background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 1.5rem; }
+    main { margin-top: 60px; width: 90%; max-width: 800px; margin-left: auto; margin-right: auto; padding: 2rem 0; text-align: center; }
     h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
     p.tagline { font-size: 1.2rem; color: var(--text-color); margin-bottom: 1.5rem; }
-    .btn { padding: 0.75rem 1.5rem; background: var(--accent-color); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; }
+    .btn { padding: 0.5rem 1rem; background: var(--accent-color); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
     .btn:hover { opacity: 0.9; }
     section { margin: 3rem 0; }
     .features { display: grid; gap: 2rem; }
@@ -43,6 +43,17 @@
     .modal-content input { width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; }
     .modal-actions { text-align: right; }
     .close-btn { background: none; border: none; font-size: 1rem; cursor: pointer; color: var(--accent-color); margin-bottom: 1rem; }
+    /* Settings Menu */
+    .settings-menu { display: none; position: fixed; top: 3.5rem; right: 1rem; width: 200px; background: var(--bg-color); border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); z-index: 20; }
+    .settings-menu ul { list-style: none; }
+    .settings-menu li { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; border-bottom: 1px solid #eee; }
+    .settings-menu li:last-child { border-bottom: none; }
+    .switch { position: relative; display: inline-block; width: 36px; height: 20px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #ccc; border-radius: 20px; transition: .4s; }
+    .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 2px; bottom: 2px; background: white; border-radius: 50%; transition: .4s; }
+    .switch input:checked + .slider { background: var(--accent-color); }
+    .switch input:checked + .slider:before { transform: translateX(16px); }
   </style>
 </head>
 <body>
@@ -53,8 +64,20 @@
       <a href="#features">Features</a>
       <a href="#contact">Contact</a>
     </nav>
-    <button id="dark-toggle">Dark Mode</button>
+    <button id="settings-btn">&#9881;</button>
   </header>
+
+  <div id="settings-menu" class="settings-menu">
+    <ul>
+      <li>
+        <span>Dark Mode</span>
+        <label class="switch">
+          <input type="checkbox" id="dark-mode-switch">
+          <span class="slider"></span>
+        </label>
+      </li>
+    </ul>
+  </div>
 
   <main id="home">
     <h1>MacroLogic</h1>
@@ -101,26 +124,30 @@
   </div>
 
   <script>
-    const body = document.body;
-    const darkToggle = document.getElementById('dark-toggle');
+    // Dark mode toggle
+    const darkSwitch = document.getElementById('dark-mode-switch');
+    darkSwitch.addEventListener('change', () => {
+      document.body.classList.toggle('dark', darkSwitch.checked);
+    });
+
+    // Settings menu toggle
+    const settingsBtn = document.getElementById('settings-btn');
+    const settingsMenu = document.getElementById('settings-menu');
+    settingsBtn.addEventListener('click', () => {
+      settingsMenu.style.display = settingsMenu.style.display === 'block' ? 'none' : 'block';
+    });
+    window.addEventListener('click', (e) => {
+      if (e.target !== settingsBtn && !settingsMenu.contains(e.target)) {
+        settingsMenu.style.display = 'none';
+      }
+    });
+
+    // Modal functionality
     const startBtn = document.getElementById('start-btn');
     const modal = document.getElementById('modal');
     const closeModal = document.getElementById('close-modal');
-
-    darkToggle.addEventListener('click', () => {
-      body.classList.toggle('dark');
-      darkToggle.textContent = body.classList.contains('dark') ? 'Light Mode' : 'Dark Mode';
-    });
-
-    startBtn.addEventListener('click', () => {
-      modal.style.display = 'flex';
-    });
-
-    closeModal.addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
-
-    // Close modal on outside click
+    startBtn.addEventListener('click', () => modal.style.display = 'flex');
+    closeModal.addEventListener('click', () => modal.style.display = 'none');
     window.addEventListener('click', (e) => {
       if (e.target === modal) modal.style.display = 'none';
     });
