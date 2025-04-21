@@ -29,29 +29,16 @@
       padding: 0 2rem; z-index: 1000;
     }
     .logo { position: absolute; left: 2rem; font-size: 1.5rem; color: var(--primary); }
-    nav {
-      display: flex; gap: 2rem;
-    }
-    nav a {
-      color: var(--text); text-decoration: none; font-weight: 500;
-      position: relative;
-    }
+    nav { display: flex; gap: 2rem; }
+    nav a { color: var(--text); text-decoration: none; font-weight: 500; position: relative; }
     nav a::after {
       content: ''; position: absolute; bottom: -0.5rem; left: 0;
       width: 0; height: 2px; background: var(--primary);
       transition: width 0.3s ease;
     }
     nav a:hover::after { width: 100%; }
-    #settings-btn {
-      position: absolute; right: 2rem;
-      background: none; border: none;
-      font-size: 1.4rem; color: var(--text);
-      cursor: pointer;
-    }
-    /* Hamburger for mobile */
     #menu-toggle {
-      display: none;
-      position: absolute; right: 2rem;
+      display: none; position: absolute; right: 2rem;
       background: none; border: none;
       font-size: 1.8rem; color: var(--text);
       cursor: pointer;
@@ -61,13 +48,12 @@
       top: var(--header-h); right: 0; width: 70%; max-width: 300px;
       height: calc(100% - var(--header-h)); background: var(--card-bg);
       box-shadow: -2px 0 8px var(--shadow); padding-top: 1rem;
-      flex-direction: column;
+      flex-direction: column; z-index: 1500;
     }
     #mobile-nav a {
       display: block; padding: 1rem 2rem; border-bottom: 1px solid var(--shadow);
       color: var(--text); text-decoration: none; font-weight: 500;
     }
-    /* Desktop hide hamburger */
     @media(max-width: 768px) {
       nav { display: none; }
       #menu-toggle { display: block; }
