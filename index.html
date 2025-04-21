@@ -29,14 +29,15 @@
       padding: 0 2rem; z-index: 1000;
     }
     .logo { position: absolute; left: 2rem; font-size: 1.5rem; color: var(--primary); }
-    nav { display: flex; gap: 2rem; }
+    nav {
+      display: flex; gap: 2rem;
+    }
     nav a {
       color: var(--text); text-decoration: none; font-weight: 500;
       position: relative;
     }
     nav a::after {
-      content: '';
-      position: absolute; bottom: -0.5rem; left: 0;
+      content: ''; position: absolute; bottom: -0.5rem; left: 0;
       width: 0; height: 2px; background: var(--primary);
       transition: width 0.3s ease;
     }
@@ -46,6 +47,30 @@
       background: none; border: none;
       font-size: 1.4rem; color: var(--text);
       cursor: pointer;
+    }
+    /* Hamburger for mobile */
+    #menu-toggle {
+      display: none;
+      position: absolute; right: 2rem;
+      background: none; border: none;
+      font-size: 1.8rem; color: var(--text);
+      cursor: pointer;
+    }
+    #mobile-nav {
+      display: none; position: fixed;
+      top: var(--header-h); right: 0; width: 70%; max-width: 300px;
+      height: calc(100% - var(--header-h)); background: var(--card-bg);
+      box-shadow: -2px 0 8px var(--shadow); padding-top: 1rem;
+      flex-direction: column;
+    }
+    #mobile-nav a {
+      display: block; padding: 1rem 2rem; border-bottom: 1px solid var(--shadow);
+      color: var(--text); text-decoration: none; font-weight: 500;
+    }
+    /* Desktop hide hamburger */
+    @media(max-width: 768px) {
+      nav { display: none; }
+      #menu-toggle { display: block; }
     }
     main { padding-top: var(--header-h); }
     section { padding: 6rem 2rem; text-align: center; }
@@ -114,8 +139,17 @@
       <a href="#cta">Join</a>
       <a href="#contact">Contact</a>
     </nav>
-    <button id="settings-btn">⚙️</button>
+    <button id="menu-toggle">☰</button>
   </header>
+  <div id="mobile-nav">
+    <a href="#hero">Home</a>
+    <a href="#about">About</a>
+    <a href="#features">Features</a>
+    <a href="#services">Services</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#cta">Join</a>
+    <a href="#contact">Contact</a>
+  </div>
   <main>
     <section id="hero">
       <h1>Powerful Automations<br>& Intelligent Workflows</h1>
@@ -127,46 +161,19 @@
       <p>We build custom automation solutions that connect your favorite tools—Gmail, Sheets, Calendly, Stripe—and eliminate manual work. Our mission is to empower businesses to grow smarter, not harder.</p>
     </section>
     <section id="features" class="features">
-      <div class="card observe">
-        <h3>Lead Tracking</h3>
-        <p>Capture leads from any source and organize them in real-time dashboards.</p>
-      </div>
-      <div class="card observe">
-        <h3>Instant Follow-Ups</h3>
-        <p>Trigger personalized email sequences the moment a lead arrives.</p>
-      </div>
-      <div class="card observe">
-        <h3>Seamless Integrations</h3>
-        <p>Connect over 5,000 apps with no-code Zaps and webhooks.</p>
-      </div>
-      <div class="card observe">
-        <h3>Scalable Templates</h3>
-        <p>Turn workflows into reusable templates or SaaS offerings.</p>
-      </div>
+      <div class="card observe"><h3>Lead Tracking</h3><p>Capture leads from any source and organize them in real-time dashboards.</p></div>
+      <div class="card observe"><h3>Instant Follow-Ups</h3><p>Trigger personalized email sequences the moment a lead arrives.</p></div>
+      <div class="card observe"><h3>Seamless Integrations</h3><p>Connect over 5,000 apps with no-code Zaps and webhooks.</p></div>
+      <div class="card observe"><h3>Scalable Templates</h3><p>Turn workflows into reusable templates or SaaS offerings.</p></div>
     </section>
     <section id="services" class="services">
-      <div class="card observe">
-        <h3>Consulting</h3>
-        <p>Strategy sessions to identify automation opportunities unique to your business.</p>
-      </div>
-      <div class="card observe">
-        <h3>Implementation</h3>
-        <p>End-to-end setup of workflows, integrations, and dashboards.</p>
-      </div>
-      <div class="card observe">
-        <h3>Training</h3>
-        <p>Onboarding and documentation so your team stays in control.</p>
-      </div>
+      <div class="card observe"><h3>Consulting</h3><p>Strategy sessions to identify automation opportunities unique to your business.</p></div>
+      <div class="card observe"><h3>Implementation</h3><p>End-to-end setup of workflows, integrations, and dashboards.</p></div>
+      <div class="card observe"><h3>Training</h3><p>Onboarding and documentation so your team stays in control.</p></div>
     </section>
     <section id="testimonials" class="testimonials">
-      <div class="card observe">
-        <h3>“MacroLogic transformed our sales process.”</h3>
-        <p>— John Doe, Insert For Future Reference</p>
-      </div>
-      <div class="card observe">
-        <h3>“We saved 10+ hours a week.”</h3>
-        <p>— John Doe, Insert For Future Reference</p>
-      </div>
+      <div class="card observe"><h3>“MacroLogic transformed our sales process.”</h3><p>— Jane Smith, Solved Real Estate Group</p></div>
+      <div class="card observe"><h3>“We saved 10+ hours a week.”</h3><p>— John Doe, E-commerce Founder</p></div>
     </section>
     <section id="cta">
       <h2>Ready to Automate?</h2>
@@ -174,26 +181,17 @@
     </section>
     <section id="contact">
       <h2>Contact Us</h2>
-      <form id="contact-form">
-        <input type="text" placeholder="Your Name">
-        <input type="email" placeholder="Your Email">
-        <textarea rows="4" placeholder="Your Message"></textarea>
-        <button type="submit">Send Message</button>
-      </form>
+      <form id="contact-form"><input type="text" placeholder="Your Name"><input type="email" placeholder="Your Email"><textarea rows="4" placeholder="Your Message"></textarea><button type="submit">Send Message</button></form>
     </section>
   </main>
-  <footer>
-    <p>&copy; 2025 MacroLogic. All rights reserved.</p>
-    <p><a href="#contact">Contact: hello@macrologic.ca</a></p>
-  </footer>
+  <footer><p>&copy; 2025 MacroLogic. All rights reserved.</p><p><a href="#contact">Contact: hello@macrologic.ca</a></p></footer>
   <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-        else entry.target.classList.remove('visible');
-      });
-    }, { threshold: 0.2 });
-    document.querySelectorAll('.observe').forEach(el => observer.observe(el));
+    // Intersection Observer
+    const obs = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle('visible', e.isIntersecting)), { threshold: 0.2 });
+    document.querySelectorAll('.observe').forEach(el => obs.observe(el));
+    // Mobile Nav Toggle
+    const btn = document.getElementById('menu-toggle'), mobileNav = document.getElementById('mobile-nav');
+    btn.addEventListener('click', () => mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex');
   </script>
 </body>
 </html>
