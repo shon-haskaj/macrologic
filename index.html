@@ -40,41 +40,101 @@
       box-shadow: 0 1px 4px rgba(0,0,0,0.1);
       z-index: 10;
     }
+    header .logo { font-size: 1.5rem; font-weight: bold; }
     header nav {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
       display: flex;
       gap: 1rem;
+      margin: 0 auto;
     }
-    .logo { font-family: Helvetica, Arial, sans-serif; font-size: 1.5rem; font-weight: bold; }
-    nav a { font-family: Helvetica, Arial, sans-serif; color: var(--text-color); text-decoration: none; font-weight: 500; }
+    nav a { color: var(--text-color); text-decoration: none; font-weight: 500; }
     nav a:hover { color: var(--accent-color); }
     #settings-btn { background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 1.5rem; }
-    main { width: 90%; max-width: 800px; margin: auto; padding: 2rem 0; text-align: center; }
-    h1 { font-family: Helvetica, Arial, sans-serif; font-size: 2.5rem; margin-bottom: 0.5rem; }
-    p.tagline { font-family: Helvetica, Arial, sans-serif; font-size: 1.2rem; color: var(--text-color); margin-bottom: 1.5rem; }
-    .btn { font-family: Helvetica, Arial, sans-serif; padding: 0.5rem 1rem; background: var(--accent-color); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
+    main {
+      width: 90%; max-width: 800px; margin: auto;
+      padding: 2rem 0; text-align: center;
+    }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    p.tagline { font-size: 1.2rem; margin-bottom: 1.5rem; }
+    .btn {
+      padding: 0.5rem 1rem; background: var(--accent-color);
+      color: #fff; border: none; border-radius: 4px;
+      cursor: pointer; font-size: 0.9rem;
+    }
     .btn:hover { opacity: 0.9; }
     section { margin: 3rem 0; }
-    .info-section { display: flex; flex-direction: column; align-items: center; margin-bottom: 4rem; opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+    .info-section {
+      display: flex; flex-direction: column;
+      align-items: center; margin-bottom: 4rem;
+      opacity: 0; transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
     .info-section.visible { opacity: 1; transform: translateY(0); }
-    .info-section h2 { font-family: Helvetica, Arial, sans-serif; font-size: 1.8rem; margin-bottom: 0.5rem; }
-    .info-section p { font-family: Helvetica, Arial, sans-serif; max-width: 600px; margin-bottom: 1rem; }
-    .image-placeholder { width: 100%; max-width: 600px; height: 0; padding-bottom: 56%; background: #e0e0e0; border: 1px dashed #ccc; display: flex; align-items: center; justify-content: center; color: #777; font-family: Helvetica, Arial, sans-serif; font-size: 1rem; }
-    @media(min-width: 600px) { .info-section { flex-direction: row; text-align: left; } .info-section:nth-child(even) { flex-direction: row-reverse; } .info-text, .image-placeholder { flex: 1; } .info-text { padding: 0 1rem; } }
-    footer { font-family: Helvetica, Arial, sans-serif; margin-top: auto; padding: 2rem 0; font-size: 0.9rem; text-align: center; }
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--modal-bg); align-items: center; justify-content: center; }
-    .modal-content { background: var(--bg-color); padding: 2rem; border-radius: 4px; width: 90%; max-width: 400px; text-align: left; }
-    .close-btn { font-family: Helvetica, Arial, sans-serif; background: none; border: none; font-size: 1rem; cursor: pointer; color: var(--accent-color); margin-bottom: 1rem; }
-    .settings-menu { display: none; position: fixed; top: calc(var(--header-height) + 0.5rem); right: 1rem; width: 200px; background: var(--bg-color); border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); z-index: 20; }
+    .info-section h2 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .info-section p { max-width: 600px; margin-bottom: 1rem; }
+    .image-placeholder {
+      width: 100%; max-width: 600px;
+      padding-bottom: 56%; background: #e0e0e0;
+      border: 1px dashed #ccc; display: flex;
+      align-items: center; justify-content: center;
+      color: #777; font-size: 1rem;
+    }
+    @media(min-width: 600px) {
+      .info-section { flex-direction: row; text-align: left; }
+      .info-section:nth-child(even) { flex-direction: row-reverse; }
+      .info-text, .image-placeholder { flex: 1; }
+      .info-text { padding: 0 1rem; }
+    }
+    footer {
+      margin-top: auto; padding: 2rem 0;
+      font-size: 0.9rem; text-align: center;
+    }
+    .modal {
+      display: none; position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--modal-bg);
+      align-items: center; justify-content: center;
+    }
+    .modal-content {
+      background: var(--bg-color); padding: 2rem;
+      border-radius: 4px; width: 90%; max-width: 400px;
+      text-align: left;
+    }
+    .close-btn {
+      background: none; border: none;
+      font-size: 1rem; cursor: pointer;
+      color: var(--accent-color); margin-bottom: 1rem;
+    }
+    .settings-menu {
+      display: none; position: fixed;
+      top: calc(var(--header-height) + 0.5rem);
+      right: 1rem; width: 200px;
+      background: var(--bg-color);
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 20;
+    }
     .settings-menu ul { list-style: none; }
-    .settings-menu li { font-family: Helvetica, Arial, sans-serif; display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; border-bottom: 1px solid #eee; }
+    .settings-menu li {
+      display: flex; justify-content: space-between;
+      align-items: center; padding: 0.75rem 1rem;
+      border-bottom: 1px solid #eee;
+    }
     .settings-menu li:last-child { border-bottom: none; }
     .switch { position: relative; display: inline-block; width: 36px; height: 20px; }
     .switch input { opacity: 0; width: 0; height: 0; }
-    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #ccc; border-radius: 20px; transition: .4s; }
-    .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 2px; bottom: 2px; background: white; border-radius: 50%; transition: .4s; }
+    .slider {
+      position: absolute; cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #ccc; border-radius: 20px;
+      transition: .4s;
+    }
+    .slider:before {
+      position: absolute; content: "";
+      height: 16px; width: 16px;
+      left: 2px; bottom: 2px;
+      background: white; border-radius: 50%;
+      transition: .4s;
+    }
     .switch input:checked + .slider { background: var(--accent-color); }
     .switch input:checked + .slider:before { transform: translateX(16px); }
   </style>
@@ -87,6 +147,101 @@
       <a href="#features">Features</a>
       <a href="#contact">Contact</a>
     </nav>
-    <button id="settings-btn">&#9881;</n<button>
+    <button id="settings-btn">&#9881;</button>
   </header>
-  … (rest is unchanged and omitted for brevity)
+  <div id="settings-menu" class="settings-menu">
+    <ul>
+      <li>
+        <span>Dark Mode</span>
+        <label class="switch">
+          <input type="checkbox" id="dark-mode-switch">
+          <span class="slider"></span>
+        </label>
+      </li>
+    </ul>
+  </div>
+  <main id="home">
+    <h1>MacroLogic</h1>
+    <p class="tagline">Automate. Simplify. Scale.</p>
+    <button id="start-btn" class="btn">Get Started</button>
+  </main>
+  <section id="features">
+    <div class="info-section">
+      <div class="image-placeholder">Image Placeholder</div>
+      <div class="info-text">
+        <h2>Lead Tracking</h2>
+        <p>MacroLogic automatically captures incoming leads from your forms or landing pages and organizes them in your preferred CRM or spreadsheet, ensuring you never miss an opportunity.</p>
+      </div>
+    </div>
+    <div class="info-section">
+      <div class="image-placeholder">Image Placeholder</div>
+      <div class="info-text">
+        <h2>Instant Follow-Ups</h2>
+        <p>Configure personalized email responses that trigger instantly when new leads arrive, maintaining prompt engagement and increasing conversion rates.</p>
+      </div>
+    </div>
+    <div class="info-section">
+      <div class="image-placeholder">Image Placeholder</div>
+      <div class="info-text">
+        <h2>Workflow Automation</h2>
+        <p>Seamlessly integrate tools like Gmail, Google Sheets, Calendly, and more, automating repetitive tasks and freeing up your time for high-value work.</p>
+      </div>
+    </div>
+    <div class="info-section">
+      <div class="image-placeholder">Image Placeholder</div>
+      <div class="info-text">
+        <h2>Scalable Solutions</h2>
+        <p>Package successful automations into reusable templates or a lightweight SaaS, allowing you to scale your operations without added complexity.</p>
+      </div>
+    </div>
+  </section>
+  <footer id="contact">
+    <p>&copy; 2025 MacroLogic</p>
+    <p><a href="mailto:hello@macrologic.ca">hello@macrologic.ca</a></p>
+  </footer>
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" id="close-modal">Close</button>
+      <h2>Get Started</h2>
+      <label for="email-input">Email Address</label>
+      <input type="email" id="email-input" placeholder="your.email@domain.com">
+      <div class="modal-actions">
+        <button class="btn">Submit</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Intersection Observer for info sections
+    const sections = document.querySelectorAll('.info-section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    sections.forEach(section => observer.observe(section));
+    // Dark mode toggle
+    document.getElementById('dark-mode-switch').addEventListener('change', e => {
+      document.body.classList.toggle('dark', e.target.checked);
+    });
+    // Settings menu toggle
+    const settingsBtn = document.getElementById('settings-btn');
+    const settingsMenu = document.getElementById('settings-menu');
+    settingsBtn.addEventListener('click', () => {
+      settingsMenu.style.display = settingsMenu.style.display === 'block' ? 'none' : 'block';
+    });
+    window.addEventListener('click', e => {
+      if (e.target !== settingsBtn && !settingsMenu.contains(e.target)) settingsMenu.style.display = 'none';
+    });
+    // Modal functionality
+    const startBtn = document.getElementById('start-btn');
+    const modal = document.getElementById('modal');
+    const closeModal = document.getElementById('close-modal');
+    startBtn.addEventListener('click', () => modal.style.display = 'flex');
+    closeModal.addEventListener('click', () => modal.style.display = 'none');
+    window.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
+  </script>
+</body>
+</html>
