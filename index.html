@@ -41,11 +41,13 @@
     .section-header.visible { opacity:1; transform:translateY(0); }
     .section-header:hover { letter-spacing:1px; color:var(--text); }
     .features, .services, .testimonials { display:grid; grid-gap:2rem; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
-    .card { background:var(--card-bg); padding:2rem; border-radius:8px; box-shadow:0 2px 8px var(--shadow); opacity:0; transform:translateY(20px); transition:opacity var(--fade-duration) ease-out, transform var(--fade-duration) ease-out; }
+    .card { background:var(--card-bg); padding:2rem; border-radius:8px; box-shadow:0 2px 8px var(--shadow); opacity:0; transform:translateY(20px); transition:opacity var(--fade-duration) ease-out, transform var(--fade-duration) ease-out, transform 1s ease; }
     .card.visible { opacity:1; transform:translateY(0); }
+    .card:hover { transform:rotateY(360deg); }
     .card h3 { color:var(--primary); margin-bottom:0.5rem; transition: letter-spacing 0.3s ease; }
     .card h3:hover { letter-spacing:1px; color:var(--text); }
     .card p { color:#ccc; line-height:1.6; }
+    .card.tapped { transform: rotateY(360deg); transition: transform 1s ease; }
     #about { max-width:800px; margin:0 auto; color:#ccc; }
     #about h2 { color:var(--primary); margin-bottom:1rem; transition: letter-spacing 0.3s ease; }
     #about h2:hover { letter-spacing:1px; color:var(--text); }
@@ -112,8 +114,8 @@
     <section id="testimonials">
       <h2 class="section-header">Testimonials</h2>
       <div class="testimonials">
-        <div class="card observe"><h3>“MacroLogic transformed our sales process.”</h3><p>— Insert Testimonial</p></div>
-        <div class="card observe"><h3>“We saved 10+ hours a week.”</h3><p>— Insert Testimonial</p></div>
+        <div class="card observe"><h3>“MacroLogic transformed our sales process.”</h3><p>— Jane Smith, Solved Real Estate Group</p></div>
+        <div class="card observe"><h3>“We saved 10+ hours a week.”</h3><p>— John Doe, E-commerce Founder</p></div>
       </div>
     </section>
     <section id="cta">
@@ -131,6 +133,14 @@
     document.querySelectorAll('.observe, .section-header').forEach(el => obs.observe(el));
     const btn = document.getElementById('menu-toggle'), mobileNav = document.getElementById('mobile-nav');
     btn.addEventListener('click', () => mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex');
+
+    // Add tap support for mobile rotation
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('touchstart', () => {
+        card.classList.add('tapped');
+        setTimeout(() => card.classList.remove('tapped'), 1000);
+      });
+    });
   </script>
 </body>
 </html>
