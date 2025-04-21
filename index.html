@@ -34,6 +34,8 @@
     #hero p { font-size:1.2rem; margin-bottom:2rem; color:#ccc; }
     .btn-primary { background:var(--primary); color:#000; padding:1rem 2rem; font-size:1rem; border:none; border-radius:50px; cursor:pointer; box-shadow:0 4px 12px var(--shadow); transition:transform 0.3s ease; }
     .btn-primary:hover { transform:translateY(-3px); }
+    .section-header { font-size:2rem; color:var(--primary); margin-bottom:2rem; opacity:0; transform:translateY(20px); transition:opacity var(--fade-duration) ease-out,transform var(--fade-duration) ease-out; }
+    .section-header.visible { opacity:1; transform:translateY(0); }
     .features, .services, .testimonials { display:grid; grid-gap:2rem; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
     .card { background:var(--card-bg); padding:2rem; border-radius:8px; box-shadow:0 2px 8px var(--shadow); opacity:0; transform:translateY(20px); transition:opacity var(--fade-duration) ease-out, transform var(--fade-duration) ease-out; }
     .card.visible { opacity:1; transform:translateY(0); }
@@ -43,7 +45,6 @@
     #about h2 { color:var(--primary); margin-bottom:1rem; }
     #cta { background:var(--primary); color:#000; display:flex; flex-direction:column; justify-content:center; align-items:center; height:60vh; }
     #cta h2 { font-size:2.5rem; margin-bottom:1rem; }
-    #contact-form, input, textarea, footer { opacity:1; }
     #contact-form { display:flex; flex-direction:column; gap:1rem; max-width:400px; margin:0 auto; }
     #contact-form input, #contact-form textarea { padding:0.75rem; border:none; border-radius:4px; font-family:var(--font); }
     #contact-form button { padding:0.75rem; background:var(--text); color:var(--bg); border:none; border-radius:4px; font-size:1rem; cursor:pointer; }
@@ -84,20 +85,29 @@
       <h2>About MacroLogic</h2>
       <p>We build custom automation solutions that connect your favorite tools—Gmail, Sheets, Calendly, Stripe—and eliminate manual work. Our mission is to empower businesses to grow smarter, not harder.</p>
     </section>
-    <section id="features" class="features">
-      <div class="card observe"><h3>Lead Tracking</h3><p>Capture leads from any source and organize them in real-time dashboards.</p></div>
-      <div class="card observe"><h3>Instant Follow-Ups</h3><p>Trigger personalized email sequences the moment a lead arrives.</p></div>
-      <div class="card observe"><h3>Seamless Integrations</h3><p>Connect over 5,000 apps with no-code Zaps and webhooks.</p></div>
-      <div class="card observe"><h3>Scalable Templates</h3><p>Turn workflows into reusable templates or SaaS offerings.</p></div>
+    <section id="features">
+      <h2 class="section-header">Features</h2>
+      <div class="features">
+        <div class="card observe"><h3>Lead Tracking</h3><p>Capture leads from any source and organize them in real-time dashboards.</p></div>
+        <div class="card observe"><h3>Instant Follow-Ups</h3><p>Trigger personalized email sequences the moment a lead arrives.</p></div>
+        <div class="card observe"><h3>Seamless Integrations</h3><p>Connect over 5,000 apps with no-code Zaps and webhooks.</p></div>
+        <div class="card observe"><h3>Scalable Templates</h3><p>Turn workflows into reusable templates or SaaS offerings.</p></div>
+      </div>
     </section>
-    <section id="services" class="services">
-      <div class="card observe"><h3>Consulting</h3><p>Strategy sessions to identify automation opportunities unique to your business.</p></div>
-      <div class="card observe"><h3>Implementation</h3><p>End-to-end setup of workflows, integrations, and dashboards.</p></div>
-      <div class="card observe"><h3>Training</h3><p>Onboarding and documentation so your team stays in control.</p></div>
+    <section id="services">
+      <h2 class="section-header">Services</h2>
+      <div class="services">
+        <div class="card observe"><h3>Consulting</h3><p>Strategy sessions to identify automation opportunities unique to your business.</p></div>
+        <div class="card observe"><h3>Implementation</h3><p>End-to-end setup of workflows, integrations, and dashboards.</p></div>
+        <div class="card observe"><h3>Training</h3><p>Onboarding and documentation so your team stays in control.</p></div>
+      </div>
     </section>
-    <section id="testimonials" class="testimonials">
-      <div class="card observe"><h3>“MacroLogic transformed our sales process.”</h3><p>— Jane Smith, Solved Real Estate Group</p></div>
-      <div class="card observe"><h3>“We saved 10+ hours a week.”</h3><p>— John Doe, E-commerce Founder</p></div>
+    <section id="testimonials">
+      <h2 class="section-header">Testimonials</h2>
+      <div class="testimonials">
+        <div class="card observe"><h3>“MacroLogic transformed our sales process.”</h3><p>— Jane Smith, Solved Real Estate Group</p></div>
+        <div class="card observe"><h3>“We saved 10+ hours a week.”</h3><p>— John Doe, E-commerce Founder</p></div>
+      </div>
     </section>
     <section id="cta">
       <h2>Ready to Automate?</h2>
@@ -110,10 +120,8 @@
   </main>
   <footer><p>&copy; 2025 MacroLogic. All rights reserved.</p><p><a href="#contact">Contact: hello@macrologic.ca</a></p></footer>
   <script>
-    // Intersection Observer
     const obs = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle('visible', e.isIntersecting)), { threshold: 0.2 });
-    document.querySelectorAll('.observe').forEach(el => obs.observe(el));
-    // Mobile Nav Toggle
+    document.querySelectorAll('.observe, .section-header').forEach(el => obs.observe(el));
     const btn = document.getElementById('menu-toggle'), mobileNav = document.getElementById('mobile-nav');
     btn.addEventListener('click', () => mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex');
   </script>
