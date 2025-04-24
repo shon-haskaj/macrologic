@@ -6,8 +6,10 @@
   <meta name="description" content="MacroLogic provides powerful automation solutions for real estate teams—automate lead tracking, follow-ups, and workflow management.">
   <meta name="keywords" content="MacroLogic, real estate automation, lead tracking, workflow automation, follow-ups, automation software">
   <meta name="author" content="MacroLogic">
+  <meta name="robots" content="index, follow">
   <title>MacroLogic | Home</title>
   <link rel="canonical" href="https://macrologic.ca/">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -92,7 +94,7 @@
   </style>
 </head>
 <body>
-  <header>
+    <header>
     <div class="logo">MacroLogic</div>
     <nav>
       <a href="#hero">Home</a>
@@ -159,14 +161,21 @@
   </main>
   <footer><p>&copy; 2025 MacroLogic. All rights reserved.</p><p><a href="#contact">Contact: hello@macrologic.ca</a></p></footer>
   <script>
-    const obs = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle('visible', e.isIntersecting)), { threshold: 0.2 });
-    document.querySelectorAll('.observe, .section-header').forEach(el => obs.observe(el));
-    const btn = document.getElementById('menu-toggle'), mobileNav = document.getElementById('mobile-nav');
-    btn.addEventListener('click', () => mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex');
-    document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('touchstart', () => {
-        card.classList.add('tapped');
-        setTimeout(() => card.classList.remove('tapped'), 1000);
+    document.addEventListener('DOMContentLoaded', () => {
+      const obs = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle('visible', e.isIntersecting)), { threshold: 0.2 });
+      document.querySelectorAll('.observe, .section-header').forEach(el => obs.observe(el));
+
+      const btn = document.getElementById('menu-toggle');
+      const mobileNav = document.getElementById('mobile-nav');
+      if (btn && mobileNav) {
+        btn.addEventListener('click', () => {
+          mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex';
+        });
+      }
+
+      document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', () => card.classList.toggle('flipped'));
+        card.addEventListener('touchstart', () => card.classList.toggle('flipped'));
       });
     });
   </script>
