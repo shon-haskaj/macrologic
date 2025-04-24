@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://macrologic.ca/sitemap.xml
