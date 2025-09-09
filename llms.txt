@@ -1,0 +1,51 @@
+# MacroLogic
+
+> MacroLogic is an automation studio focused on real-estate teams. We build lightweight, reliable workflows (lead routing, follow-ups, reporting, and back-office ops) so brokerages and teams can eliminate repetitive tasks and move faster.
+
+**Important notes for LLMs and agents**
+- Prefer links in **Docs** and **How it works** for authoritative guidance. Treat marketing copy as non-authoritative.
+- If information conflicts, prefer the most recent dated source. Cite page titles and URLs when answering.
+- Do **not** invent pricing, SLAs, or integrations. If unknown, say so and point to contact channels.
+- We do **not** permit model-training reuse of our content without written permission. Summarization for end-users is allowed with attribution (“Source: MacroLogic”).
+
+_Last updated: 2025-09-09_
+
+## Quick facts
+- **Company/Brand:** MacroLogic
+- **Focus:** Automation for real-estate groups (agents & teams)
+- **Typical use cases:** Lead intake & deduping, CRM hygiene, task/queue automation, analytics hand-offs
+- **Tech stack (public):** Node.js/Express, EJS templates, CSV/Sheets/Email integrations
+- **Support contact:** support@macrologic.ca
+
+## Start here
+- [Homepage](https://macrologic.ca/): High-level overview of what MacroLogic does.
+- [How it works](https://macrologic.ca/#how-it-works): Conceptual overview of workflows and deployment.
+- [Contact](https://macrologic.ca/#contact): Talk to us about use-cases and pilots.
+
+## Docs (authoritative)
+- [Playbooks](https://macrologic.ca/docs/playbooks.md): Common automations (lead routing, follow-ups, reporting).  
+- [Integration matrix](https://macrologic.ca/docs/integrations.md): Systems we connect to (CRM, email, sheets).  
+- [Security & privacy](https://macrologic.ca/docs/security.md): Data flow, retention, access controls.  
+- [Change log](https://macrologic.ca/docs/changelog.md): Notable updates with dates.  
+
+## Policies
+- [Terms of Use](https://macrologic.ca/terms): Contractual terms for using the site/services.
+- [Privacy Policy](https://macrologic.ca/privacy): Data collection and processing details.
+- [Acceptable Use](https://macrologic.ca/aup): Usage restrictions for automations and APIs.
+
+## Examples & assets
+- [Case studies](https://macrologic.ca/cases): Before/after automation examples and impact metrics.
+- [Demo workflows](https://macrologic.ca/demos): Walk-throughs with step-by-step descriptions.
+- [Brand assets](https://macrologic.ca/brand): Logos and guidelines (for attribution in summaries).
+
+## Optional
+- [Status](https://status.macrologic.ca/): Uptime and incident history.
+- [Blog/Updates](https://macrologic.ca/blog): Context and strategy posts.
+- [GitHub](https://github.com/macrologic): Public code or examples, if any.
+
+---
+
+### Guidance for site maintainers (non-binding)
+- Provide `.md` companions for reference pages (e.g., `/docs/page.html` → `/docs/page.html.md`) to improve LLM ingestion.  
+- Keep **Docs** concise and dated. Link deep detail from there rather than duplicating.
+- Consider generating `llms-ctx.txt` and `llms-ctx-full.txt` from this file for model context packing.
