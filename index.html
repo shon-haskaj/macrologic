@@ -109,26 +109,77 @@
       const word = document.getElementById('word');
       let isDragging = false;
       let lastX = 0;
+      let lastMoveTime = 0;
       let current = 0;
+      let velocity = 0;
+      let rafId = null;
+      let lastTime = 0;
       const speed = 0.4;
+      const friction = 0.94;
+      const snapStrength = 0.08;
+      const snapThreshold = 0.4;
+      const stopThreshold = 0.02;
 
       const setRotate = (value) => {
         current = value;
         word.style.setProperty('--rotateY', `${current}deg`);
       };
 
+      const animate = (time) => {
+        if (isDragging) {
+          rafId = null;
+          lastTime = 0;
+          return;
+        }
+
+        if (!lastTime) lastTime = time;
+        const dt = (time - lastTime) / 16.666;
+        lastTime = time;
+
+        velocity *= Math.pow(friction, dt);
+        velocity += (-current) * snapStrength;
+        current += velocity * dt;
+        setRotate(current);
+
+        if (Math.abs(velocity) < stopThreshold && Math.abs(current) < snapThreshold) {
+          setRotate(0);
+          rafId = null;
+          lastTime = 0;
+          return;
+        }
+
+        rafId = requestAnimationFrame(animate);
+      };
+
+      const startInertia = () => {
+        if (rafId) return;
+        rafId = requestAnimationFrame(animate);
+      };
+
       word.addEventListener('pointerdown', (event) => {
         isDragging = true;
         lastX = event.clientX;
+        lastMoveTime = performance.now();
         word.setPointerCapture(event.pointerId);
         word.classList.add('dragging');
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+          lastTime = 0;
+        }
       });
 
       word.addEventListener('pointermove', (event) => {
         if (!isDragging) return;
+        const now = performance.now();
+        const deltaTime = Math.max(16, now - lastMoveTime);
         const delta = event.clientX - lastX;
-        setRotate(current + delta * speed);
+        const deltaDegrees = delta * speed;
+        current += deltaDegrees;
+        velocity = deltaDegrees / (deltaTime / 16.666);
+        setRotate(current);
         lastX = event.clientX;
+        lastMoveTime = now;
       });
 
       const stopDrag = (event) => {
@@ -138,6 +189,7 @@
         if (event && event.pointerId != null) {
           word.releasePointerCapture(event.pointerId);
         }
+        startInertia();
       };
 
       word.addEventListener('pointerup', stopDrag);
