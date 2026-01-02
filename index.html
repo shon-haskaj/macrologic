@@ -123,9 +123,10 @@
   <script>
     (() => {
       const word = document.getElementById('word');
-      const depth = 100;
-      const minShade = 10;
-      const maxShade = 32;
+      const depth = 50;
+      const depthStep = 1.6;
+      const minShade = 6;
+      const maxShade = 30;
 
       document.querySelectorAll('.letter').forEach((letter) => {
         const char = letter.textContent;
@@ -139,7 +140,7 @@
           const slice = document.createElement('span');
           slice.className = 'depth';
           slice.textContent = char;
-          slice.style.setProperty('--z', `-${i}px`);
+          slice.style.setProperty('--z', `-${i * depthStep}px`);
           const shade = maxShade - (i / depth) * (maxShade - minShade);
           slice.style.color = `hsl(0 0% ${shade}%)`;
           slice.style.opacity = `${0.85 - (i / depth) * 0.35}`;
