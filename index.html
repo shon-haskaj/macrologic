@@ -9,7 +9,11 @@
 
     :root {
       --bg: #000000;
-      --fg: #f5f5f5;
+      --fg: #f2f2f2;
+      --shadow-1: #9b9b9b;
+      --shadow-2: #6f6f6f;
+      --shadow-3: #4e4e4e;
+      --shadow-4: #2c2c2c;
     }
 
     * {
@@ -19,23 +23,129 @@
     body {
       margin: 0;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      place-items: center;
       background: var(--bg);
       color: var(--fg);
       font-family: 'Space Grotesk', 'Futura', sans-serif;
     }
 
-    h1 {
-      margin: 0;
-      font-size: clamp(2rem, 8vw, 6rem);
-      letter-spacing: 0.08em;
+    .scene {
+      perspective: 900px;
+    }
+
+    .word {
+      --rotateY: 0deg;
+      display: flex;
+      gap: 0.08em;
+      transform-style: preserve-3d;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+    }
+
+    .word.dragging {
+      cursor: grabbing;
+    }
+
+    .letter {
+      position: relative;
+      display: inline-block;
+      font-size: clamp(2.5rem, 9vw, 7rem);
+      font-weight: 700;
+      line-height: 1;
       text-transform: uppercase;
+      transform-style: preserve-3d;
+      transform: rotateY(var(--rotateY));
+      color: var(--fg);
+      text-shadow:
+        1px 1px 0 var(--shadow-1),
+        2px 2px 0 var(--shadow-2),
+        3px 3px 0 var(--shadow-3),
+        4px 4px 0 var(--shadow-4),
+        8px 10px 18px rgba(0, 0, 0, 0.75);
+      will-change: transform;
+    }
+
+    .letter::after {
+      content: attr(data-letter);
+      position: absolute;
+      inset: 0;
+      color: transparent;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 35%, rgba(255, 255, 255, 0) 60%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      mix-blend-mode: screen;
+      animation: shine 3.5s ease-in-out infinite;
+      transform: translateZ(1px);
+      pointer-events: none;
+    }
+
+    @keyframes shine {
+      0% { background-position: 0% 50%; opacity: 0.4; }
+      50% { background-position: 100% 50%; opacity: 0.9; }
+      100% { background-position: 0% 50%; opacity: 0.4; }
     }
   </style>
 </head>
 <body>
-  <h1>MacroLogic</h1>
+  <div class="scene">
+    <div class="word" id="word" aria-label="MacroLogic">
+      <span class="letter" data-letter="M">M</span>
+      <span class="letter" data-letter="A">A</span>
+      <span class="letter" data-letter="C">C</span>
+      <span class="letter" data-letter="R">R</span>
+      <span class="letter" data-letter="O">O</span>
+      <span class="letter" data-letter="L">L</span>
+      <span class="letter" data-letter="O">O</span>
+      <span class="letter" data-letter="G">G</span>
+      <span class="letter" data-letter="I">I</span>
+      <span class="letter" data-letter="C">C</span>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const word = document.getElementById('word');
+      let isDragging = false;
+      let lastX = 0;
+      let current = 0;
+      const maxRotate = 80;
+      const speed = 0.4;
+
+      const clamp = (value) => Math.max(-maxRotate, Math.min(maxRotate, value));
+
+      const setRotate = (value) => {
+        current = clamp(value);
+        word.style.setProperty('--rotateY', `${current}deg`);
+      };
+
+      word.addEventListener('pointerdown', (event) => {
+        isDragging = true;
+        lastX = event.clientX;
+        word.setPointerCapture(event.pointerId);
+        word.classList.add('dragging');
+      });
+
+      word.addEventListener('pointermove', (event) => {
+        if (!isDragging) return;
+        const delta = event.clientX - lastX;
+        setRotate(current + delta * speed);
+        lastX = event.clientX;
+      });
+
+      const stopDrag = (event) => {
+        if (!isDragging) return;
+        isDragging = false;
+        word.classList.remove('dragging');
+        if (event && event.pointerId != null) {
+          word.releasePointerCapture(event.pointerId);
+        }
+      };
+
+      word.addEventListener('pointerup', stopDrag);
+      word.addEventListener('pointercancel', stopDrag);
+    })();
+  </script>
 </body>
 </html>
