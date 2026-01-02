@@ -110,13 +110,10 @@
       let isDragging = false;
       let lastX = 0;
       let current = 0;
-      const maxRotate = 80;
       const speed = 0.4;
 
-      const clamp = (value) => Math.max(-maxRotate, Math.min(maxRotate, value));
-
       const setRotate = (value) => {
-        current = clamp(value);
+        current = value;
         word.style.setProperty('--rotateY', `${current}deg`);
       };
 
