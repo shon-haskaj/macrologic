@@ -77,10 +77,9 @@
     .letter .depth {
       position: absolute;
       inset: 0;
-      transform: translateZ(var(--z));
+      transform: translateX(var(--x, 0px)) translateZ(var(--z, 0px));
       pointer-events: none;
-      filter: blur(0.15px);
-      opacity: 0.9;
+      opacity: var(--o, 0.7);
     }
 
     .letter::after {
@@ -123,10 +122,13 @@
   <script>
     (() => {
       const word = document.getElementById('word');
-      const depth = 50;
-      const depthStep = 1.6;
+      const depth = 14;
+      const depthStep = 2.4;
+      const xStep = 0.8;
       const minShade = 6;
-      const maxShade = 30;
+      const maxShade = 28;
+      const minOpacity = 0.25;
+      const maxOpacity = 0.85;
 
       document.querySelectorAll('.letter').forEach((letter) => {
         const char = letter.textContent;
@@ -141,9 +143,11 @@
           slice.className = 'depth';
           slice.textContent = char;
           slice.style.setProperty('--z', `-${i * depthStep}px`);
+          slice.style.setProperty('--x', `${i * xStep}px`);
           const shade = maxShade - (i / depth) * (maxShade - minShade);
           slice.style.color = `hsl(0 0% ${shade}%)`;
-          slice.style.opacity = `${0.85 - (i / depth) * 0.35}`;
+          const opacity = maxOpacity - (i / depth) * (maxOpacity - minOpacity);
+          slice.style.setProperty('--o', opacity.toFixed(3));
           letter.appendChild(slice);
         }
       });
