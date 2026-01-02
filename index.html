@@ -43,6 +43,7 @@
       cursor: grab;
       user-select: none;
       touch-action: none;
+      will-change: transform;
     }
 
     .word.dragging {
@@ -57,6 +58,12 @@
       line-height: 1;
       text-transform: uppercase;
       transform-style: preserve-3d;
+      transform: translateZ(0);
+    }
+
+    .letter .face {
+      position: relative;
+      display: inline-block;
       color: var(--fg);
       text-shadow:
         1px 1px 0 var(--shadow-1),
@@ -64,7 +71,16 @@
         3px 3px 0 var(--shadow-3),
         4px 4px 0 var(--shadow-4),
         8px 10px 18px rgba(0, 0, 0, 0.75);
-      will-change: transform;
+      transform: translateZ(2px);
+    }
+
+    .letter .depth {
+      position: absolute;
+      inset: 0;
+      transform: translateZ(var(--z));
+      pointer-events: none;
+      filter: blur(0.15px);
+      opacity: 0.9;
     }
 
     .letter::after {
@@ -78,7 +94,7 @@
       background-clip: text;
       mix-blend-mode: screen;
       animation: shine 3.5s ease-in-out infinite;
-      transform: translateZ(1px);
+      transform: translateZ(3px);
       pointer-events: none;
     }
 
@@ -107,6 +123,30 @@
   <script>
     (() => {
       const word = document.getElementById('word');
+      const depth = 18;
+      const minShade = 10;
+      const maxShade = 32;
+
+      document.querySelectorAll('.letter').forEach((letter) => {
+        const char = letter.textContent;
+        const face = document.createElement('span');
+        face.className = 'face';
+        face.textContent = char;
+        letter.textContent = '';
+        letter.appendChild(face);
+
+        for (let i = 1; i <= depth; i += 1) {
+          const slice = document.createElement('span');
+          slice.className = 'depth';
+          slice.textContent = char;
+          slice.style.setProperty('--z', `-${i}px`);
+          const shade = maxShade - (i / depth) * (maxShade - minShade);
+          slice.style.color = `hsl(0 0% ${shade}%)`;
+          slice.style.opacity = `${0.85 - (i / depth) * 0.35}`;
+          letter.appendChild(slice);
+        }
+      });
+
       let isDragging = false;
       let lastX = 0;
       let lastMoveTime = 0;
