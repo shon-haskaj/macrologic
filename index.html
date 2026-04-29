@@ -3,29 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="MacroLogic builds automation systems for growing operators, connecting sales, finance, marketing, and fulfillment into reliable workflows." />
-  <meta name="keywords" content="MacroLogic, automation, workflow systems, business operations, AI automation" />
+  <meta name="description" content="MacroLogic builds automation systems for modern operators, connecting sales, finance, marketing, and fulfillment into reliable workflows." />
+  <meta name="keywords" content="MacroLogic, automation systems, workflow automation, business operations, AI automation" />
   <meta name="author" content="MacroLogic" />
   <meta name="robots" content="index, follow" />
-  <title>MacroLogic | Automation Systems</title>
+  <title>MacroLogic | Systems That Move Work</title>
   <link rel="canonical" href="https://macrologic.ca/" />
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
   <style>
     :root {
-      --white: #f4f4f2;
-      --paper: #ffffff;
-      --grid: rgba(255, 255, 255, 0.72);
-      --ink: #030303;
-      --muted: #6b6f73;
-      --line: #cfcfcf;
       --blue: #064df4;
-      --green: #16c84e;
-      --pink: #ee4eea;
-      --black: #050505;
-      --dark-card: #111116;
+      --ink: #050505;
+      --black: #000000;
+      --graphite: #111214;
+      --steel: #24272c;
+      --line: #d8d9dd;
+      --muted: #71757c;
+      --paper: #f6f7f5;
+      --white: #ffffff;
+      --glass: rgba(255, 255, 255, 0.76);
       --mono: "SFMono-Regular", "Cascadia Mono", "Liberation Mono", "Courier New", monospace;
       --sans: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-      --nav-h: 96px;
+      --nav-open: 86px;
+      --nav-closed: 58px;
+      --ease: cubic-bezier(0.19, 1, 0.22, 1);
     }
 
     * {
@@ -35,15 +36,20 @@
     }
 
     html {
-      scroll-behavior: smooth;
       background: var(--black);
+      scroll-behavior: smooth;
     }
 
     body {
-      background: var(--white);
+      min-height: 100vh;
+      background: var(--paper);
       color: var(--ink);
       font-family: var(--sans);
       overflow-x: hidden;
+    }
+
+    body.nav-compressed {
+      --nav-open: var(--nav-closed);
     }
 
     a {
@@ -57,773 +63,657 @@
       font: inherit;
     }
 
-    .grid-bg {
-      background-color: #eeeeec;
+    .life-field {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      width: 100vw;
+      height: 100vh;
+      background: var(--paper);
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.11;
       background-image:
-        linear-gradient(var(--grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-      background-size: 72px 72px;
+        linear-gradient(90deg, rgba(0, 0, 0, 0.08) 1px, transparent 1px),
+        linear-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+      mix-blend-mode: multiply;
+    }
+
+    .page {
+      position: relative;
+      z-index: 2;
     }
 
     .container {
-      width: min(1776px, calc(100vw - 144px));
+      width: min(1180px, calc(100vw - 48px));
       margin: 0 auto;
     }
 
     .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      height: var(--nav-h);
-      background: rgba(255, 255, 255, 0.96);
-      border-top: 3px solid var(--ink);
-      border-bottom: 1px solid var(--line);
-      font-family: var(--mono);
-      text-transform: uppercase;
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      z-index: 20;
+      width: min(1180px, calc(100vw - 32px));
+      height: var(--nav-open);
+      transform: translateX(-50%);
+      border: 1px solid rgba(5, 5, 5, 0.14);
+      border-radius: 6px;
+      background: rgba(246, 247, 245, 0.78);
+      backdrop-filter: blur(22px) saturate(1.2);
+      box-shadow: 0 22px 70px rgba(0, 0, 0, 0.08);
+      transition: height 0.34s var(--ease), top 0.34s var(--ease), background 0.34s var(--ease);
+    }
+
+    body.nav-compressed .topbar {
+      top: 10px;
+      background: rgba(255, 255, 255, 0.88);
     }
 
     .nav {
       height: 100%;
       display: grid;
-      grid-template-columns: 180px 1fr auto;
-      align-items: stretch;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 24px;
+      padding: 0 16px 0 18px;
     }
 
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      padding: 0 20px;
-      border-right: 1px solid var(--line);
-      font-family: var(--sans);
-      font-size: 0.9rem;
-      font-weight: 900;
-      line-height: 0.9;
-    }
-
-    .brand-symbol {
-      font-size: 2.2rem;
-      line-height: 1;
-      letter-spacing: 0;
-    }
-
-    .nav-mid {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      padding-left: 36px;
-      color: var(--muted);
-      font-size: 0.88rem;
-    }
-
-    .nav-mid a,
-    .signin {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 11px;
+      min-width: 174px;
+      font-weight: 900;
+      line-height: 0.92;
     }
 
-    .box {
-      width: 12px;
-      height: 12px;
-      display: inline-block;
-      border: 1px solid #c7c7c7;
-      background: var(--paper);
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--mono);
+      font-size: 0.86rem;
     }
 
-    .slash {
-      color: #9b9b9b;
+    .brand small {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      transition: opacity 0.22s ease, transform 0.22s ease;
     }
 
-    .chev {
-      width: 9px;
-      height: 9px;
-      border-right: 1px solid #aaa;
-      border-bottom: 1px solid #aaa;
-      transform: rotate(45deg) translateY(-2px);
+    body.nav-compressed .brand small {
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+    }
+
+    .nav-links a {
+      padding: 10px 12px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      color: #34383e;
+    }
+
+    .nav-links a:hover {
+      border-color: rgba(6, 77, 244, 0.26);
+      background: rgba(6, 77, 244, 0.08);
+      color: var(--blue);
     }
 
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 28px;
-      padding-right: 22px;
-      font-size: 0.88rem;
+      gap: 8px;
     }
 
-    .apply-btn,
-    .outline-btn,
+    .btn,
     #contact-form button {
-      min-height: 56px;
+      min-height: 46px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 14px;
-      padding: 0 25px;
-      border: 2px solid var(--ink);
-      background: transparent;
-      color: var(--ink);
+      gap: 10px;
+      padding: 0 16px;
+      border: 1px solid var(--ink);
+      border-radius: 4px;
+      background: var(--ink);
+      color: var(--white);
       font-family: var(--mono);
-      font-size: 0.95rem;
+      font-size: 0.78rem;
       text-transform: uppercase;
       cursor: pointer;
+      transition: transform 0.22s var(--ease), background 0.22s ease, color 0.22s ease;
     }
 
-    .apply-btn,
-    #contact-form button {
-      min-width: 158px;
-      border-color: var(--black);
-      background: var(--black);
-      color: var(--paper);
+    .btn:hover,
+    #contact-form button:hover {
+      transform: translateY(-2px);
+      background: var(--blue);
+      border-color: var(--blue);
     }
 
-    .apply-btn::before {
-      content: "";
-      width: 12px;
-      height: 12px;
-      background: var(--pink);
+    .btn.secondary {
+      background: transparent;
+      color: var(--ink);
     }
 
-    .outline-btn::before,
-    #contact-form button::before {
-      content: "";
-      width: 12px;
-      height: 12px;
-      background: var(--green);
+    .btn.secondary:hover {
+      color: var(--white);
     }
 
     #menu-toggle {
       display: none;
-      width: 56px;
-      height: 56px;
-      border: 1px solid var(--line);
-      background: var(--paper);
-      font-size: 1.3rem;
+      width: 46px;
+      min-height: 46px;
+      padding: 0;
     }
 
     #mobile-nav {
       display: none;
       position: fixed;
-      inset: var(--nav-h) 0 auto 0;
-      z-index: 45;
-      background: var(--paper);
-      border-bottom: 1px solid var(--line);
+      top: 78px;
+      left: 16px;
+      right: 16px;
+      z-index: 19;
+      border: 1px solid rgba(5, 5, 5, 0.14);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(18px);
       font-family: var(--mono);
       text-transform: uppercase;
     }
 
     #mobile-nav a {
       display: block;
-      padding: 18px 24px;
-      border-top: 1px solid var(--line);
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
     }
 
     .hero {
-      min-height: calc(100vh - var(--nav-h));
+      min-height: 100vh;
       display: grid;
-      place-items: center;
-      padding: 120px 0 156px;
-      text-align: center;
+      align-items: end;
+      padding: 168px 0 64px;
     }
 
-    .crumb {
+    .hero-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 42px;
+      align-items: end;
+    }
+
+    .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 22px;
-      margin-bottom: 30px;
-      color: var(--muted);
+      gap: 10px;
+      margin-bottom: 18px;
+      color: #30343a;
       font-family: var(--mono);
-      font-size: 1rem;
-      text-transform: uppercase;
-    }
-
-    .crumb strong {
-      color: var(--ink);
-      font-weight: 500;
-    }
-
-    .hero h1 {
-      max-width: 900px;
-      margin: 0 auto 36px;
-      font-size: clamp(4.8rem, 8vw, 7.15rem);
-      line-height: 0.98;
-      letter-spacing: 0;
-      font-weight: 800;
-    }
-
-    .hero h1 span {
-      display: block;
-      color: var(--blue);
-    }
-
-    .hero-copy {
-      max-width: 920px;
-      margin: 0 auto 58px;
-      font-size: 1.35rem;
-      line-height: 1.25;
-    }
-
-    .rate {
-      display: inline-block;
-      margin-top: 36px;
-      padding: 4px 7px;
-      background: var(--black);
-      color: var(--paper);
-      font-family: var(--mono);
-      font-size: 1rem;
-      text-transform: uppercase;
-    }
-
-    .logo-section {
-      padding-top: 172px;
-      overflow: hidden;
-    }
-
-    .as-seen {
-      margin-left: max(72px, calc((100vw - 1776px) / 2 + 72px));
-      margin-bottom: 38px;
-      color: #656a70;
-      font-size: 1.2rem;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    .logo-track {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(280px, 1fr);
-      border-top: 1px solid #a9a9a9;
-      border-bottom: 1px solid #a9a9a9;
-      animation: drift 24s linear infinite;
-    }
-
-    .logo-cell {
-      height: 110px;
-      display: grid;
-      place-items: center;
-      border-right: 1px solid #a9a9a9;
-      font-size: 1.75rem;
-      font-weight: 900;
-      letter-spacing: 0;
-      white-space: nowrap;
-    }
-
-    .logo-cell.serif {
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: 700;
-    }
-
-    .pixel-band {
-      --phase: 0;
-      height: 512px;
-      position: relative;
-      overflow: hidden;
-      background: var(--blue);
-    }
-
-    .pixel-band.black {
-      background: var(--black);
-    }
-
-    .pixel-band::before {
-      content: "";
-      position: absolute;
-      inset: 0 0 auto;
-      height: 288px;
-      background:
-        linear-gradient(90deg, var(--blue) 0 72px, transparent 72px 216px, var(--blue) 216px 504px, transparent 504px 576px, var(--blue) 576px 720px, transparent 720px 792px, var(--blue) 792px 1008px, transparent 1008px 1080px, var(--blue) 1080px 1224px, transparent 1224px 1368px, var(--blue) 1368px 1584px, transparent 1584px 1656px, var(--blue) 1656px 100%),
-        linear-gradient(90deg, transparent 0 72px, var(--blue) 72px 144px, transparent 144px 360px, var(--blue) 360px 432px, transparent 432px 648px, var(--blue) 648px 720px, transparent 720px 936px, var(--blue) 936px 1008px, transparent 1008px 1152px, var(--blue) 1152px 1224px, transparent 1224px 1440px, var(--blue) 1440px 1512px, transparent 1512px 1728px, var(--blue) 1728px 100%),
-        linear-gradient(90deg, var(--blue) 0 216px, transparent 216px 288px, var(--blue) 288px 504px, transparent 504px 648px, var(--blue) 648px 792px, transparent 792px 936px, var(--blue) 936px 1152px, transparent 1152px 1368px, var(--blue) 1368px 1512px, transparent 1512px 1656px, var(--blue) 1656px 100%);
-      background-size: 100% 72px;
-      background-position:
-        calc(var(--phase) * 1px) 0,
-        calc(var(--phase) * -1px) 72px,
-        calc(var(--phase) * 0.5px) 144px;
-      background-repeat: repeat-x;
-      transform: translateY(calc(var(--phase) * -0.08px));
-      opacity: 1;
-    }
-
-    .pixel-band.from-light::before {
-      background:
-        linear-gradient(90deg, transparent 0 72px, var(--blue) 72px 216px, transparent 216px 288px, var(--blue) 288px 504px, transparent 504px 576px, var(--blue) 576px 720px, transparent 720px 792px, var(--blue) 792px 936px, transparent 936px 1080px, var(--blue) 1080px 1512px, transparent 1512px 1656px, var(--blue) 1656px 100%),
-        linear-gradient(90deg, var(--blue) 0 72px, transparent 72px 216px, var(--blue) 216px 288px, transparent 288px 432px, var(--blue) 432px 720px, transparent 720px 792px, var(--blue) 792px 1008px, transparent 1008px 1152px, var(--blue) 1152px 1512px, transparent 1512px 1656px, var(--blue) 1656px 100%),
-        linear-gradient(90deg, var(--blue) 0 504px, transparent 504px 648px, var(--blue) 648px 936px, transparent 936px 1008px, var(--blue) 1008px 1584px, transparent 1584px 1728px, var(--blue) 1728px 100%);
-      background-color: transparent;
-      background-size: 100% 72px;
-      background-position:
-        calc(var(--phase) * -1px) 0,
-        calc(var(--phase) * 0.7px) 72px,
-        calc(var(--phase) * 1px) 144px;
-    }
-
-    .pixel-band.black::before {
-      background:
-        linear-gradient(90deg, var(--black) 0 144px, transparent 144px 360px, var(--black) 360px 504px, transparent 504px 648px, var(--black) 648px 792px, transparent 792px 936px, var(--black) 936px 1080px, transparent 1080px 1224px, var(--black) 1224px 1584px, transparent 1584px 1728px, var(--black) 1728px 100%),
-        linear-gradient(90deg, transparent 0 72px, var(--black) 72px 216px, transparent 216px 288px, var(--black) 288px 432px, transparent 432px 648px, var(--black) 648px 792px, transparent 792px 1008px, var(--black) 1008px 1224px, transparent 1224px 1368px, var(--black) 1368px 1584px, transparent 1584px 1800px, var(--black) 1800px 100%),
-        linear-gradient(90deg, var(--black) 0 432px, transparent 432px 648px, var(--black) 648px 936px, transparent 936px 1008px, var(--black) 1008px 1368px, transparent 1368px 1656px, var(--black) 1656px 100%);
-      background-size: 100% 72px;
-      background-position:
-        calc(var(--phase) * 0.8px) 0,
-        calc(var(--phase) * -1px) 72px,
-        calc(var(--phase) * 0.45px) 144px;
-    }
-
-    .blue-section {
-      padding: 132px 0 0;
-      background: var(--blue);
-      color: var(--paper);
-    }
-
-    .blue-intro {
-      display: grid;
-      grid-template-columns: 1fr 0.72fr;
-      gap: 80px;
-      align-items: center;
-      margin-bottom: 96px;
-    }
-
-    h2 {
-      font-size: clamp(4rem, 7vw, 7rem);
-      line-height: 0.96;
-      letter-spacing: 0;
-      font-weight: 800;
-    }
-
-    .blue-intro p {
-      color: rgba(255, 255, 255, 0.76);
-      font-size: 1.35rem;
-      line-height: 1.45;
-    }
-
-    .value-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      border-top: 1px solid rgba(255, 255, 255, 0.22);
-      border-left: 1px solid rgba(255, 255, 255, 0.22);
-    }
-
-    .value-card {
-      min-height: 375px;
-      padding: 72px 42px;
-      border-right: 1px solid rgba(255, 255, 255, 0.22);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.22);
-      color: var(--paper);
-    }
-
-    .value-card.featured {
-      background: var(--paper);
-      color: var(--ink);
-    }
-
-    .chip {
-      display: inline-block;
-      margin-bottom: 30px;
-      padding: 7px 12px;
-      border: 1px solid currentColor;
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 0.88rem;
-      text-transform: uppercase;
-    }
-
-    .value-card:not(.featured) .chip {
-      color: rgba(255, 255, 255, 0.72);
-    }
-
-    h3 {
-      margin-bottom: 24px;
-      font-size: 1.55rem;
-      line-height: 1.1;
-    }
-
-    .value-card p {
-      color: #777;
-      font-size: 1.15rem;
-      line-height: 1.5;
-    }
-
-    .value-card:not(.featured) p {
-      color: rgba(255, 255, 255, 0.58);
-    }
-
-    .black-section {
-      padding: 132px 0;
-      background: var(--black);
-      color: var(--paper);
-    }
-
-    .steps-head {
-      display: grid;
-      grid-template-columns: 1fr 0.72fr;
-      gap: 80px;
-      align-items: end;
-      margin-bottom: 70px;
-    }
-
-    .steps-head p {
-      color: #bfbfbf;
-      font-size: 1.3rem;
-      line-height: 1.45;
-    }
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1px;
-      background: #242424;
-      border: 1px solid #242424;
-    }
-
-    .step-card {
-      min-height: 300px;
-      padding: 36px;
-      background: #0c0c0c;
-    }
-
-    .step-card .chip {
-      color: #9a9a9a;
-    }
-
-    .step-card p {
-      color: #a8a8a8;
-      font-size: 1.05rem;
-      line-height: 1.5;
-    }
-
-    .work-scroll {
-      min-height: 300vh;
-      background: var(--black);
-      color: var(--paper);
-    }
-
-    .work-sticky {
-      position: sticky;
-      top: var(--nav-h);
-      min-height: calc(100vh - var(--nav-h));
-      display: grid;
-      align-items: center;
-      padding: 60px 0;
-    }
-
-    .work-layout {
-      display: grid;
-      grid-template-columns: 0.78fr 1fr;
-      gap: 90px;
-      align-items: center;
-    }
-
-    .work-title {
-      margin-bottom: 54px;
-      font-size: clamp(4rem, 7vw, 6.3rem);
-      line-height: 0.96;
-      font-weight: 800;
-    }
-
-    .work-step {
-      position: relative;
-      max-width: 720px;
-      padding: 0 0 36px 22px;
-      border-left: 2px solid transparent;
-      color: #616161;
-      transition: color 0.25s ease, border-color 0.25s ease;
-    }
-
-    .work-step.active {
-      border-color: var(--blue);
-      color: var(--paper);
-    }
-
-    .work-step span {
-      display: block;
-      margin-bottom: 24px;
-      color: inherit;
-      font-family: var(--mono);
-      font-size: 1rem;
-    }
-
-    .work-step h3 {
-      font-size: 1.72rem;
-    }
-
-    .work-step p {
-      color: #b9b9b9;
-      font-size: 1.2rem;
-      line-height: 1.45;
-    }
-
-    .work-step:not(.active) p {
-      display: none;
-    }
-
-    .console {
-      min-height: 560px;
-      padding: 26px;
-      border: 1px solid #272833;
-      border-radius: 7px;
-      background: #111116;
-      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
-      color: #bebec7;
-      font-family: var(--mono);
-      transition: opacity 0.2s ease, transform 0.2s ease;
-    }
-
-    .console.fade {
-      opacity: 0.25;
-      transform: translateY(12px);
-    }
-
-    .console-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 24px;
-      margin: -26px -26px 26px;
-      padding: 18px 24px;
-      border-bottom: 1px solid #202028;
-      color: #73737d;
-      text-transform: uppercase;
-    }
-
-    .dot {
-      display: inline-block;
-      width: 7px;
-      height: 7px;
-      margin-right: 10px;
-      border-radius: 50%;
-      background: var(--blue);
-    }
-
-    .status {
-      padding: 7px 12px;
-      border: 1px solid rgba(6, 77, 244, 0.34);
-      border-radius: 6px;
-      color: var(--blue);
-      background: rgba(6, 77, 244, 0.08);
-    }
-
-    .prompt-box,
-    .response-box,
-    .notes-box {
-      margin: 16px 0 24px;
-      padding: 18px;
-      border-radius: 4px;
-      background: #09090b;
-      color: #d7d7dd;
-      font-family: var(--sans);
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-
-    .console-label {
-      color: #686873;
       font-size: 0.82rem;
       text-transform: uppercase;
     }
 
-    .split {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+    .eyebrow::before,
+    .btn::before,
+    #contact-form button::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      background: var(--blue);
     }
 
-    .tiny-pill {
-      display: inline-block;
-      margin: 6px 8px 0 0;
-      padding: 9px 13px;
-      border: 1px solid #242430;
+    h1 {
+      max-width: 970px;
+      font-size: 6.35rem;
+      line-height: 0.9;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    h1 span {
+      color: var(--blue);
+    }
+
+    .hero-copy {
+      max-width: 730px;
+      margin-top: 28px;
+      color: #2c3035;
+      font-size: 1.23rem;
+      line-height: 1.42;
+    }
+
+    .hero-panel {
+      border: 1px solid rgba(5, 5, 5, 0.16);
       border-radius: 6px;
-      color: #8d8d96;
+      background: rgba(255, 255, 255, 0.74);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
     }
 
-    .tiny-pill.active {
-      border-color: rgba(6, 77, 244, 0.55);
-      color: #dce5ff;
-      background: rgba(6, 77, 244, 0.14);
-    }
-
-    .area-section {
-      padding: 120px 0;
-      background: var(--white);
-    }
-
-    .area-head {
+    .panel-row {
       display: grid;
-      grid-template-columns: 1fr 0.72fr;
-      gap: 72px;
-      margin-bottom: 54px;
-    }
-
-    .area-head p {
-      align-self: end;
-      color: var(--muted);
-      font-size: 1.24rem;
-      line-height: 1.45;
-    }
-
-    .area-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      border-top: 1px solid var(--line);
-      border-left: 1px solid var(--line);
-    }
-
-    .area-card {
-      min-height: 300px;
-      padding: 42px;
-      border-right: 1px solid var(--line);
+      grid-template-columns: 84px 1fr;
+      min-height: 82px;
       border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.5);
     }
 
-    .area-card p {
-      color: var(--muted);
-      font-size: 1.08rem;
-      line-height: 1.5;
+    .panel-row:last-child {
+      border-bottom: 0;
     }
 
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin-top: 26px;
-    }
-
-    .tag {
-      padding: 7px 10px;
-      border: 1px solid var(--line);
-      background: var(--paper);
+    .panel-key {
+      display: grid;
+      place-items: center;
+      border-right: 1px solid var(--line);
+      color: var(--blue);
       font-family: var(--mono);
-      font-size: 0.8rem;
+      font-size: 0.76rem;
+    }
+
+    .panel-value {
+      padding: 17px;
+    }
+
+    .panel-value strong {
+      display: block;
+      font-size: 1.38rem;
+      line-height: 1;
+      margin-bottom: 7px;
+    }
+
+    .panel-value span {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .ticker {
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid rgba(5, 5, 5, 0.12);
+      border-bottom: 1px solid rgba(5, 5, 5, 0.12);
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--mono);
       text-transform: uppercase;
     }
 
-    .stats-section {
-      padding: 116px 0;
-      background: var(--blue);
-      color: var(--paper);
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker 28s linear infinite;
     }
 
-    .stats-grid {
+    .ticker span {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 28px;
+      white-space: nowrap;
+      color: #e5e7eb;
+    }
+
+    .ticker span::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      background: var(--blue);
+    }
+
+    section {
+      position: relative;
+    }
+
+    .section {
+      padding: 118px 0;
+    }
+
+    .section.dark {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .section.white {
+      background: rgba(246, 247, 245, 0.86);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.54fr);
+      gap: 48px;
+      align-items: end;
+      margin-bottom: 42px;
+    }
+
+    h2 {
+      font-size: 4.45rem;
+      line-height: 0.96;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      line-height: 1.48;
+    }
+
+    .dark .section-head p {
+      color: #a8adb5;
+    }
+
+    .system-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .system-node {
+      min-height: 330px;
+      padding: 28px;
+      background: #090a0c;
+      overflow: hidden;
+    }
+
+    .system-node.blue {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .node-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 72px;
+      color: #a8adb5;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+    }
+
+    .blue .node-label {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .system-node h3 {
+      max-width: 620px;
+      margin-bottom: 18px;
+      font-size: 2.05rem;
+      line-height: 1.03;
+    }
+
+    .system-node p {
+      max-width: 650px;
+      color: #aeb3bb;
+      font-size: 1.04rem;
+      line-height: 1.48;
+    }
+
+    .blue p {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      border: 1px solid var(--line);
+      background: var(--line);
+    }
+
+    .pipe-card {
+      min-height: 330px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(12px);
+    }
+
+    .pipe-card:nth-child(even) {
+      background: rgba(235, 237, 239, 0.78);
+    }
+
+    .pipe-card .num {
+      color: var(--blue);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+    }
+
+    .pipe-card h3 {
+      font-size: 1.52rem;
+      line-height: 1.04;
+      margin-bottom: 15px;
+    }
+
+    .pipe-card p {
+      color: #555b64;
+      line-height: 1.45;
+    }
+
+    .lab {
+      display: grid;
+      grid-template-columns: 0.72fr 1fr;
+      gap: 36px;
+      align-items: stretch;
+    }
+
+    .lab-menu {
+      display: grid;
+      gap: 8px;
+    }
+
+    .lab-tab {
+      min-height: 120px;
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 18px;
+      align-items: center;
+      padding: 16px;
+      border: 1px solid #25282d;
+      border-radius: 6px;
+      background: #0d0f12;
+      color: #777d86;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .lab-tab.active {
+      border-color: rgba(6, 77, 244, 0.72);
+      color: var(--white);
+      background: #10141f;
+    }
+
+    .lab-tab span {
+      color: var(--blue);
+      font-family: var(--mono);
+    }
+
+    .lab-tab strong {
+      display: block;
+      font-size: 1.38rem;
+      margin-bottom: 6px;
+    }
+
+    .lab-stage {
+      min-height: 508px;
+      border: 1px solid #25282d;
+      border-radius: 6px;
+      background: #0c0d10;
+      overflow: hidden;
+      box-shadow: 0 34px 80px rgba(0, 0, 0, 0.28);
+    }
+
+    .stage-top {
+      display: flex;
+      justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid #25282d;
+      color: #7f858f;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+    }
+
+    .stage-body {
+      padding: 26px;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+
+    .stage-body.fade {
+      opacity: 0.2;
+      transform: translateY(10px);
+    }
+
+    .prompt {
+      margin-bottom: 18px;
+      padding: 18px;
+      border: 1px solid #20242a;
+      border-radius: 4px;
+      background: #07080a;
+      color: #dfe2e7;
+      line-height: 1.48;
+    }
+
+    .stage-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .stage-box {
+      min-height: 138px;
+      padding: 16px;
+      border: 1px solid #20242a;
+      border-radius: 4px;
+      background: #07080a;
+      color: #aeb3bb;
+      line-height: 1.45;
+    }
+
+    .stage-box b {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--white);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      padding: 8px 11px;
+      border: 1px solid #242932;
+      border-radius: 999px;
+      color: #89909b;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+    }
+
+    .pill.active {
+      border-color: rgba(6, 77, 244, 0.68);
+      color: var(--white);
+      background: rgba(6, 77, 244, 0.18);
+    }
+
+    .metrics {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1px;
-      background: rgba(255, 255, 255, 0.24);
-      border: 1px solid rgba(255, 255, 255, 0.24);
+      border: 1px solid var(--line);
+      background: var(--line);
     }
 
-    .stat {
-      padding: 46px;
-      background: var(--blue);
+    .metric {
+      min-height: 230px;
+      padding: 28px;
+      background: var(--black);
+      color: var(--white);
     }
 
-    .stat strong {
+    .metric strong {
       display: block;
       margin-bottom: 12px;
-      font-size: clamp(4rem, 8vw, 7rem);
+      color: var(--blue);
+      font-size: 4rem;
       line-height: 0.9;
     }
 
-    .stat span {
-      color: rgba(255, 255, 255, 0.72);
-      font-size: 1.08rem;
+    .metric span {
+      color: #b7bcc4;
+      font-size: 1rem;
     }
 
-    .faq-section {
-      padding: 116px 0;
-      background: var(--white);
-    }
-
-    .faq-head {
+    .contact-grid {
       display: grid;
-      grid-template-columns: 1fr 0.72fr;
-      gap: 72px;
-      margin-bottom: 60px;
-    }
-
-    .faq-head p {
-      align-self: end;
-      color: var(--muted);
-      font-size: 1.2rem;
-    }
-
-    .faq {
-      border-top: 1px solid var(--line);
-    }
-
-    details {
-      border-bottom: 1px solid var(--line);
-    }
-
-    summary {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 28px 0;
-      font-size: 1.25rem;
-      font-weight: 800;
-      cursor: pointer;
-      list-style: none;
-    }
-
-    summary::-webkit-details-marker {
-      display: none;
-    }
-
-    summary::after {
-      content: "+";
-      color: var(--blue);
-      font-size: 1.5rem;
-      line-height: 1;
-    }
-
-    details[open] summary::after {
-      content: "-";
-    }
-
-    details p {
-      max-width: 760px;
-      padding: 0 0 28px;
-      color: var(--muted);
-      font-size: 1.06rem;
-      line-height: 1.55;
-    }
-
-    .cta-section {
-      padding: 130px 0;
-      background: var(--black);
-      color: var(--paper);
-    }
-
-    .cta-grid {
-      display: grid;
-      grid-template-columns: 1fr 0.72fr;
-      gap: 72px;
+      grid-template-columns: 1fr 0.82fr;
+      gap: 44px;
       align-items: start;
     }
 
-    .cta-section p {
-      max-width: 720px;
-      margin: 28px 0 0;
-      color: #bdbdbd;
-      font-size: 1.22rem;
-      line-height: 1.45;
+    .contact-copy h2 {
+      margin-bottom: 24px;
+    }
+
+    .contact-copy p {
+      max-width: 650px;
+      color: #aeb3bb;
+      font-size: 1.12rem;
+      line-height: 1.5;
     }
 
     #contact-form {
       display: grid;
-      gap: 14px;
-      padding: 24px;
-      border: 1px solid #2a2a2a;
-      background: #0d0d0d;
+      gap: 12px;
+      padding: 18px;
+      border: 1px solid #282c33;
+      border-radius: 6px;
+      background: #0c0e11;
     }
 
     #contact-form input,
     #contact-form textarea {
       width: 100%;
-      padding: 15px 16px;
-      border: 1px solid #2a2a2a;
-      background: #050505;
-      color: var(--paper);
+      border: 1px solid #282c33;
+      border-radius: 4px;
+      background: #050607;
+      color: var(--white);
+      padding: 15px 14px;
     }
 
     #contact-form textarea {
@@ -832,39 +722,28 @@
     }
 
     footer {
-      padding: 52px 0;
-      border-top: 1px solid #222;
+      position: relative;
+      z-index: 2;
+      padding: 34px 0;
+      border-top: 1px solid #24272c;
       background: var(--black);
-      color: #9e9e9e;
+      color: #8e949d;
       font-family: var(--mono);
+      font-size: 0.78rem;
       text-transform: uppercase;
     }
 
     .footer-grid {
-      display: grid;
-      grid-template-columns: 1.3fr repeat(3, 1fr);
-      gap: 44px;
-    }
-
-    footer h4 {
-      margin-bottom: 18px;
-      color: var(--paper);
-      font-family: var(--sans);
-      text-transform: none;
-    }
-
-    footer a,
-    footer span {
-      display: block;
-      margin-bottom: 10px;
-      color: #9e9e9e;
-      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
     }
 
     .observe {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateY(22px);
+      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
     }
 
     .observe.visible {
@@ -872,451 +751,320 @@
       transform: translateY(0);
     }
 
-    @keyframes drift {
+    @keyframes ticker {
       from { transform: translateX(0); }
-      to { transform: translateX(-280px); }
+      to { transform: translateX(-50%); }
     }
 
-    @media (max-width: 1100px) {
-      .container {
-        width: min(100vw - 48px, 1776px);
-      }
-
-      .nav {
-        grid-template-columns: 180px 1fr auto;
-      }
-
-      .nav-mid,
-      .signin {
-        display: none;
-      }
-
-      #menu-toggle {
-        display: block;
-      }
-
-      .hero h1,
-      h2,
-      .work-title {
-        font-size: clamp(3.8rem, 12vw, 6.2rem);
-      }
-
-      .blue-intro,
-      .steps-head,
-      .work-layout,
-      .area-head,
-      .faq-head,
-      .cta-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .work-sticky {
-        position: relative;
-        top: auto;
-      }
-
-      .work-scroll {
-        min-height: auto;
-      }
-
-      .console {
-        min-height: 420px;
-      }
-    }
-
-    @media (max-width: 720px) {
-      :root {
-        --nav-h: 78px;
-      }
-
-      .container {
-        width: min(100vw - 28px, 1776px);
-      }
-
-      .topbar {
-        height: var(--nav-h);
-      }
-
+    @media (max-width: 960px) {
       .nav {
         grid-template-columns: 1fr auto;
       }
 
+      .nav-links,
+      .nav-actions .secondary,
+      .nav-actions .primary {
+        display: none;
+      }
+
+      #menu-toggle {
+        display: inline-flex;
+      }
+
+      .hero-shell,
+      .section-head,
+      .system-grid,
+      .lab,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 4.6rem;
+      }
+
+      h2 {
+        font-size: 3.55rem;
+      }
+
+      .pipeline,
+      .metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(100vw - 28px, 1180px);
+      }
+
+      .topbar {
+        top: 8px;
+        width: calc(100vw - 16px);
+      }
+
       .brand {
-        border-right: 0;
-        padding-left: 0;
+        min-width: 0;
       }
 
-      .nav-actions {
-        display: flex;
-        padding-right: 0;
-      }
-
-      .nav-actions .signin,
-      .nav-actions .apply-btn {
+      .brand small {
         display: none;
       }
 
       .hero {
-        padding: 88px 0 112px;
+        padding: 130px 0 44px;
       }
 
-      .hero h1 {
-        font-size: clamp(3.5rem, 17vw, 5.2rem);
+      h1 {
+        font-size: 3.4rem;
+      }
+
+      h2 {
+        font-size: 2.72rem;
       }
 
       .hero-copy {
-        font-size: 1.05rem;
+        font-size: 1.04rem;
       }
 
-      .outline-btn,
-      .apply-btn,
-      #contact-form button {
-        width: 100%;
+      .hero-shell,
+      .contact-grid {
+        gap: 26px;
       }
 
-      .as-seen {
-        margin-left: 24px;
+      .hero-panel,
+      .lab-stage {
+        border-radius: 4px;
       }
 
-      .logo-track {
-        grid-auto-columns: 240px;
+      .section {
+        padding: 78px 0;
       }
 
-      .pixel-band {
-        height: 360px;
-      }
-
-      .blue-section,
-      .black-section,
-      .area-section,
-      .stats-section,
-      .faq-section,
-      .cta-section {
-        padding: 80px 0;
-      }
-
-      .value-grid,
-      .steps-grid,
-      .area-grid,
-      .stats-grid,
-      .footer-grid {
+      .pipeline,
+      .metrics,
+      .stage-grid {
         grid-template-columns: 1fr;
       }
 
-      .value-card,
-      .step-card,
-      .area-card,
-      .stat {
-        padding: 30px 22px;
+      .system-node,
+      .pipe-card,
+      .metric {
         min-height: auto;
-      }
-
-      .work-layout {
-        gap: 32px;
-      }
-
-      .split {
-        grid-template-columns: 1fr;
+        padding: 22px;
       }
     }
   </style>
 </head>
 <body>
+  <canvas class="life-field" id="life" aria-hidden="true"></canvas>
+  <div class="noise" aria-hidden="true"></div>
+
   <header class="topbar">
     <div class="nav">
-      <a class="brand" href="#hero" aria-label="MacroLogic home">
-        <span class="brand-symbol">ML</span>
-        <span>MACRO<br />LOGIC</span>
+      <a class="brand" href="#top" aria-label="MacroLogic home">
+        <span class="brand-mark">ML</span>
+        <span>MacroLogic <small>systems studio</small></span>
       </a>
-      <nav class="nav-mid" aria-label="Primary navigation">
-        <a href="#areas"><span class="box"></span> Domains <span class="chev"></span></a>
-        <span class="slash">/</span>
-        <a href="#value"><span class="box"></span> About</a>
-        <span class="slash">/</span>
-        <a href="#faq"><span class="box"></span> FAQs</a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#systems">Systems</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#lab">Lab</a>
+        <a href="#contact">Start</a>
       </nav>
       <div class="nav-actions">
-        <a class="signin" href="#contact">Sign in</a>
-        <a class="apply-btn" href="#contact">Apply now</a>
-        <button id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+        <a class="btn secondary" href="#lab">See the lab</a>
+        <a class="btn primary" href="#contact">Build with us</a>
+        <button id="menu-toggle" class="btn" type="button" aria-label="Open menu" aria-expanded="false">Menu</button>
       </div>
     </div>
   </header>
 
   <div id="mobile-nav" aria-label="Mobile navigation">
-    <a href="#areas">Domains</a>
-    <a href="#value">About</a>
-    <a href="#work">Work</a>
-    <a href="#faq">FAQs</a>
-    <a href="#contact">Apply now</a>
+    <a href="#systems">Systems</a>
+    <a href="#pipeline">Pipeline</a>
+    <a href="#lab">Lab</a>
+    <a href="#contact">Start</a>
   </div>
 
-  <main>
-    <section id="hero" class="hero grid-bg">
-      <div class="container observe">
-        <div class="crumb">Domain <span>/</span> <strong>Operations</strong></div>
-        <h1>Automate Work.<span>Grow Faster.</span></h1>
-        <p class="hero-copy">Build paid-for-itself automation systems that connect your tools, route your work, and give your team time back. Workflows for sales, finance, marketing, fulfillment, and more.</p>
-        <a class="outline-btn" href="#contact">Apply for an audit</a>
-        <div class="rate">Workflow systems / Built around your stack</div>
-      </div>
-    </section>
-
-    <section class="logo-section grid-bg" aria-label="Proof">
-      <p class="as-seen">Built with</p>
-      <div class="logo-track" aria-label="Commonly connected platforms">
-        <span class="logo-cell serif">HubSpot</span>
-        <span class="logo-cell">Salesforce</span>
-        <span class="logo-cell">Stripe</span>
-        <span class="logo-cell serif">Airtable</span>
-        <span class="logo-cell">Google Sheets</span>
-        <span class="logo-cell">Notion</span>
-        <span class="logo-cell serif">Zapier</span>
-        <span class="logo-cell">Make</span>
-      </div>
-      <div class="pixel-band from-light" data-pixels></div>
-    </section>
-
-    <section id="value" class="blue-section">
-      <div class="container">
-        <div class="blue-intro observe">
-          <h2>This is not busywork.</h2>
-          <p>The best teams still lose hours to duplicated updates, disconnected software, and unclear handoffs. MacroLogic is the operating signal that fixes this, one workflow at a time.</p>
+  <div class="page" id="top">
+    <main>
+      <section class="hero">
+        <div class="container hero-shell">
+          <div class="observe">
+            <p class="eyebrow">Automation infrastructure for operators</p>
+            <h1>Systems that move <span>before your team asks.</span></h1>
+            <p class="hero-copy">MacroLogic designs the operational layer between your tools: routing, enrichment, approvals, finance sync, reporting, and alerts that run with the speed of software and the judgment of a sharp operator.</p>
+          </div>
+          <aside class="hero-panel observe" aria-label="MacroLogic system metrics">
+            <div class="panel-row">
+              <div class="panel-key">01</div>
+              <div class="panel-value"><strong>4.7M</strong><span>workflow signals routed</span></div>
+            </div>
+            <div class="panel-row">
+              <div class="panel-key">02</div>
+              <div class="panel-value"><strong>28ms</strong><span>average trigger delay</span></div>
+            </div>
+            <div class="panel-row">
+              <div class="panel-key">03</div>
+              <div class="panel-value"><strong>82%</strong><span>manual work removed</span></div>
+            </div>
+          </aside>
         </div>
-        <div class="value-grid">
-          <article class="value-card featured observe">
-            <span class="chip">01-Rigor</span>
-            <h3>Real Workflow Thinking</h3>
-            <p>These are not shallow zaps or checkbox automations. We evaluate the logic of multi-step operations, catch edge cases, and build systems that actually answer the business problem.</p>
-          </article>
-          <article class="value-card observe">
-            <span class="chip">02-Signal</span>
-            <h3>Direct Impact on Operations</h3>
-            <p>Every automation becomes a signal for your team. When a lead is routed, a contract is signed, or an exception appears, the right person knows immediately.</p>
-          </article>
-          <article class="value-card observe">
-            <span class="chip">03-Flexibility</span>
-            <h3>Work With Your Stack</h3>
-            <p>No forced rebuild. We connect the CRM, inbox, spreadsheets, billing tools, dashboards, and APIs you already use.</p>
-          </article>
-          <article class="value-card observe">
-            <span class="chip">04-Rate</span>
-            <h3>Premium Leverage</h3>
-            <p>Manual operations are expensive. We target the repeated work that blocks revenue, then build a system that compounds every week.</p>
-          </article>
+      </section>
+
+      <div class="ticker" aria-label="MacroLogic capabilities">
+        <div class="ticker-track">
+          <span>CRM routing</span><span>billing sync</span><span>lead enrichment</span><span>approval gates</span><span>exception alerts</span><span>operator dashboards</span>
+          <span>CRM routing</span><span>billing sync</span><span>lead enrichment</span><span>approval gates</span><span>exception alerts</span><span>operator dashboards</span>
         </div>
       </div>
-    </section>
 
-    <div class="pixel-band black" data-pixels></div>
-
-    <section class="black-section">
-      <div class="container">
-        <div class="steps-head observe">
-          <h2>Three steps.<br />No overhead.</h2>
-          <p>No bloated transformation project. Start with one workflow, qualify the bottleneck, and launch a real system.</p>
-        </div>
-        <div class="steps-grid">
-          <article class="step-card observe">
-            <span class="chip">01</span>
-            <h3>Apply & Qualify</h3>
-            <p>Send the workflow that wastes the most time. We evaluate tools, data, handoffs, and failure points.</p>
-          </article>
-          <article class="step-card observe">
-            <span class="chip">02</span>
-            <h3>Get Matched</h3>
-            <p>Your workflow gets mapped to the right automation pattern: routing, sync, reporting, follow-up, or custom API work.</p>
-          </article>
-          <article class="step-card observe">
-            <span class="chip">03</span>
-            <h3>Work & Scale</h3>
-            <p>We launch, test, monitor, and document the system so your team gets leverage without losing control.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="work" class="work-scroll">
-      <div class="work-sticky">
-        <div class="container work-layout">
-          <div>
-            <h2 class="work-title">What you'll<br />actually do.</h2>
-            <article class="work-step active" data-work-step="0">
-              <span>01</span>
-              <h3>Write the workflow</h3>
-              <p>Document the real process: intake, ownership, timing, data, approvals, exceptions, and what success looks like.</p>
+      <section id="systems" class="section dark">
+        <div class="container">
+          <div class="section-head observe">
+            <h2>Not automations. Operating systems.</h2>
+            <p>Most teams do not need another app. They need the hidden connective tissue that moves records, decisions, and follow-ups through the tools they already use.</p>
+          </div>
+          <div class="system-grid">
+            <article class="system-node blue observe">
+              <div class="node-label"><span>Core loop</span><span>01</span></div>
+              <h3>Capture every signal, classify it, and send it to the right place.</h3>
+              <p>Website forms, inboxes, ad leads, spreadsheets, payment events, and internal requests become one consistent operating stream.</p>
             </article>
-            <article class="work-step" data-work-step="1">
-              <span>02</span>
-              <h3>Review system output</h3>
-              <p>Compare the current manual path against the automated flow. Confirm the right records, tasks, messages, and alerts are created.</p>
+            <article class="system-node observe">
+              <div class="node-label"><span>Decision layer</span><span>02</span></div>
+              <h3>Business rules that stay readable.</h3>
+              <p>We turn team judgment into transparent routing logic, approval thresholds, fallback owners, and exception paths.</p>
             </article>
-            <article class="work-step" data-work-step="2">
-              <span>03</span>
-              <h3>Launch the better system</h3>
-              <p>Approve the final workflow and let the system run while monitoring exceptions, timing, and team adoption.</p>
+            <article class="system-node observe">
+              <div class="node-label"><span>Human handoff</span><span>03</span></div>
+              <h3>People enter only where judgment matters.</h3>
+              <p>The system handles repetition. Operators get crisp alerts, context, and next actions when a human decision is actually useful.</p>
+            </article>
+            <article class="system-node blue observe">
+              <div class="node-label"><span>Proof</span><span>04</span></div>
+              <h3>Reports that explain what changed without another meeting.</h3>
+              <p>Dashboards and digests show velocity, exceptions, owner load, response times, and where the process is leaking.</p>
             </article>
           </div>
-          <div class="console" id="console" aria-live="polite">
-            <div class="console-top">
-              <span><span class="dot"></span><span id="console-mode">Evaluation - workflow accuracy</span></span>
-              <span class="status" id="console-status">In progress</span>
+        </div>
+      </section>
+
+      <section id="pipeline" class="section white">
+        <div class="container">
+          <div class="section-head observe">
+            <h2>A build process with clean edges.</h2>
+            <p>We start narrow, ship the highest-leverage workflow first, and leave behind systems your team can actually operate.</p>
+          </div>
+          <div class="pipeline">
+            <article class="pipe-card observe">
+              <span class="num">01 / Map</span>
+              <div>
+                <h3>Find the expensive handoff.</h3>
+                <p>We trace where records stall, data diverges, approvals lag, and teams ask for status manually.</p>
+              </div>
+            </article>
+            <article class="pipe-card observe">
+              <span class="num">02 / Model</span>
+              <div>
+                <h3>Turn judgment into logic.</h3>
+                <p>Rules, edge cases, fallback paths, ownership, and alerts are defined before anything goes live.</p>
+              </div>
+            </article>
+            <article class="pipe-card observe">
+              <span class="num">03 / Build</span>
+              <div>
+                <h3>Wire the tools you already trust.</h3>
+                <p>CRM, inbox, finance, spreadsheets, internal dashboards, and APIs become one workflow.</p>
+              </div>
+            </article>
+            <article class="pipe-card observe">
+              <span class="num">04 / Tune</span>
+              <div>
+                <h3>Monitor what production reveals.</h3>
+                <p>We watch the first runs, tighten exceptions, and document how the system should evolve.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="lab" class="section dark">
+        <div class="container">
+          <div class="section-head observe">
+            <h2>The lab view.</h2>
+            <p>Scroll-synced background logic mirrors how MacroLogic works: nothing moves until the operator creates signal.</p>
+          </div>
+          <div class="lab observe">
+            <div class="lab-menu" role="tablist" aria-label="Automation examples">
+              <button class="lab-tab active" type="button" data-tab="0"><span>01</span><div><strong>Lead intake</strong><small>Capture, enrich, route.</small></div></button>
+              <button class="lab-tab" type="button" data-tab="1"><span>02</span><div><strong>Finance sync</strong><small>Contracts, invoices, payouts.</small></div></button>
+              <button class="lab-tab" type="button" data-tab="2"><span>03</span><div><strong>Ops radar</strong><small>Exceptions, owners, velocity.</small></div></button>
             </div>
-            <p class="console-label" id="prompt-label">Current workflow</p>
-            <div class="prompt-box" id="prompt-box">Route every new lead from the website form into the CRM, enrich it, assign an owner, and alert the team if no one follows up within 15 minutes.</div>
-            <div id="console-body">
-              <p class="console-label">System output</p>
-              <div class="response-box">Lead source captured. Company field enriched. Deal created. Owner assigned based on territory and capacity. Slack alert queued. SLA timer started.</div>
-              <p class="console-label">Review notes</p>
-              <div class="notes-box">The main path is correct. Add a fallback owner if territory is missing and log enrichment failures for review.</div>
-              <span class="tiny-pill active">Accuracy</span>
-              <span class="tiny-pill">Completeness</span>
-              <span class="tiny-pill">Clarity</span>
+            <div class="lab-stage">
+              <div class="stage-top"><span id="stage-title">Workflow / Lead intake</span><span>Live draft</span></div>
+              <div class="stage-body" id="stage-body">
+                <div class="prompt">New lead arrives from paid search. Company is enriched, deal is created, owner is assigned by territory, and Slack is notified if follow-up has not started after 15 minutes.</div>
+                <div class="stage-grid">
+                  <div class="stage-box"><b>Input</b>Website form, UTM data, CRM owner map, enrichment API.</div>
+                  <div class="stage-box"><b>Output</b>Qualified deal, owner task, SLA timer, alert path, weekly report row.</div>
+                </div>
+                <div class="pill-row"><span class="pill active">Routing</span><span class="pill">Enrichment</span><span class="pill">Fallback owner</span><span class="pill">SLA alert</span></div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="areas" class="area-section grid-bg">
-      <div class="container">
-        <div class="area-head observe">
-          <h2>Where systems need you most.</h2>
-          <p>These are the places where disconnected tools create hidden cost. MacroLogic turns them into reliable operating flows.</p>
-        </div>
-        <div class="area-grid">
-          <article class="area-card observe">
-            <h3>Instruction Following & Task Completion</h3>
-            <p>Make every handoff explicit: owner, timing, required data, next step, and escalation path.</p>
-            <div class="tag-list">
-              <span class="tag">Prompt Adherence</span>
-              <span class="tag">Task Routing</span>
-              <span class="tag">SLA Tracking</span>
-            </div>
-          </article>
-          <article class="area-card observe">
-            <h3>Reasoning & Logical Coherence</h3>
-            <p>Turn messy judgment calls into clear business rules, qualification paths, and approval checkpoints.</p>
-            <div class="tag-list">
-              <span class="tag">Priority Scoring</span>
-              <span class="tag">Approvals</span>
-              <span class="tag">Escalations</span>
-            </div>
-          </article>
-          <article class="area-card observe">
-            <h3>Factual Accuracy & Data Sync</h3>
-            <p>Keep customer, deal, invoice, and fulfillment data aligned across every tool that touches the workflow.</p>
-            <div class="tag-list">
-              <span class="tag">Data Hygiene</span>
-              <span class="tag">Finance Sync</span>
-              <span class="tag">Error Detection</span>
-            </div>
-          </article>
-          <article class="area-card observe">
-            <h3>Conversational Quality & Safety</h3>
-            <p>Send the right follow-up at the right time while preserving human approval for sensitive communication.</p>
-            <div class="tag-list">
-              <span class="tag">Email</span>
-              <span class="tag">SMS</span>
-              <span class="tag">Team Alerts</span>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="stats-section">
-      <div class="container">
-        <div class="stats-grid observe">
-          <div class="stat">
-            <strong>4.7M</strong>
-            <span>Signals routed through automated workflows</span>
-          </div>
-          <div class="stat">
-            <strong>28ms</strong>
-            <span>Average trigger delay on live systems</span>
-          </div>
-          <div class="stat">
-            <strong>82%</strong>
-            <span>Manual work reduced in targeted workflows</span>
+      <section class="section white">
+        <div class="container">
+          <div class="metrics observe">
+            <div class="metric"><strong>01</strong><span>Systems built around existing tools, not platform lock-in.</span></div>
+            <div class="metric"><strong>02</strong><span>Human review where judgment matters, automation everywhere else.</span></div>
+            <div class="metric"><strong>03</strong><span>Operational dashboards that show what moved and what needs attention.</span></div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="faq" class="faq-section grid-bg">
-      <div class="container">
-        <div class="faq-head observe">
-          <h2>Frequently Asked Questions</h2>
-          <p>Have questions? Here are the most common questions before starting an automation audit.</p>
+      <section id="contact" class="section dark">
+        <div class="container contact-grid">
+          <div class="contact-copy observe">
+            <p class="eyebrow">Build the next operating layer</p>
+            <h2>Send the workflow that keeps dragging.</h2>
+            <p>Tell us where your team copies data, chases status, waits for approvals, or reconciles tools by hand. MacroLogic will map the cleanest automation path.</p>
+          </div>
+          <form id="contact-form" class="observe">
+            <input type="text" placeholder="Your name" required />
+            <input type="email" placeholder="Your email" required />
+            <textarea placeholder="What workflow should MacroLogic automate?"></textarea>
+            <button type="submit">Start the audit</button>
+          </form>
         </div>
-        <div class="faq observe">
-          <details open>
-            <summary>What kind of work will MacroLogic do?</summary>
-            <p>We build automations that connect your tools, route work, sync data, trigger follow-ups, alert your team, and report outcomes.</p>
-          </details>
-          <details>
-            <summary>What kind of projects are available?</summary>
-            <p>Common projects include CRM automation, lead routing, finance sync, reporting dashboards, customer follow-up, and custom API integrations.</p>
-          </details>
-          <details>
-            <summary>Who is this for?</summary>
-            <p>This is for growing teams with repeated operational work that is too important to keep handling manually.</p>
-          </details>
-          <details>
-            <summary>Do we need to replace our current software?</summary>
-            <p>No. The first goal is to make your existing stack behave like one connected system.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="cta-section">
-      <div class="container cta-grid">
-        <div class="observe">
-          <h2>Get ahead in a changing workforce.</h2>
-          <p>No bloated rebuild. No vague transformation project. Just meaningful automation work and real operational leverage.</p>
-        </div>
-        <form id="contact-form" class="observe">
-          <input type="text" placeholder="Your name" required />
-          <input type="email" placeholder="Your email" required />
-          <textarea placeholder="What workflow should MacroLogic automate?"></textarea>
-          <button type="submit">Apply now</button>
-        </form>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
+  </div>
 
   <footer>
     <div class="container footer-grid">
-      <div>
-        <a class="brand" href="#hero">
-          <span class="brand-symbol">ML</span>
-          <span>MACRO<br />LOGIC</span>
-        </a>
-      </div>
-      <div>
-        <h4>Company</h4>
-        <a href="#value">About</a>
-        <a href="#faq">FAQs</a>
-      </div>
-      <div>
-        <h4>Automation Domains</h4>
-        <a href="#areas">Operations</a>
-        <a href="#areas">Sales</a>
-        <a href="#areas">Finance</a>
-      </div>
-      <div>
-        <h4>Location</h4>
-        <span>Toronto</span>
-        <span>Remote-first</span>
-        <span>© MacroLogic 2026</span>
-      </div>
+      <span>© MacroLogic 2026</span>
+      <span>Toronto / Remote-first</span>
+      <span>Black / white / grey / blue</span>
     </div>
   </footer>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      const body = document.body;
+      const mobileNav = document.getElementById("mobile-nav");
+      const menuToggle = document.getElementById("menu-toggle");
+      const canvas = document.getElementById("life");
+      const ctx = canvas.getContext("2d", { alpha: false });
+      const tabs = [...document.querySelectorAll(".lab-tab")];
+      const stageTitle = document.getElementById("stage-title");
+      const stageBody = document.getElementById("stage-body");
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -1324,95 +1072,175 @@
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.14 });
+      }, { threshold: 0.15 });
 
       document.querySelectorAll(".observe").forEach(el => observer.observe(el));
 
-      const button = document.getElementById("menu-toggle");
-      const mobileNav = document.getElementById("mobile-nav");
-
-      button.addEventListener("click", () => {
+      menuToggle.addEventListener("click", () => {
         const isOpen = mobileNav.style.display === "block";
         mobileNav.style.display = isOpen ? "none" : "block";
-        button.setAttribute("aria-expanded", String(!isOpen));
+        menuToggle.setAttribute("aria-expanded", String(!isOpen));
       });
 
       mobileNav.querySelectorAll("a").forEach(link => {
         link.addEventListener("click", () => {
           mobileNav.style.display = "none";
-          button.setAttribute("aria-expanded", "false");
+          menuToggle.setAttribute("aria-expanded", "false");
         });
       });
 
-      const pixelBands = document.querySelectorAll("[data-pixels]");
-      const workScroll = document.querySelector(".work-scroll");
-      const workSteps = [...document.querySelectorAll(".work-step")];
-      const consoleEl = document.getElementById("console");
-      const consoleMode = document.getElementById("console-mode");
-      const consoleStatus = document.getElementById("console-status");
-      const promptLabel = document.getElementById("prompt-label");
-      const promptBox = document.getElementById("prompt-box");
-      const consoleBody = document.getElementById("console-body");
-
-      const panels = [
+      const examples = [
         {
-          mode: "Evaluation - workflow accuracy",
-          status: "In progress",
-          label: "Current workflow",
-          prompt: "Route every new lead from the website form into the CRM, enrich it, assign an owner, and alert the team if no one follows up within 15 minutes.",
-          body: "<p class=\"console-label\">System output</p><div class=\"response-box\">Lead source captured. Company field enriched. Deal created. Owner assigned based on territory and capacity. Slack alert queued. SLA timer started.</div><p class=\"console-label\">Review notes</p><div class=\"notes-box\">The main path is correct. Add a fallback owner if territory is missing and log enrichment failures for review.</div><span class=\"tiny-pill active\">Accuracy</span><span class=\"tiny-pill\">Completeness</span><span class=\"tiny-pill\">Clarity</span>"
+          title: "Workflow / Lead intake",
+          prompt: "New lead arrives from paid search. Company is enriched, deal is created, owner is assigned by territory, and Slack is notified if follow-up has not started after 15 minutes.",
+          input: "Website form, UTM data, CRM owner map, enrichment API.",
+          output: "Qualified deal, owner task, SLA timer, alert path, weekly report row.",
+          pills: ["Routing", "Enrichment", "Fallback owner", "SLA alert"]
         },
         {
-          mode: "Comparison - routing logic",
-          status: "Needs ranking",
-          label: "Manual path",
-          prompt: "A lead comes in after hours with no territory field. Compare the current manual process against the automated fallback route.",
-          body: "<div class=\"split\"><div><p class=\"console-label\">Response A</p><div class=\"response-box\">Create the lead, wait for admin review, then assign next morning.</div></div><div><p class=\"console-label\">Response B</p><div class=\"response-box\">Create the lead, assign fallback owner, send alert, and flag territory as missing.</div></div></div><p class=\"console-label\">Your ranking</p><span class=\"tiny-pill active\">B > A</span><span class=\"tiny-pill\">Faster and safer</span>"
+          title: "Workflow / Finance sync",
+          prompt: "Signed contract triggers invoice creation, payment schedule, internal kickoff, revenue forecast update, and a reconciliation check against the CRM deal amount.",
+          input: "Contract status, billing terms, CRM deal, finance account.",
+          output: "Invoice, payout task, forecast update, exception alert.",
+          pills: ["Invoice", "Forecast", "Reconcile", "Approval"]
         },
         {
-          mode: "Gold standard - launch notes",
-          status: "Ready",
-          label: "Approved system",
-          prompt: "Launch the workflow with monitoring, documented ownership, fallback paths, and reporting for exceptions.",
-          body: "<p class=\"console-label\">Final automation</p><div class=\"response-box\">Webhook intake, enrichment, routing rules, fallback owner, SLA timer, Slack alert, CRM note, and weekly exception report are live.</div><p class=\"console-label\">Launch notes</p><div class=\"notes-box\">Team has owner docs, rollback path, monitoring dashboard, and first-week review scheduled.</div><span class=\"tiny-pill active\">Approved</span><span class=\"tiny-pill\">Documented</span><span class=\"tiny-pill\">Monitored</span>"
+          title: "Workflow / Ops radar",
+          prompt: "Daily workflow activity is compressed into a dashboard showing owner load, stuck records, response latency, and exceptions that need escalation.",
+          input: "CRM events, task state, inbox activity, fulfillment logs.",
+          output: "Ops dashboard, digest, bottleneck map, escalation queue.",
+          pills: ["Velocity", "Exceptions", "Owner load", "Digest"]
         }
       ];
 
-      let currentPanel = 0;
-
-      function setPanel(index) {
-        if (index === currentPanel) return;
-        currentPanel = index;
-        workSteps.forEach((step, stepIndex) => {
-          step.classList.toggle("active", stepIndex === index);
-        });
-        consoleEl.classList.add("fade");
+      function setExample(index) {
+        const example = examples[index];
+        tabs.forEach((tab, tabIndex) => tab.classList.toggle("active", tabIndex === index));
+        stageBody.classList.add("fade");
         window.setTimeout(() => {
-          const panel = panels[index];
-          consoleMode.textContent = panel.mode;
-          consoleStatus.textContent = panel.status;
-          promptLabel.textContent = panel.label;
-          promptBox.textContent = panel.prompt;
-          consoleBody.innerHTML = panel.body;
-          consoleEl.classList.remove("fade");
+          stageTitle.textContent = example.title;
+          stageBody.innerHTML = `
+            <div class="prompt">${example.prompt}</div>
+            <div class="stage-grid">
+              <div class="stage-box"><b>Input</b>${example.input}</div>
+              <div class="stage-box"><b>Output</b>${example.output}</div>
+            </div>
+            <div class="pill-row">${example.pills.map((pill, pillIndex) => `<span class="pill ${pillIndex === 0 ? "active" : ""}">${pill}</span>`).join("")}</div>
+          `;
+          stageBody.classList.remove("fade");
         }, 120);
       }
 
-      function onScroll() {
-        const y = window.scrollY;
-        pixelBands.forEach((band, index) => {
-          band.style.setProperty("--phase", Math.round((y * (index + 1) * 0.28) % 288));
-        });
+      tabs.forEach(tab => {
+        tab.addEventListener("click", () => setExample(Number(tab.dataset.tab)));
+      });
 
-        if (!workScroll) return;
-        const rect = workScroll.getBoundingClientRect();
-        const scrollable = Math.max(1, rect.height - window.innerHeight);
-        const progress = Math.min(0.999, Math.max(0, -rect.top / scrollable));
-        setPanel(Math.min(2, Math.floor(progress * 3)));
+      let cell = 18;
+      let cols = 0;
+      let rows = 0;
+      let grid = [];
+      let next = [];
+      let lastScroll = window.scrollY;
+      let scrollEnergy = 0;
+      let framePending = false;
+
+      function resizeLife() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(window.innerWidth * dpr);
+        canvas.height = Math.floor(window.innerHeight * dpr);
+        canvas.style.width = `${window.innerWidth}px`;
+        canvas.style.height = `${window.innerHeight}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        cell = window.innerWidth < 720 ? 14 : 18;
+        cols = Math.ceil(window.innerWidth / cell);
+        rows = Math.ceil(window.innerHeight / cell);
+        grid = Array.from({ length: rows }, (_, y) =>
+          Array.from({ length: cols }, (_, x) => {
+            const edge = x < 2 || y < 2 || x > cols - 3 || y > rows - 3;
+            return edge ? 0 : Math.random() > 0.82 ? 1 : 0;
+          })
+        );
+        next = Array.from({ length: rows }, () => Array(cols).fill(0));
+        drawLife();
       }
 
-      window.addEventListener("scroll", onScroll, { passive: true });
-      onScroll();
+      function countNeighbors(x, y) {
+        let count = 0;
+        for (let yy = -1; yy <= 1; yy += 1) {
+          for (let xx = -1; xx <= 1; xx += 1) {
+            if (xx === 0 && yy === 0) continue;
+            const nx = (x + xx + cols) % cols;
+            const ny = (y + yy + rows) % rows;
+            count += grid[ny][nx];
+          }
+        }
+        return count;
+      }
+
+      function seedFromScroll(delta) {
+        const direction = delta >= 0 ? 1 : -1;
+        const band = Math.max(2, Math.min(rows - 3, Math.floor((window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight)) * rows)));
+        const width = Math.min(cols, 7 + Math.floor(Math.abs(delta) / 18));
+        for (let i = 0; i < width; i += 1) {
+          const x = (Math.floor((i / width) * cols) + Math.floor(window.scrollY / cell)) % cols;
+          const y = Math.max(1, Math.min(rows - 2, band + ((i % 5) - 2) * direction));
+          grid[y][x] = 1;
+          if (grid[y + 1]) grid[y + 1][(x + direction + cols) % cols] = 1;
+        }
+      }
+
+      function stepLife(delta) {
+        seedFromScroll(delta);
+        for (let y = 0; y < rows; y += 1) {
+          for (let x = 0; x < cols; x += 1) {
+            const neighbors = countNeighbors(x, y);
+            const alive = grid[y][x] === 1;
+            next[y][x] = alive ? (neighbors === 2 || neighbors === 3 ? 1 : 0) : (neighbors === 3 ? 1 : 0);
+          }
+        }
+        [grid, next] = [next, grid];
+      }
+
+      function drawLife() {
+        ctx.fillStyle = "#f6f7f5";
+        ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+        ctx.fillStyle = "#064df4";
+        for (let y = 0; y < rows; y += 1) {
+          for (let x = 0; x < cols; x += 1) {
+            if (!grid[y][x]) continue;
+            const alpha = 0.14 + Math.min(0.3, scrollEnergy * 0.002);
+            ctx.globalAlpha = alpha;
+            ctx.fillRect(x * cell, y * cell, cell - 1, cell - 1);
+          }
+        }
+        ctx.globalAlpha = 1;
+      }
+
+      function requestLifeFrame(delta) {
+        if (prefersReducedMotion) return;
+        scrollEnergy = Math.min(160, Math.abs(delta));
+        if (framePending) return;
+        framePending = true;
+        requestAnimationFrame(() => {
+          const steps = Math.max(1, Math.min(4, Math.floor(scrollEnergy / 34)));
+          for (let i = 0; i < steps; i += 1) stepLife(delta);
+          drawLife();
+          framePending = false;
+        });
+      }
+
+      function handleScroll() {
+        const current = window.scrollY;
+        const delta = current - lastScroll;
+        body.classList.toggle("nav-compressed", current > 44);
+        if (Math.abs(delta) > 0) requestLifeFrame(delta);
+        lastScroll = current;
+      }
+
+      window.addEventListener("resize", resizeLife);
+      window.addEventListener("scroll", handleScroll, { passive: true });
+      resizeLife();
+      handleScroll();
     });
   </script>
 </body>
