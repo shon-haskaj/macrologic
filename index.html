@@ -2,244 +2,787 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MacroLogic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MacroLogic builds clean automation systems for growing operators, connecting sales, finance, marketing, and fulfillment into one simple workflow." />
+  <meta name="keywords" content="MacroLogic, automation, workflow systems, business operations, AI automation" />
+  <meta name="author" content="MacroLogic" />
+  <meta name="robots" content="index, follow" />
+  <title>MacroLogic | Simple Automation Systems</title>
+  <link rel="canonical" href="https://macrologic.ca/" />
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap');
-
     :root {
-      --bg: #000000;
-      --fg: #f2f2f2;
-      --shadow-1: #9b9b9b;
-      --shadow-2: #6f6f6f;
-      --shadow-3: #4e4e4e;
-      --shadow-4: #2c2c2c;
+      --bg: #f7fbf7;
+      --surface: #ffffff;
+      --surface-soft: #edf8f1;
+      --ink: #121713;
+      --muted: #5c675f;
+      --line: #d8e6dc;
+      --mint: #26d07c;
+      --mint-dark: #069953;
+      --teal: #0c8f84;
+      --yellow: #f4c84a;
+      --shadow: 0 18px 45px rgba(21, 64, 42, 0.12);
+      --radius: 8px;
+      --header-h: 76px;
+      --font: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
     }
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      margin: 0;
       min-height: 100vh;
-      display: grid;
-      place-items: center;
       background: var(--bg);
-      color: var(--fg);
-      font-family: 'Space Grotesk', 'Futura', sans-serif;
+      color: var(--ink);
+      font-family: var(--font);
+      line-height: 1.55;
+      overflow-x: hidden;
     }
 
-    .scene {
-      perspective: 900px;
+    a {
+      color: inherit;
     }
 
-    .word {
-      --rotateY: 0deg;
+    .container {
+      width: min(1120px, calc(100vw - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      height: var(--header-h);
+      background: rgba(247, 251, 247, 0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-shell {
+      height: 100%;
       display: flex;
-      gap: 0.08em;
-      transform-style: preserve-3d;
-      transform: rotateY(var(--rotateY));
-      cursor: grab;
-      user-select: none;
-      touch-action: none;
-      will-change: transform;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
     }
 
-    .word.dragging {
-      cursor: grabbing;
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0;
     }
 
-    .letter {
-      position: relative;
-      display: inline-block;
-      font-size: clamp(2.5rem, 9vw, 7rem);
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: var(--muted);
+      font-size: 0.95rem;
       font-weight: 700;
+    }
+
+    nav a {
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: var(--ink);
+    }
+
+    .nav-cta,
+    .btn-primary,
+    .btn-secondary,
+    #contact-form button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border: 0;
+      border-radius: var(--radius);
+      font: inherit;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .nav-cta,
+    .btn-primary,
+    #contact-form button {
+      background: var(--mint);
+      color: #06150d;
+      box-shadow: 0 10px 24px rgba(38, 208, 124, 0.28);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+
+    .nav-cta:hover,
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    #contact-form button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    #menu-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--ink);
+      font-size: 1.45rem;
       line-height: 1;
+    }
+
+    #mobile-nav {
+      display: none;
+      position: fixed;
+      inset: var(--header-h) 0 auto 0;
+      z-index: 40;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    #mobile-nav a {
+      display: block;
+      padding: 18px 24px;
+      color: var(--ink);
+      font-weight: 800;
+      text-decoration: none;
+      border-top: 1px solid var(--line);
+    }
+
+    main {
+      overflow: hidden;
+    }
+
+    section {
+      padding: 86px 0;
+    }
+
+    .hero {
+      min-height: calc(100vh - var(--header-h));
+      display: flex;
+      align-items: center;
+      padding: 58px 0 76px;
+      background:
+        linear-gradient(90deg, rgba(247, 251, 247, 0.95), rgba(247, 251, 247, 0.55)),
+        url("https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1800&q=80") center / cover;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-content {
+      max-width: 760px;
+    }
+
+    .eyebrow,
+    .section-label {
+      color: var(--mint-dark);
+      font-size: 0.88rem;
+      font-weight: 900;
       text-transform: uppercase;
-      transform-style: preserve-3d;
-      transform: translateZ(0);
+      letter-spacing: 0;
+      margin-bottom: 14px;
     }
 
-    .letter .face {
-      position: relative;
-      display: inline-block;
-      color: var(--fg);
-      text-shadow:
-        1px 1px 0 var(--shadow-1),
-        2px 2px 0 var(--shadow-2),
-        3px 3px 0 var(--shadow-3),
-        4px 4px 0 var(--shadow-4),
-        8px 10px 18px rgba(0, 0, 0, 0.75);
-      transform: translateZ(2px);
+    h1 {
+      max-width: 720px;
+      font-size: clamp(3rem, 8vw, 5.8rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+      margin-bottom: 22px;
     }
 
-    .letter .depth {
-      position: absolute;
-      inset: 0;
-      transform: translateX(var(--x, 0px)) translateZ(var(--z, 0px));
-      pointer-events: none;
-      opacity: var(--o, 0.7);
+    .hero-copy {
+      max-width: 640px;
+      color: #334039;
+      font-size: 1.2rem;
+      margin-bottom: 30px;
     }
 
-    .letter::after {
-      content: attr(data-letter);
-      position: absolute;
-      inset: 0;
-      color: transparent;
-      background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 35%, rgba(255, 255, 255, 0) 60%);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      mix-blend-mode: screen;
-      animation: shine 3.5s ease-in-out infinite;
-      transform: translateZ(3px);
-      pointer-events: none;
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 38px;
     }
 
-    @keyframes shine {
-      0% { background-position: 0% 50%; opacity: 0.4; }
-      50% { background-position: 100% 50%; opacity: 0.9; }
-      100% { background-position: 0% 50%; opacity: 0.4; }
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      max-width: 720px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .metric {
+      background: rgba(255, 255, 255, 0.92);
+      padding: 22px;
+    }
+
+    .metric .value {
+      display: block;
+      font-size: 2rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .metric .label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .band {
+      background: var(--surface);
+      border-block: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(260px, 0.55fr);
+      gap: 40px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(21, 64, 42, 0.06);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(38, 208, 124, 0.62);
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: var(--muted);
+    }
+
+    .step-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      counter-reset: steps;
+    }
+
+    .step {
+      counter-increment: steps;
+      min-height: 250px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 26px;
+    }
+
+    .step::before {
+      content: counter(steps, decimal-leading-zero);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      margin-bottom: 30px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--surface);
+      font-weight: 900;
+    }
+
+    .proof-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .quote {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 300px;
+      background: var(--ink);
+      color: var(--surface);
+      border-radius: var(--radius);
+      padding: 30px;
+    }
+
+    .quote p {
+      font-size: 1.55rem;
+      line-height: 1.25;
+    }
+
+    .quote cite {
+      color: #b9c8bd;
+      font-style: normal;
+      font-weight: 800;
+      margin-top: 28px;
+    }
+
+    .image-panel {
+      min-height: 300px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(6, 153, 83, 0.05), rgba(6, 153, 83, 0.22)),
+        url("https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1400&q=80") center / cover;
+    }
+
+    .faq {
+      max-width: 900px;
+      margin: 0 auto;
+      border-top: 1px solid var(--line);
+    }
+
+    details {
+      border-bottom: 1px solid var(--line);
+      background: transparent;
+    }
+
+    summary {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 24px 0;
+      font-size: 1.14rem;
+      font-weight: 900;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      color: var(--mint-dark);
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+
+    details[open] summary::after {
+      content: "-";
+    }
+
+    details p {
+      max-width: 760px;
+      color: var(--muted);
+      padding: 0 0 24px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .contact-card {
+      background: var(--teal);
+      color: var(--surface);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .contact-card h2 {
+      margin-bottom: 18px;
+    }
+
+    .contact-card p {
+      color: rgba(255, 255, 255, 0.86);
+      margin-bottom: 18px;
+    }
+
+    .contact-card a {
+      color: var(--surface);
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    #contact-form {
+      display: grid;
+      gap: 14px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    #contact-form input,
+    #contact-form textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfdfb;
+      color: var(--ink);
+      font: inherit;
+      padding: 15px 16px;
+    }
+
+    #contact-form textarea {
+      resize: vertical;
+      min-height: 132px;
+    }
+
+    footer {
+      padding: 30px 0;
+      color: var(--muted);
+      background: var(--surface);
+      border-top: 1px solid var(--line);
+      font-size: 0.95rem;
+    }
+
+    .footer-shell {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .observe {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .observe.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 920px) {
+      nav,
+      .nav-cta {
+        display: none;
+      }
+
+      #menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero {
+        align-items: end;
+        min-height: 720px;
+        background-position: 58% center;
+      }
+
+      .section-head,
+      .proof-layout,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .step-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      :root {
+        --header-h: 68px;
+      }
+
+      .container {
+        width: min(100% - 28px, 1120px);
+      }
+
+      section {
+        padding: 62px 0;
+      }
+
+      .hero {
+        min-height: 680px;
+        padding: 34px 0 48px;
+        background:
+          linear-gradient(180deg, rgba(247, 251, 247, 0.72), rgba(247, 251, 247, 0.98) 58%),
+          url("https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=80") center top / cover;
+      }
+
+      h1 {
+        font-size: clamp(2.75rem, 15vw, 4.5rem);
+      }
+
+      .hero-copy {
+        font-size: 1.05rem;
+      }
+
+      .cta-group,
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+      }
+
+      .hero-metrics,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quote p {
+        font-size: 1.32rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="scene">
-    <div class="word" id="word" aria-label="MacroLogic">
-      <span class="letter" data-letter="M">M</span>
-      <span class="letter" data-letter="A">A</span>
-      <span class="letter" data-letter="C">C</span>
-      <span class="letter" data-letter="R">R</span>
-      <span class="letter" data-letter="O">O</span>
-      <span class="letter" data-letter="L">L</span>
-      <span class="letter" data-letter="O">O</span>
-      <span class="letter" data-letter="G">G</span>
-      <span class="letter" data-letter="I">I</span>
-      <span class="letter" data-letter="C">C</span>
+  <header>
+    <div class="container nav-shell">
+      <a class="logo" href="#hero">MacroLogic</a>
+      <nav aria-label="Primary navigation">
+        <a href="#modules">Services</a>
+        <a href="#systems">Process</a>
+        <a href="#proof">Results</a>
+        <a href="#faq">Questions</a>
+      </nav>
+      <a class="nav-cta" href="#contact">Get Started</a>
+      <button id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
     </div>
+  </header>
+
+  <div id="mobile-nav" aria-label="Mobile navigation">
+    <a href="#modules">Services</a>
+    <a href="#systems">Process</a>
+    <a href="#proof">Results</a>
+    <a href="#faq">Questions</a>
+    <a href="#contact">Get Started</a>
   </div>
+
+  <main>
+    <section id="hero" class="hero">
+      <div class="container">
+        <div class="hero-content observe">
+          <p class="eyebrow">Flexible automation support for growing teams</p>
+          <h1>Clean systems for work that should run itself.</h1>
+          <p class="hero-copy">MacroLogic connects your CRM, inbox, billing, reporting, and fulfillment tools so your team spends less time copying data and more time moving deals forward.</p>
+          <div class="cta-group">
+            <a class="btn-primary" href="#contact">Apply for a Workflow Audit</a>
+            <a class="btn-secondary" href="#modules">See What We Build</a>
+          </div>
+          <div class="hero-metrics" aria-label="MacroLogic results">
+            <div class="metric">
+              <span class="value">4.7M</span>
+              <span class="label">Signals routed</span>
+            </div>
+            <div class="metric">
+              <span class="value">28ms</span>
+              <span class="label">Average trigger delay</span>
+            </div>
+            <div class="metric">
+              <span class="value">82%</span>
+              <span class="label">Manual work reduced</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="modules">
+      <div class="container">
+        <div class="section-head observe">
+          <div>
+            <p class="section-label">Do tasks, save time</p>
+            <h2>Automation that fits the way your team already works.</h2>
+          </div>
+          <p class="section-intro">The theme is intentionally simple: direct copy, clean white space, green calls to action, and practical proof points.</p>
+        </div>
+        <div class="grid">
+          <article class="card observe">
+            <h3>Lead Routing</h3>
+            <p>Capture, enrich, score, and assign prospects from forms, email, ads, and spreadsheets without handoffs.</p>
+          </article>
+          <article class="card observe">
+            <h3>Follow-up Systems</h3>
+            <p>Coordinate email, SMS, tasks, and CRM updates from one clear sequence that adapts to replies.</p>
+          </article>
+          <article class="card observe">
+            <h3>Finance Sync</h3>
+            <p>Connect contracts, invoices, payouts, and reporting so revenue data stays accurate across tools.</p>
+          </article>
+          <article class="card observe">
+            <h3>Ops Reporting</h3>
+            <p>Turn daily activity into simple dashboards that show what is stuck, what changed, and what needs attention.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="systems" class="band">
+      <div class="container">
+        <div class="section-head observe">
+          <div>
+            <p class="section-label">Get started</p>
+            <h2>A straightforward path from messy workflow to live system.</h2>
+          </div>
+          <p class="section-intro">Each engagement is built around a specific operating bottleneck, then shipped as a working automation.</p>
+        </div>
+        <div class="step-grid">
+          <article class="step observe">
+            <h3>Map the Work</h3>
+            <p>We review the tools, handoffs, exceptions, and repetitive decisions that slow your team down.</p>
+          </article>
+          <article class="step observe">
+            <h3>Build the Flow</h3>
+            <p>We connect the APIs, data tables, notifications, and approvals needed to run the process reliably.</p>
+          </article>
+          <article class="step observe">
+            <h3>Launch and Tune</h3>
+            <p>We monitor the first runs, tighten edge cases, and leave your team with clear ownership docs.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="proof">
+      <div class="container proof-layout">
+        <div class="quote observe">
+          <p>"MacroLogic took a workflow our team avoided and turned it into something that runs quietly every day."</p>
+          <cite>Operations lead, real estate services</cite>
+        </div>
+        <div class="image-panel observe" role="img" aria-label="Team reviewing workflow automation dashboards"></div>
+      </div>
+    </section>
+
+    <section id="faq" class="band">
+      <div class="container">
+        <div class="section-head observe">
+          <div>
+            <p class="section-label">Questions?</p>
+            <h2>Answers.</h2>
+          </div>
+          <p class="section-intro">Clear expectations before we touch your stack.</p>
+        </div>
+        <div class="faq observe">
+          <details open>
+            <summary>How quickly can we start?</summary>
+            <p>Most audits can begin within a week. Small workflow builds usually launch in two to four weeks depending on tool access and approval complexity.</p>
+          </details>
+          <details>
+            <summary>What tools do you work with?</summary>
+            <p>We commonly connect CRMs, inboxes, forms, spreadsheets, finance tools, databases, internal dashboards, and custom APIs.</p>
+          </details>
+          <details>
+            <summary>Do we need to replace our current software?</summary>
+            <p>No. The goal is usually to make your current stack behave like one connected system before introducing new tools.</p>
+          </details>
+          <details>
+            <summary>Who is this for?</summary>
+            <p>MacroLogic is for teams with enough repeated operational work that manual copying, chasing, and reporting have become expensive.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container contact-grid">
+        <div class="contact-card observe">
+          <p class="section-label" style="color:#dff8e9;">Limited build capacity</p>
+          <h2>Tell us what should run automatically.</h2>
+          <p>Send the workflow that wastes the most time. We will respond with the cleanest starting point.</p>
+          <a href="mailto:hello@macrologic.ca">hello@macrologic.ca</a>
+        </div>
+        <form id="contact-form" class="observe">
+          <input type="text" placeholder="Your name" required />
+          <input type="email" placeholder="Your email" required />
+          <textarea placeholder="What workflow should we automate?"></textarea>
+          <button type="submit">Submit Workflow</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-shell">
+      <p>&copy; 2026 MacroLogic. All rights reserved.</p>
+      <p><a href="mailto:hello@macrologic.ca">hello@macrologic.ca</a></p>
+    </div>
+  </footer>
+
   <script>
-    (() => {
-      const word = document.getElementById('word');
-      const depth = 14;
-      const depthStep = 2.4;
-      const xStep = 0.8;
-      const minShade = 6;
-      const maxShade = 28;
-      const minOpacity = 0.25;
-      const maxOpacity = 0.85;
+    document.addEventListener("DOMContentLoaded", () => {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.18 });
 
-      document.querySelectorAll('.letter').forEach((letter) => {
-        const char = letter.textContent;
-        const face = document.createElement('span');
-        face.className = 'face';
-        face.textContent = char;
-        letter.textContent = '';
-        letter.appendChild(face);
+      document.querySelectorAll(".observe").forEach(el => observer.observe(el));
 
-        for (let i = 1; i <= depth; i += 1) {
-          const slice = document.createElement('span');
-          slice.className = 'depth';
-          slice.textContent = char;
-          slice.style.setProperty('--z', `-${i * depthStep}px`);
-          slice.style.setProperty('--x', `${i * xStep}px`);
-          const shade = maxShade - (i / depth) * (maxShade - minShade);
-          slice.style.color = `hsl(0 0% ${shade}%)`;
-          const opacity = maxOpacity - (i / depth) * (maxOpacity - minOpacity);
-          slice.style.setProperty('--o', opacity.toFixed(3));
-          letter.appendChild(slice);
-        }
+      const button = document.getElementById("menu-toggle");
+      const mobileNav = document.getElementById("mobile-nav");
+
+      button.addEventListener("click", () => {
+        const isOpen = mobileNav.style.display === "block";
+        mobileNav.style.display = isOpen ? "none" : "block";
+        button.setAttribute("aria-expanded", String(!isOpen));
       });
 
-      let isDragging = false;
-      let lastX = 0;
-      let lastMoveTime = 0;
-      let current = 0;
-      let velocity = 0;
-      let rafId = null;
-      let lastTime = 0;
-      const speed = 0.4;
-      const friction = 0.94;
-      const snapStrength = 0.08;
-      const snapThreshold = 0.4;
-      const stopThreshold = 0.02;
-
-      const setRotate = (value) => {
-        current = value;
-        word.style.setProperty('--rotateY', `${current}deg`);
-      };
-
-      const animate = (time) => {
-        if (isDragging) {
-          rafId = null;
-          lastTime = 0;
-          return;
-        }
-
-        if (!lastTime) lastTime = time;
-        const dt = (time - lastTime) / 16.666;
-        lastTime = time;
-
-        velocity *= Math.pow(friction, dt);
-        velocity += (-current) * snapStrength;
-        current += velocity * dt;
-        setRotate(current);
-
-        if (Math.abs(velocity) < stopThreshold && Math.abs(current) < snapThreshold) {
-          setRotate(0);
-          rafId = null;
-          lastTime = 0;
-          return;
-        }
-
-        rafId = requestAnimationFrame(animate);
-      };
-
-      const startInertia = () => {
-        if (rafId) return;
-        rafId = requestAnimationFrame(animate);
-      };
-
-      word.addEventListener('pointerdown', (event) => {
-        isDragging = true;
-        lastX = event.clientX;
-        lastMoveTime = performance.now();
-        word.setPointerCapture(event.pointerId);
-        word.classList.add('dragging');
-        if (rafId) {
-          cancelAnimationFrame(rafId);
-          rafId = null;
-          lastTime = 0;
-        }
+      mobileNav.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+          mobileNav.style.display = "none";
+          button.setAttribute("aria-expanded", "false");
+        });
       });
-
-      word.addEventListener('pointermove', (event) => {
-        if (!isDragging) return;
-        const now = performance.now();
-        const deltaTime = Math.max(16, now - lastMoveTime);
-        const delta = event.clientX - lastX;
-        const deltaDegrees = delta * speed;
-        current += deltaDegrees;
-        velocity = deltaDegrees / (deltaTime / 16.666);
-        setRotate(current);
-        lastX = event.clientX;
-        lastMoveTime = now;
-      });
-
-      const stopDrag = (event) => {
-        if (!isDragging) return;
-        isDragging = false;
-        word.classList.remove('dragging');
-        if (event && event.pointerId != null) {
-          word.releasePointerCapture(event.pointerId);
-        }
-        startInertia();
-      };
-
-      word.addEventListener('pointerup', stopDrag);
-      word.addEventListener('pointercancel', stopDrag);
-    })();
+    });
   </script>
 </body>
 </html>
