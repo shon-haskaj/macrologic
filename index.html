@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="MacroLogic builds automation systems for growing operators, connecting sales, finance, marketing, and fulfillment into one reliable workflow." />
+  <meta name="description" content="MacroLogic builds automation systems for growing operators, connecting sales, finance, marketing, and fulfillment into reliable workflows." />
   <meta name="keywords" content="MacroLogic, automation, workflow systems, business operations, AI automation" />
   <meta name="author" content="MacroLogic" />
   <meta name="robots" content="index, follow" />
@@ -12,19 +12,20 @@
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
   <style>
     :root {
-      --bg: #f6f8f1;
+      --white: #f4f4f2;
       --paper: #ffffff;
-      --paper-2: #eef5ea;
-      --ink: #0c0f0d;
-      --muted: #5d665e;
-      --line: #d9e4d5;
-      --green: #27d17f;
-      --green-dark: #008f4f;
-      --yellow: #f3c84b;
-      --charcoal: #151917;
-      --radius: 12px;
-      --shadow: 0 24px 60px rgba(27, 52, 36, 0.12);
-      --font: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      --grid: rgba(255, 255, 255, 0.72);
+      --ink: #030303;
+      --muted: #6b6f73;
+      --line: #cfcfcf;
+      --blue: #064df4;
+      --green: #16c84e;
+      --pink: #ee4eea;
+      --black: #050505;
+      --dark-card: #111116;
+      --mono: "SFMono-Regular", "Cascadia Mono", "Liberation Mono", "Courier New", monospace;
+      --sans: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      --nav-h: 96px;
     }
 
     * {
@@ -35,13 +36,13 @@
 
     html {
       scroll-behavior: smooth;
+      background: var(--black);
     }
 
     body {
-      background: var(--bg);
+      background: var(--white);
       color: var(--ink);
-      font-family: var(--font);
-      line-height: 1.5;
+      font-family: var(--sans);
       overflow-x: hidden;
     }
 
@@ -56,527 +57,696 @@
       font: inherit;
     }
 
+    .grid-bg {
+      background-color: #eeeeec;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 72px 72px;
+    }
+
     .container {
-      width: min(1180px, calc(100vw - 40px));
+      width: min(1776px, calc(100vw - 144px));
       margin: 0 auto;
     }
 
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 40;
-      background: rgba(246, 248, 241, 0.94);
+      z-index: 50;
+      height: var(--nav-h);
+      background: rgba(255, 255, 255, 0.96);
+      border-top: 3px solid var(--ink);
       border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(18px);
+      font-family: var(--mono);
+      text-transform: uppercase;
     }
 
     .nav {
-      min-height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 22px;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 180px 1fr auto;
+      align-items: stretch;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
+      padding: 0 20px;
+      border-right: 1px solid var(--line);
+      font-family: var(--sans);
+      font-size: 0.9rem;
       font-weight: 900;
-      font-size: 1.05rem;
+      line-height: 0.9;
     }
 
-    .brand-mark {
-      width: 34px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: var(--ink);
-      color: var(--paper);
-      font-weight: 900;
+    .brand-symbol {
+      font-size: 2.2rem;
+      line-height: 1;
+      letter-spacing: 0;
     }
 
-    .domain-nav,
-    .main-nav {
+    .nav-mid {
       display: flex;
       align-items: center;
-      gap: 8px;
-    }
-
-    .domain-nav a,
-    .main-nav a {
-      padding: 9px 12px;
-      border-radius: 999px;
+      gap: 24px;
+      padding-left: 36px;
       color: var(--muted);
-      font-size: 0.9rem;
-      font-weight: 800;
+      font-size: 0.88rem;
     }
 
-    .domain-nav a.active,
-    .domain-nav a:hover,
-    .main-nav a:hover {
+    .nav-mid a,
+    .signin {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .box {
+      width: 12px;
+      height: 12px;
+      display: inline-block;
+      border: 1px solid #c7c7c7;
       background: var(--paper);
-      color: var(--ink);
-      box-shadow: 0 8px 22px rgba(27, 52, 36, 0.08);
+    }
+
+    .slash {
+      color: #9b9b9b;
+    }
+
+    .chev {
+      width: 9px;
+      height: 9px;
+      border-right: 1px solid #aaa;
+      border-bottom: 1px solid #aaa;
+      transform: rotate(45deg) translateY(-2px);
     }
 
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 28px;
+      padding-right: 22px;
+      font-size: 0.88rem;
     }
 
-    .btn,
+    .apply-btn,
+    .outline-btn,
     #contact-form button {
-      min-height: 48px;
+      min-height: 56px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      padding: 0 20px;
-      border: 1px solid transparent;
-      border-radius: 999px;
-      font-weight: 900;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-
-    .btn-primary,
-    #contact-form button {
-      background: var(--green);
-      color: #03110a;
-      box-shadow: 0 12px 30px rgba(39, 209, 127, 0.28);
-    }
-
-    .btn-secondary {
-      background: var(--paper);
+      gap: 14px;
+      padding: 0 25px;
+      border: 2px solid var(--ink);
+      background: transparent;
       color: var(--ink);
-      border-color: var(--line);
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      cursor: pointer;
     }
 
-    .btn:hover,
-    #contact-form button:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow);
+    .apply-btn,
+    #contact-form button {
+      min-width: 158px;
+      border-color: var(--black);
+      background: var(--black);
+      color: var(--paper);
+    }
+
+    .apply-btn::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      background: var(--pink);
+    }
+
+    .outline-btn::before,
+    #contact-form button::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      background: var(--green);
     }
 
     #menu-toggle {
       display: none;
-      width: 44px;
-      height: 44px;
+      width: 56px;
+      height: 56px;
       border: 1px solid var(--line);
-      border-radius: 50%;
       background: var(--paper);
-      color: var(--ink);
-      font-size: 1.35rem;
+      font-size: 1.3rem;
     }
 
     #mobile-nav {
       display: none;
       position: fixed;
-      inset: 74px 0 auto 0;
-      z-index: 35;
-      padding: 12px 20px 20px;
+      inset: var(--nav-h) 0 auto 0;
+      z-index: 45;
       background: var(--paper);
       border-bottom: 1px solid var(--line);
-      box-shadow: var(--shadow);
+      font-family: var(--mono);
+      text-transform: uppercase;
     }
 
     #mobile-nav a {
       display: block;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--line);
-      font-weight: 900;
-    }
-
-    section {
-      padding: 96px 0;
+      padding: 18px 24px;
+      border-top: 1px solid var(--line);
     }
 
     .hero {
-      min-height: calc(100vh - 74px);
+      min-height: calc(100vh - var(--nav-h));
       display: grid;
-      align-items: center;
-      padding: 64px 0 78px;
-      border-bottom: 1px solid var(--line);
-      background:
-        linear-gradient(135deg, rgba(246, 248, 241, 0.98), rgba(246, 248, 241, 0.78)),
-        url("https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1800&q=80") center / cover;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.72fr);
-      gap: 54px;
-      align-items: center;
+      place-items: center;
+      padding: 120px 0 156px;
+      text-align: center;
     }
 
     .crumb {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      color: var(--green-dark);
-      font-weight: 900;
-      margin-bottom: 16px;
+      gap: 22px;
+      margin-bottom: 30px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 1rem;
       text-transform: uppercase;
     }
 
-    .crumb::before {
-      content: "Domain /";
-      color: var(--muted);
-      text-transform: none;
+    .crumb strong {
+      color: var(--ink);
+      font-weight: 500;
     }
 
-    h1 {
-      max-width: 740px;
-      font-size: clamp(4.3rem, 10vw, 8.8rem);
-      line-height: 0.88;
+    .hero h1 {
+      max-width: 900px;
+      margin: 0 auto 36px;
+      font-size: clamp(4.8rem, 8vw, 7.15rem);
+      line-height: 0.98;
       letter-spacing: 0;
-      margin-bottom: 28px;
+      font-weight: 800;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: var(--blue);
     }
 
     .hero-copy {
-      max-width: 680px;
-      color: #2d3731;
-      font-size: 1.28rem;
-      margin-bottom: 30px;
+      max-width: 920px;
+      margin: 0 auto 58px;
+      font-size: 1.35rem;
+      line-height: 1.25;
     }
 
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 30px;
-    }
-
-    .rate-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 18px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.86);
-      box-shadow: 0 12px 26px rgba(27, 52, 36, 0.08);
-      color: var(--muted);
-      font-weight: 900;
-    }
-
-    .rate-pill strong {
-      color: var(--ink);
-    }
-
-    .hero-card {
-      position: relative;
-      min-height: 560px;
-      border-radius: 28px;
-      overflow: hidden;
-      background:
-        linear-gradient(180deg, rgba(12, 15, 13, 0.05), rgba(12, 15, 13, 0.38)),
-        url("https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1100&q=80") center / cover;
-      box-shadow: var(--shadow);
-    }
-
-    .review-card,
-    .skill-card {
-      position: absolute;
-      left: 24px;
-      right: 24px;
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.93);
-      border: 1px solid rgba(255, 255, 255, 0.7);
-      box-shadow: 0 22px 48px rgba(12, 15, 13, 0.18);
-    }
-
-    .review-card {
-      bottom: 24px;
-    }
-
-    .skill-card {
-      top: 24px;
-      right: auto;
-      width: min(310px, calc(100% - 48px));
-    }
-
-    .avatar-row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .avatar {
-      width: 38px;
-      height: 38px;
-      display: grid;
-      place-items: center;
-      margin-right: -8px;
-      border: 3px solid var(--paper);
-      border-radius: 50%;
-      background: var(--charcoal);
+    .rate {
+      display: inline-block;
+      margin-top: 36px;
+      padding: 4px 7px;
+      background: var(--black);
       color: var(--paper);
-      font-weight: 900;
-    }
-
-    .card-label {
-      color: var(--green-dark);
-      font-size: 0.82rem;
-      font-weight: 900;
+      font-family: var(--mono);
+      font-size: 1rem;
       text-transform: uppercase;
     }
 
-    .card-title {
-      font-size: 1.18rem;
-      font-weight: 900;
-      line-height: 1.18;
-      margin-top: 5px;
+    .logo-section {
+      padding-top: 172px;
+      overflow: hidden;
     }
 
-    .logo-strip {
-      padding: 38px 0;
-      background: var(--paper);
-      border-bottom: 1px solid var(--line);
+    .as-seen {
+      margin-left: max(72px, calc((100vw - 1776px) / 2 + 72px));
+      margin-bottom: 38px;
+      color: #656a70;
+      font-size: 1.2rem;
+      font-weight: 800;
+      text-transform: uppercase;
     }
 
-    .strip-grid {
+    .logo-track {
       display: grid;
-      grid-template-columns: 160px 1fr;
-      gap: 28px;
-      align-items: center;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(280px, 1fr);
+      border-top: 1px solid #a9a9a9;
+      border-bottom: 1px solid #a9a9a9;
+      animation: drift 24s linear infinite;
     }
 
-    .strip-title {
-      color: var(--muted);
-      font-weight: 900;
-    }
-
-    .logo-list {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .logo-chip {
-      min-height: 54px;
+    .logo-cell {
+      height: 110px;
       display: grid;
       place-items: center;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #fbfdf8;
-      color: #39423c;
+      border-right: 1px solid #a9a9a9;
+      font-size: 1.75rem;
       font-weight: 900;
+      letter-spacing: 0;
+      white-space: nowrap;
     }
 
-    .section-head {
-      max-width: 860px;
-      margin-bottom: 46px;
+    .logo-cell.serif {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
     }
 
-    .section-kicker {
-      color: var(--green-dark);
-      font-weight: 900;
-      margin-bottom: 12px;
-      text-transform: uppercase;
+    .pixel-band {
+      --phase: 0;
+      height: 512px;
+      position: relative;
+      overflow: hidden;
+      background: var(--blue);
+    }
+
+    .pixel-band.black {
+      background: var(--black);
+    }
+
+    .pixel-band::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 288px;
+      background:
+        linear-gradient(90deg, var(--blue) 0 72px, transparent 72px 216px, var(--blue) 216px 504px, transparent 504px 576px, var(--blue) 576px 720px, transparent 720px 792px, var(--blue) 792px 1008px, transparent 1008px 1080px, var(--blue) 1080px 1224px, transparent 1224px 1368px, var(--blue) 1368px 1584px, transparent 1584px 1656px, var(--blue) 1656px 100%),
+        linear-gradient(90deg, transparent 0 72px, var(--blue) 72px 144px, transparent 144px 360px, var(--blue) 360px 432px, transparent 432px 648px, var(--blue) 648px 720px, transparent 720px 936px, var(--blue) 936px 1008px, transparent 1008px 1152px, var(--blue) 1152px 1224px, transparent 1224px 1440px, var(--blue) 1440px 1512px, transparent 1512px 1728px, var(--blue) 1728px 100%),
+        linear-gradient(90deg, var(--blue) 0 216px, transparent 216px 288px, var(--blue) 288px 504px, transparent 504px 648px, var(--blue) 648px 792px, transparent 792px 936px, var(--blue) 936px 1152px, transparent 1152px 1368px, var(--blue) 1368px 1512px, transparent 1512px 1656px, var(--blue) 1656px 100%);
+      background-size: 100% 72px;
+      background-position:
+        calc(var(--phase) * 1px) 0,
+        calc(var(--phase) * -1px) 72px,
+        calc(var(--phase) * 0.5px) 144px;
+      background-repeat: repeat-x;
+      transform: translateY(calc(var(--phase) * -0.08px));
+      opacity: 1;
+    }
+
+    .pixel-band.from-light::before {
+      background:
+        linear-gradient(90deg, transparent 0 72px, var(--blue) 72px 216px, transparent 216px 288px, var(--blue) 288px 504px, transparent 504px 576px, var(--blue) 576px 720px, transparent 720px 792px, var(--blue) 792px 936px, transparent 936px 1080px, var(--blue) 1080px 1512px, transparent 1512px 1656px, var(--blue) 1656px 100%),
+        linear-gradient(90deg, var(--blue) 0 72px, transparent 72px 216px, var(--blue) 216px 288px, transparent 288px 432px, var(--blue) 432px 720px, transparent 720px 792px, var(--blue) 792px 1008px, transparent 1008px 1152px, var(--blue) 1152px 1512px, transparent 1512px 1656px, var(--blue) 1656px 100%),
+        linear-gradient(90deg, var(--blue) 0 504px, transparent 504px 648px, var(--blue) 648px 936px, transparent 936px 1008px, var(--blue) 1008px 1584px, transparent 1584px 1728px, var(--blue) 1728px 100%);
+      background-color: transparent;
+      background-size: 100% 72px;
+      background-position:
+        calc(var(--phase) * -1px) 0,
+        calc(var(--phase) * 0.7px) 72px,
+        calc(var(--phase) * 1px) 144px;
+    }
+
+    .pixel-band.black::before {
+      background:
+        linear-gradient(90deg, var(--black) 0 144px, transparent 144px 360px, var(--black) 360px 504px, transparent 504px 648px, var(--black) 648px 792px, transparent 792px 936px, var(--black) 936px 1080px, transparent 1080px 1224px, var(--black) 1224px 1584px, transparent 1584px 1728px, var(--black) 1728px 100%),
+        linear-gradient(90deg, transparent 0 72px, var(--black) 72px 216px, transparent 216px 288px, var(--black) 288px 432px, transparent 432px 648px, var(--black) 648px 792px, transparent 792px 1008px, var(--black) 1008px 1224px, transparent 1224px 1368px, var(--black) 1368px 1584px, transparent 1584px 1800px, var(--black) 1800px 100%),
+        linear-gradient(90deg, var(--black) 0 432px, transparent 432px 648px, var(--black) 648px 936px, transparent 936px 1008px, var(--black) 1008px 1368px, transparent 1368px 1656px, var(--black) 1656px 100%);
+      background-size: 100% 72px;
+      background-position:
+        calc(var(--phase) * 0.8px) 0,
+        calc(var(--phase) * -1px) 72px,
+        calc(var(--phase) * 0.45px) 144px;
+    }
+
+    .blue-section {
+      padding: 132px 0 0;
+      background: var(--blue);
+      color: var(--paper);
+    }
+
+    .blue-intro {
+      display: grid;
+      grid-template-columns: 1fr 0.72fr;
+      gap: 80px;
+      align-items: center;
+      margin-bottom: 96px;
     }
 
     h2 {
-      font-size: clamp(2.8rem, 7vw, 6.4rem);
-      line-height: 0.92;
+      font-size: clamp(4rem, 7vw, 7rem);
+      line-height: 0.96;
       letter-spacing: 0;
-      margin-bottom: 18px;
+      font-weight: 800;
     }
 
-    .section-copy {
-      max-width: 660px;
-      color: var(--muted);
-      font-size: 1.14rem;
+    .blue-intro p {
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 1.35rem;
+      line-height: 1.45;
     }
 
     .value-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      border-top: 1px solid var(--line);
-      border-left: 1px solid var(--line);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-top: 1px solid rgba(255, 255, 255, 0.22);
+      border-left: 1px solid rgba(255, 255, 255, 0.22);
     }
 
     .value-card {
-      min-height: 310px;
-      padding: 28px;
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.58);
+      min-height: 375px;
+      padding: 72px 42px;
+      border-right: 1px solid rgba(255, 255, 255, 0.22);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+      color: var(--paper);
     }
 
-    .num {
-      display: block;
-      color: var(--green-dark);
-      font-weight: 900;
-      margin-bottom: 58px;
+    .value-card.featured {
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .chip {
+      display: inline-block;
+      margin-bottom: 30px;
+      padding: 7px 12px;
+      border: 1px solid currentColor;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      text-transform: uppercase;
+    }
+
+    .value-card:not(.featured) .chip {
+      color: rgba(255, 255, 255, 0.72);
     }
 
     h3 {
+      margin-bottom: 24px;
       font-size: 1.55rem;
       line-height: 1.1;
-      margin-bottom: 14px;
     }
 
-    .value-card p,
-    .step-card p,
-    .task-card p,
-    .area-card p,
-    .audience-card p,
-    .faq p {
-      color: var(--muted);
+    .value-card p {
+      color: #777;
+      font-size: 1.15rem;
+      line-height: 1.5;
     }
 
-    .band {
-      background: var(--paper);
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
+    .value-card:not(.featured) p {
+      color: rgba(255, 255, 255, 0.58);
     }
 
-    .steps {
+    .black-section {
+      padding: 132px 0;
+      background: var(--black);
+      color: var(--paper);
+    }
+
+    .steps-head {
+      display: grid;
+      grid-template-columns: 1fr 0.72fr;
+      gap: 80px;
+      align-items: end;
+      margin-bottom: 70px;
+    }
+
+    .steps-head p {
+      color: #bfbfbf;
+      font-size: 1.3rem;
+      line-height: 1.45;
+    }
+
+    .steps-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
+      gap: 1px;
+      background: #242424;
+      border: 1px solid #242424;
     }
 
     .step-card {
-      min-height: 360px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 28px;
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      background: var(--paper-2);
+      min-height: 300px;
+      padding: 36px;
+      background: #0c0c0c;
     }
 
-    .step-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 46px;
+    .step-card .chip {
+      color: #9a9a9a;
     }
 
-    .step-number {
-      font-size: 4.2rem;
-      line-height: 0.82;
-      font-weight: 900;
+    .step-card p {
+      color: #a8a8a8;
+      font-size: 1.05rem;
+      line-height: 1.5;
     }
 
-    .step-meta {
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: var(--paper);
-      color: var(--green-dark);
-      font-size: 0.86rem;
-      font-weight: 900;
+    .work-scroll {
+      min-height: 300vh;
+      background: var(--black);
+      color: var(--paper);
     }
 
-    .task-grid {
+    .work-sticky {
+      position: sticky;
+      top: var(--nav-h);
+      min-height: calc(100vh - var(--nav-h));
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
+      align-items: center;
+      padding: 60px 0;
     }
 
-    .task-card {
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      background: var(--paper);
-      box-shadow: 0 18px 45px rgba(27, 52, 36, 0.08);
+    .work-layout {
+      display: grid;
+      grid-template-columns: 0.78fr 1fr;
+      gap: 90px;
+      align-items: center;
     }
 
-    .task-media {
-      min-height: 230px;
-      background-position: center;
-      background-size: cover;
+    .work-title {
+      margin-bottom: 54px;
+      font-size: clamp(4rem, 7vw, 6.3rem);
+      line-height: 0.96;
+      font-weight: 800;
     }
 
-    .task-body {
-      padding: 24px;
+    .work-step {
+      position: relative;
+      max-width: 720px;
+      padding: 0 0 36px 22px;
+      border-left: 2px solid transparent;
+      color: #616161;
+      transition: color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .work-step.active {
+      border-color: var(--blue);
+      color: var(--paper);
+    }
+
+    .work-step span {
+      display: block;
+      margin-bottom: 24px;
+      color: inherit;
+      font-family: var(--mono);
+      font-size: 1rem;
+    }
+
+    .work-step h3 {
+      font-size: 1.72rem;
+    }
+
+    .work-step p {
+      color: #b9b9b9;
+      font-size: 1.2rem;
+      line-height: 1.45;
+    }
+
+    .work-step:not(.active) p {
+      display: none;
+    }
+
+    .console {
+      min-height: 560px;
+      padding: 26px;
+      border: 1px solid #272833;
+      border-radius: 7px;
+      background: #111116;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+      color: #bebec7;
+      font-family: var(--mono);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .console.fade {
+      opacity: 0.25;
+      transform: translateY(12px);
+    }
+
+    .console-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      margin: -26px -26px 26px;
+      padding: 18px 24px;
+      border-bottom: 1px solid #202028;
+      color: #73737d;
+      text-transform: uppercase;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin-right: 10px;
+      border-radius: 50%;
+      background: var(--blue);
+    }
+
+    .status {
+      padding: 7px 12px;
+      border: 1px solid rgba(6, 77, 244, 0.34);
+      border-radius: 6px;
+      color: var(--blue);
+      background: rgba(6, 77, 244, 0.08);
+    }
+
+    .prompt-box,
+    .response-box,
+    .notes-box {
+      margin: 16px 0 24px;
+      padding: 18px;
+      border-radius: 4px;
+      background: #09090b;
+      color: #d7d7dd;
+      font-family: var(--sans);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .console-label {
+      color: #686873;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .tiny-pill {
+      display: inline-block;
+      margin: 6px 8px 0 0;
+      padding: 9px 13px;
+      border: 1px solid #242430;
+      border-radius: 6px;
+      color: #8d8d96;
+    }
+
+    .tiny-pill.active {
+      border-color: rgba(6, 77, 244, 0.55);
+      color: #dce5ff;
+      background: rgba(6, 77, 244, 0.14);
+    }
+
+    .area-section {
+      padding: 120px 0;
+      background: var(--white);
+    }
+
+    .area-head {
+      display: grid;
+      grid-template-columns: 1fr 0.72fr;
+      gap: 72px;
+      margin-bottom: 54px;
+    }
+
+    .area-head p {
+      align-self: end;
+      color: var(--muted);
+      font-size: 1.24rem;
+      line-height: 1.45;
     }
 
     .area-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      background: var(--line);
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
     }
 
     .area-card {
-      padding: 30px;
-      background: var(--paper);
+      min-height: 300px;
+      padding: 42px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .area-card p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.5;
     }
 
     .tag-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 22px;
+      gap: 9px;
+      margin-top: 26px;
     }
 
     .tag {
-      padding: 8px 11px;
-      border-radius: 999px;
-      background: var(--paper-2);
-      color: #34423a;
-      font-size: 0.85rem;
-      font-weight: 900;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
     }
 
-    .stats {
+    .stats-section {
+      padding: 116px 0;
+      background: var(--blue);
+      color: var(--paper);
+    }
+
+    .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1px;
-      overflow: hidden;
-      border-radius: 28px;
-      background: var(--line);
-      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.24);
+      border: 1px solid rgba(255, 255, 255, 0.24);
     }
 
     .stat {
-      padding: 34px;
-      background: var(--charcoal);
-      color: var(--paper);
+      padding: 46px;
+      background: var(--blue);
     }
 
     .stat strong {
       display: block;
-      font-size: clamp(3rem, 7vw, 5.8rem);
-      line-height: 0.9;
       margin-bottom: 12px;
+      font-size: clamp(4rem, 8vw, 7rem);
+      line-height: 0.9;
     }
 
     .stat span {
-      color: #c8d7cd;
-      font-weight: 800;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 1.08rem;
     }
 
-    .audience-grid {
+    .faq-section {
+      padding: 116px 0;
+      background: var(--white);
+    }
+
+    .faq-head {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 16px;
+      grid-template-columns: 1fr 0.72fr;
+      gap: 72px;
+      margin-bottom: 60px;
     }
 
-    .audience-card {
-      min-height: 250px;
-      padding: 24px;
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      background: var(--paper);
+    .faq-head p {
+      align-self: end;
+      color: var(--muted);
+      font-size: 1.2rem;
     }
 
     .faq {
-      max-width: 940px;
-      margin: 0 auto;
       border-top: 1px solid var(--line);
     }
 
@@ -587,10 +757,10 @@
     summary {
       display: flex;
       justify-content: space-between;
-      gap: 18px;
-      padding: 26px 0;
-      font-size: 1.18rem;
-      font-weight: 900;
+      gap: 20px;
+      padding: 28px 0;
+      font-size: 1.25rem;
+      font-weight: 800;
       cursor: pointer;
       list-style: none;
     }
@@ -601,8 +771,8 @@
 
     summary::after {
       content: "+";
-      color: var(--green-dark);
-      font-size: 1.6rem;
+      color: var(--blue);
+      font-size: 1.5rem;
       line-height: 1;
     }
 
@@ -611,86 +781,90 @@
     }
 
     details p {
-      max-width: 720px;
-      padding: 0 0 26px;
+      max-width: 760px;
+      padding: 0 0 28px;
+      color: var(--muted);
+      font-size: 1.06rem;
+      line-height: 1.55;
     }
 
-    .final-cta {
-      padding: 105px 0;
-      background: var(--charcoal);
+    .cta-section {
+      padding: 130px 0;
+      background: var(--black);
       color: var(--paper);
     }
 
-    .final-grid {
+    .cta-grid {
       display: grid;
-      grid-template-columns: 1fr minmax(300px, 0.72fr);
-      gap: 42px;
+      grid-template-columns: 1fr 0.72fr;
+      gap: 72px;
       align-items: start;
     }
 
-    .final-cta h2 {
-      max-width: 780px;
-    }
-
-    .final-cta p {
-      color: #c8d7cd;
-      font-size: 1.16rem;
-      margin-bottom: 26px;
+    .cta-section p {
+      max-width: 720px;
+      margin: 28px 0 0;
+      color: #bdbdbd;
+      font-size: 1.22rem;
+      line-height: 1.45;
     }
 
     #contact-form {
       display: grid;
       gap: 14px;
-      padding: 22px;
-      border-radius: 24px;
-      background: var(--paper);
-      color: var(--ink);
+      padding: 24px;
+      border: 1px solid #2a2a2a;
+      background: #0d0d0d;
     }
 
     #contact-form input,
     #contact-form textarea {
       width: 100%;
       padding: 15px 16px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: #fbfdf8;
-      color: var(--ink);
+      border: 1px solid #2a2a2a;
+      background: #050505;
+      color: var(--paper);
     }
 
     #contact-form textarea {
-      min-height: 130px;
+      min-height: 132px;
       resize: vertical;
     }
 
     footer {
-      padding: 46px 0;
-      background: var(--charcoal);
-      color: #c8d7cd;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 52px 0;
+      border-top: 1px solid #222;
+      background: var(--black);
+      color: #9e9e9e;
+      font-family: var(--mono);
+      text-transform: uppercase;
     }
 
     .footer-grid {
       display: grid;
-      grid-template-columns: 1.2fr repeat(3, 1fr);
-      gap: 28px;
+      grid-template-columns: 1.3fr repeat(3, 1fr);
+      gap: 44px;
     }
 
-    .footer-grid h4 {
+    footer h4 {
+      margin-bottom: 18px;
       color: var(--paper);
-      margin-bottom: 12px;
+      font-family: var(--sans);
+      text-transform: none;
     }
 
-    .footer-grid a,
-    .footer-grid span {
+    footer a,
+    footer span {
       display: block;
-      margin: 8px 0;
-      color: #c8d7cd;
+      margin-bottom: 10px;
+      color: #9e9e9e;
+      font-size: 0.9rem;
     }
 
     .observe {
       opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
     .observe.visible {
@@ -698,348 +872,369 @@
       transform: translateY(0);
     }
 
-    @media (max-width: 1080px) {
-      .domain-nav {
-        display: none;
-      }
-
-      .hero-grid,
-      .final-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-card {
-        min-height: 460px;
-      }
-
-      .value-grid,
-      .audience-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .logo-list {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
+    @keyframes drift {
+      from { transform: translateX(0); }
+      to { transform: translateX(-280px); }
     }
 
-    @media (max-width: 760px) {
+    @media (max-width: 1100px) {
       .container {
-        width: min(100% - 28px, 1180px);
+        width: min(100vw - 48px, 1776px);
       }
 
-      .main-nav,
-      .nav-actions {
+      .nav {
+        grid-template-columns: 180px 1fr auto;
+      }
+
+      .nav-mid,
+      .signin {
         display: none;
       }
 
       #menu-toggle {
-        display: inline-grid;
-        place-items: center;
+        display: block;
       }
 
-      section {
-        padding: 70px 0;
+      .hero h1,
+      h2,
+      .work-title {
+        font-size: clamp(3.8rem, 12vw, 6.2rem);
+      }
+
+      .blue-intro,
+      .steps-head,
+      .work-layout,
+      .area-head,
+      .faq-head,
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .work-sticky {
+        position: relative;
+        top: auto;
+      }
+
+      .work-scroll {
+        min-height: auto;
+      }
+
+      .console {
+        min-height: 420px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      :root {
+        --nav-h: 78px;
+      }
+
+      .container {
+        width: min(100vw - 28px, 1776px);
+      }
+
+      .topbar {
+        height: var(--nav-h);
+      }
+
+      .nav {
+        grid-template-columns: 1fr auto;
+      }
+
+      .brand {
+        border-right: 0;
+        padding-left: 0;
+      }
+
+      .nav-actions {
+        display: flex;
+        padding-right: 0;
+      }
+
+      .nav-actions .signin,
+      .nav-actions .apply-btn {
+        display: none;
       }
 
       .hero {
-        min-height: auto;
-        padding: 46px 0 64px;
+        padding: 88px 0 112px;
       }
 
-      h1 {
-        font-size: clamp(3.6rem, 18vw, 5.2rem);
+      .hero h1 {
+        font-size: clamp(3.5rem, 17vw, 5.2rem);
       }
 
-      h2 {
-        font-size: clamp(2.7rem, 15vw, 4.8rem);
+      .hero-copy {
+        font-size: 1.05rem;
       }
 
-      .hero-copy,
-      .section-copy {
-        font-size: 1.04rem;
+      .outline-btn,
+      .apply-btn,
+      #contact-form button {
+        width: 100%;
       }
 
-      .hero-card {
-        min-height: 390px;
+      .as-seen {
+        margin-left: 24px;
       }
 
-      .strip-grid,
-      .steps,
-      .task-grid,
+      .logo-track {
+        grid-auto-columns: 240px;
+      }
+
+      .pixel-band {
+        height: 360px;
+      }
+
+      .blue-section,
+      .black-section,
+      .area-section,
+      .stats-section,
+      .faq-section,
+      .cta-section {
+        padding: 80px 0;
+      }
+
+      .value-grid,
+      .steps-grid,
       .area-grid,
-      .stats,
+      .stats-grid,
       .footer-grid {
         grid-template-columns: 1fr;
       }
 
-      .value-grid,
-      .audience-grid {
+      .value-card,
+      .step-card,
+      .area-card,
+      .stat {
+        padding: 30px 22px;
+        min-height: auto;
+      }
+
+      .work-layout {
+        gap: 32px;
+      }
+
+      .split {
         grid-template-columns: 1fr;
-      }
-
-      .logo-list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .btn {
-        width: 100%;
-      }
-
-      .rate-pill {
-        width: 100%;
-        justify-content: center;
       }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
-    <div class="container nav">
+    <div class="nav">
       <a class="brand" href="#hero" aria-label="MacroLogic home">
-        <span class="brand-mark">M</span>
-        <span>MacroLogic</span>
+        <span class="brand-symbol">ML</span>
+        <span>MACRO<br />LOGIC</span>
       </a>
-      <nav class="domain-nav" aria-label="Automation domains">
-        <a class="active" href="#hero">Operations</a>
-        <a href="#work">Sales</a>
-        <a href="#work">Finance</a>
-        <a href="#work">Marketing</a>
-        <a href="#work">Fulfillment</a>
-      </nav>
-      <nav class="main-nav" aria-label="Main navigation">
-        <a href="#value">About</a>
-        <a href="#faq">FAQs</a>
+      <nav class="nav-mid" aria-label="Primary navigation">
+        <a href="#areas"><span class="box"></span> Domains <span class="chev"></span></a>
+        <span class="slash">/</span>
+        <a href="#value"><span class="box"></span> About</a>
+        <span class="slash">/</span>
+        <a href="#faq"><span class="box"></span> FAQs</a>
       </nav>
       <div class="nav-actions">
-        <a class="btn btn-secondary" href="#steps">Learn more</a>
-        <a class="btn btn-primary" href="#contact">Start now</a>
+        <a class="signin" href="#contact">Sign in</a>
+        <a class="apply-btn" href="#contact">Apply now</a>
+        <button id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
       </div>
-      <button id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
     </div>
   </header>
 
   <div id="mobile-nav" aria-label="Mobile navigation">
+    <a href="#areas">Domains</a>
     <a href="#value">About</a>
-    <a href="#steps">Process</a>
     <a href="#work">Work</a>
     <a href="#faq">FAQs</a>
-    <a href="#contact">Start now</a>
+    <a href="#contact">Apply now</a>
   </div>
 
   <main>
-    <section id="hero" class="hero">
-      <div class="container hero-grid">
-        <div class="observe">
-          <p class="crumb">OPERATIONS</p>
-          <h1>Automate Work. Grow Faster.</h1>
-          <p class="hero-copy">Build clean, reliable automations for the repetitive work inside your business. MacroLogic connects your CRM, inbox, billing, reporting, and fulfillment tools so your team can focus on revenue.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#contact">Start an automation audit</a>
-            <a class="btn btn-secondary" href="#steps">Learn more</a>
-          </div>
-          <div class="rate-pill">
-            <strong>Workflow audits</strong>
-            <span>Built around your current stack</span>
-          </div>
-        </div>
-        <div class="hero-card observe" aria-label="MacroLogic automation project preview">
-          <div class="skill-card">
-            <p class="card-label">Live workflow</p>
-            <p class="card-title">Lead capture, enrichment, routing, follow-up, and reporting in one connected system.</p>
-          </div>
-          <div class="review-card">
-            <div class="avatar-row">
-              <span class="avatar">S</span>
-              <span class="avatar">F</span>
-              <span class="avatar">O</span>
-            </div>
-            <p class="card-label">Current focus</p>
-            <p class="card-title">Systems that remove manual copying, chasing, reconciling, and status reporting.</p>
-          </div>
-        </div>
+    <section id="hero" class="hero grid-bg">
+      <div class="container observe">
+        <div class="crumb">Domain <span>/</span> <strong>Operations</strong></div>
+        <h1>Automate Work.<span>Grow Faster.</span></h1>
+        <p class="hero-copy">Build paid-for-itself automation systems that connect your tools, route your work, and give your team time back. Workflows for sales, finance, marketing, fulfillment, and more.</p>
+        <a class="outline-btn" href="#contact">Apply for an audit</a>
+        <div class="rate">Workflow systems / Built around your stack</div>
       </div>
     </section>
 
-    <div class="logo-strip">
-      <div class="container strip-grid">
-        <p class="strip-title">Built for teams using</p>
-        <div class="logo-list" aria-label="Supported tools">
-          <span class="logo-chip">HubSpot</span>
-          <span class="logo-chip">Salesforce</span>
-          <span class="logo-chip">Stripe</span>
-          <span class="logo-chip">Airtable</span>
-          <span class="logo-chip">Sheets</span>
-          <span class="logo-chip">Notion</span>
-        </div>
+    <section class="logo-section grid-bg" aria-label="Proof">
+      <p class="as-seen">Built with</p>
+      <div class="logo-track" aria-label="Commonly connected platforms">
+        <span class="logo-cell serif">HubSpot</span>
+        <span class="logo-cell">Salesforce</span>
+        <span class="logo-cell">Stripe</span>
+        <span class="logo-cell serif">Airtable</span>
+        <span class="logo-cell">Google Sheets</span>
+        <span class="logo-cell">Notion</span>
+        <span class="logo-cell serif">Zapier</span>
+        <span class="logo-cell">Make</span>
       </div>
-    </div>
+      <div class="pixel-band from-light" data-pixels></div>
+    </section>
 
-    <section id="value">
+    <section id="value" class="blue-section">
       <div class="container">
-        <div class="section-head observe">
-          <p class="section-kicker">This is not busywork.</p>
-          <h2>Real systems for real bottlenecks.</h2>
-          <p class="section-copy">The best operators still lose hours to scattered tools, repeated updates, and manual checks. MacroLogic turns those handoffs into reliable automation flows with clear owners and measurable outcomes.</p>
+        <div class="blue-intro observe">
+          <h2>This is not busywork.</h2>
+          <p>The best teams still lose hours to duplicated updates, disconnected software, and unclear handoffs. MacroLogic is the operating signal that fixes this, one workflow at a time.</p>
         </div>
         <div class="value-grid">
-          <article class="value-card observe">
-            <span class="num">01-Rigor</span>
-            <h3>Workflow thinking</h3>
-            <p>We map the actual decisions, exceptions, and handoffs before wiring anything together.</p>
+          <article class="value-card featured observe">
+            <span class="chip">01-Rigor</span>
+            <h3>Real Workflow Thinking</h3>
+            <p>These are not shallow zaps or checkbox automations. We evaluate the logic of multi-step operations, catch edge cases, and build systems that actually answer the business problem.</p>
           </article>
           <article class="value-card observe">
-            <span class="num">02-Signal</span>
-            <h3>Direct operational impact</h3>
-            <p>Every automation is tied to a visible business outcome: faster routing, cleaner records, fewer dropped tasks, or better reporting.</p>
+            <span class="chip">02-Signal</span>
+            <h3>Direct Impact on Operations</h3>
+            <p>Every automation becomes a signal for your team. When a lead is routed, a contract is signed, or an exception appears, the right person knows immediately.</p>
           </article>
           <article class="value-card observe">
-            <span class="num">03-Flexibility</span>
-            <h3>Fits your stack</h3>
-            <p>We start with the tools you already use, then add custom API work only where it creates real leverage.</p>
+            <span class="chip">03-Flexibility</span>
+            <h3>Work With Your Stack</h3>
+            <p>No forced rebuild. We connect the CRM, inbox, spreadsheets, billing tools, dashboards, and APIs you already use.</p>
           </article>
           <article class="value-card observe">
-            <span class="num">04-Reliability</span>
-            <h3>Built to keep running</h3>
-            <p>Monitoring, alerts, fallback paths, and docs are part of the build, not cleanup after launch.</p>
+            <span class="chip">04-Rate</span>
+            <h3>Premium Leverage</h3>
+            <p>Manual operations are expensive. We target the repeated work that blocks revenue, then build a system that compounds every week.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="steps" class="band">
+    <div class="pixel-band black" data-pixels></div>
+
+    <section class="black-section">
       <div class="container">
-        <div class="section-head observe">
-          <p class="section-kicker">Three steps.</p>
-          <h2>No overhead.</h2>
+        <div class="steps-head observe">
+          <h2>Three steps.<br />No overhead.</h2>
+          <p>No bloated transformation project. Start with one workflow, qualify the bottleneck, and launch a real system.</p>
         </div>
-        <div class="steps">
+        <div class="steps-grid">
           <article class="step-card observe">
-            <div>
-              <div class="step-top">
-                <span class="step-number">01</span>
-                <span class="step-meta">Audit</span>
-              </div>
-              <h3>Apply and qualify the workflow</h3>
-              <p>Send the process that wastes the most time. We identify the triggers, tools, data sources, and failure points.</p>
-            </div>
+            <span class="chip">01</span>
+            <h3>Apply & Qualify</h3>
+            <p>Send the workflow that wastes the most time. We evaluate tools, data, handoffs, and failure points.</p>
           </article>
           <article class="step-card observe">
-            <div>
-              <div class="step-top">
-                <span class="step-number">02</span>
-                <span class="step-meta">Build</span>
-              </div>
-              <h3>Get matched to the right system</h3>
-              <p>We design the automation pattern: CRM routing, finance sync, follow-up sequences, reporting, or a custom integration.</p>
-            </div>
+            <span class="chip">02</span>
+            <h3>Get Matched</h3>
+            <p>Your workflow gets mapped to the right automation pattern: routing, sync, reporting, follow-up, or custom API work.</p>
           </article>
           <article class="step-card observe">
-            <div>
-              <div class="step-top">
-                <span class="step-number">03</span>
-                <span class="step-meta">Launch</span>
-              </div>
-              <h3>Work less and keep control</h3>
-              <p>We ship the flow, test edge cases, document ownership, and leave your team with clear monitoring.</p>
-            </div>
+            <span class="chip">03</span>
+            <h3>Work & Scale</h3>
+            <p>We launch, test, monitor, and document the system so your team gets leverage without losing control.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="work">
-      <div class="container">
-        <div class="section-head observe">
-          <p class="section-kicker">What we actually build.</p>
-          <h2>Automation work your team can feel.</h2>
-        </div>
-        <div class="task-grid">
-          <article class="task-card observe">
-            <div class="task-media" style="background-image:url('https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=900&q=80');"></div>
-            <div class="task-body">
-              <span class="num">01</span>
-              <h3>Capture the request</h3>
-              <p>Forms, inboxes, ads, webhooks, and spreadsheets feed one clean intake path.</p>
+    <section id="work" class="work-scroll">
+      <div class="work-sticky">
+        <div class="container work-layout">
+          <div>
+            <h2 class="work-title">What you'll<br />actually do.</h2>
+            <article class="work-step active" data-work-step="0">
+              <span>01</span>
+              <h3>Write the workflow</h3>
+              <p>Document the real process: intake, ownership, timing, data, approvals, exceptions, and what success looks like.</p>
+            </article>
+            <article class="work-step" data-work-step="1">
+              <span>02</span>
+              <h3>Review system output</h3>
+              <p>Compare the current manual path against the automated flow. Confirm the right records, tasks, messages, and alerts are created.</p>
+            </article>
+            <article class="work-step" data-work-step="2">
+              <span>03</span>
+              <h3>Launch the better system</h3>
+              <p>Approve the final workflow and let the system run while monitoring exceptions, timing, and team adoption.</p>
+            </article>
+          </div>
+          <div class="console" id="console" aria-live="polite">
+            <div class="console-top">
+              <span><span class="dot"></span><span id="console-mode">Evaluation - workflow accuracy</span></span>
+              <span class="status" id="console-status">In progress</span>
             </div>
-          </article>
-          <article class="task-card observe">
-            <div class="task-media" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80');"></div>
-            <div class="task-body">
-              <span class="num">02</span>
-              <h3>Route the work</h3>
-              <p>Records are enriched, scored, assigned, and escalated based on the rules that matter.</p>
+            <p class="console-label" id="prompt-label">Current workflow</p>
+            <div class="prompt-box" id="prompt-box">Route every new lead from the website form into the CRM, enrich it, assign an owner, and alert the team if no one follows up within 15 minutes.</div>
+            <div id="console-body">
+              <p class="console-label">System output</p>
+              <div class="response-box">Lead source captured. Company field enriched. Deal created. Owner assigned based on territory and capacity. Slack alert queued. SLA timer started.</div>
+              <p class="console-label">Review notes</p>
+              <div class="notes-box">The main path is correct. Add a fallback owner if territory is missing and log enrichment failures for review.</div>
+              <span class="tiny-pill active">Accuracy</span>
+              <span class="tiny-pill">Completeness</span>
+              <span class="tiny-pill">Clarity</span>
             </div>
-          </article>
-          <article class="task-card observe">
-            <div class="task-media" style="background-image:url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=900&q=80');"></div>
-            <div class="task-body">
-              <span class="num">03</span>
-              <h3>Report the outcome</h3>
-              <p>Leadership gets current status, exceptions, and performance without asking for updates.</p>
-            </div>
-          </article>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="band">
+    <section id="areas" class="area-section grid-bg">
       <div class="container">
-        <div class="section-head observe">
-          <p class="section-kicker">Where teams need us most.</p>
-          <h2>Fix the places where work falls apart.</h2>
-          <p class="section-copy">These are the operating areas where disconnected tools create hidden cost. Your automation system should remove the ambiguity before it becomes a missed opportunity.</p>
+        <div class="area-head observe">
+          <h2>Where systems need you most.</h2>
+          <p>These are the places where disconnected tools create hidden cost. MacroLogic turns them into reliable operating flows.</p>
         </div>
         <div class="area-grid">
           <article class="area-card observe">
-            <h3>Instruction following and task completion</h3>
-            <p>Make every handoff explicit: who owns it, when it runs, what data is required, and what happens if it fails.</p>
+            <h3>Instruction Following & Task Completion</h3>
+            <p>Make every handoff explicit: owner, timing, required data, next step, and escalation path.</p>
             <div class="tag-list">
-              <span class="tag">CRM updates</span>
-              <span class="tag">Task routing</span>
-              <span class="tag">SLA tracking</span>
+              <span class="tag">Prompt Adherence</span>
+              <span class="tag">Task Routing</span>
+              <span class="tag">SLA Tracking</span>
             </div>
           </article>
           <article class="area-card observe">
-            <h3>Reasoning and business rules</h3>
-            <p>Turn messy judgment calls into clear decision trees, escalation paths, and approval checkpoints.</p>
+            <h3>Reasoning & Logical Coherence</h3>
+            <p>Turn messy judgment calls into clear business rules, qualification paths, and approval checkpoints.</p>
             <div class="tag-list">
-              <span class="tag">Qualification</span>
-              <span class="tag">Priority scoring</span>
+              <span class="tag">Priority Scoring</span>
               <span class="tag">Approvals</span>
+              <span class="tag">Escalations</span>
             </div>
           </article>
           <article class="area-card observe">
-            <h3>Factual accuracy and data sync</h3>
-            <p>Keep customer, deal, invoice, and fulfillment data aligned across tools with reconciliation checks.</p>
+            <h3>Factual Accuracy & Data Sync</h3>
+            <p>Keep customer, deal, invoice, and fulfillment data aligned across every tool that touches the workflow.</p>
             <div class="tag-list">
-              <span class="tag">Data hygiene</span>
-              <span class="tag">Finance sync</span>
-              <span class="tag">Exception alerts</span>
+              <span class="tag">Data Hygiene</span>
+              <span class="tag">Finance Sync</span>
+              <span class="tag">Error Detection</span>
             </div>
           </article>
           <article class="area-card observe">
-            <h3>Communication quality</h3>
-            <p>Follow up at the right time with the right message while preserving human review where it matters.</p>
+            <h3>Conversational Quality & Safety</h3>
+            <p>Send the right follow-up at the right time while preserving human approval for sensitive communication.</p>
             <div class="tag-list">
-              <span class="tag">Email sequences</span>
-              <span class="tag">SMS handoffs</span>
-              <span class="tag">Team alerts</span>
+              <span class="tag">Email</span>
+              <span class="tag">SMS</span>
+              <span class="tag">Team Alerts</span>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section>
+    <section class="stats-section">
       <div class="container">
-        <div class="stats observe">
+        <div class="stats-grid observe">
           <div class="stat">
             <strong>4.7M</strong>
-            <span>Signals routed through workflow systems</span>
+            <span>Signals routed through automated workflows</span>
           </div>
           <div class="stat">
             <strong>28ms</strong>
-            <span>Average trigger delay on live automations</span>
+            <span>Average trigger delay on live systems</span>
           </div>
           <div class="stat">
             <strong>82%</strong>
@@ -1049,48 +1244,16 @@
       </div>
     </section>
 
-    <section class="band">
+    <section id="faq" class="faq-section grid-bg">
       <div class="container">
-        <div class="section-head observe">
-          <p class="section-kicker">Built for people who care about clean operations.</p>
-          <h2>Who gets the most value.</h2>
-        </div>
-        <div class="audience-grid">
-          <article class="audience-card observe">
-            <span class="num">01</span>
-            <h3>Operators</h3>
-            <p>Teams that need work to move without manual chasing.</p>
-          </article>
-          <article class="audience-card observe">
-            <span class="num">02</span>
-            <h3>Sales teams</h3>
-            <p>Groups that want faster response times and cleaner CRM records.</p>
-          </article>
-          <article class="audience-card observe">
-            <span class="num">03</span>
-            <h3>Finance leads</h3>
-            <p>People who need contracts, invoices, payouts, and reporting to match.</p>
-          </article>
-          <article class="audience-card observe">
-            <span class="num">04</span>
-            <h3>Founders</h3>
-            <p>Owners who want scale without adding admin headcount.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="faq">
-      <div class="container">
-        <div class="section-head observe">
-          <p class="section-kicker">Frequently Asked Questions</p>
-          <h2>Have questions?</h2>
-          <p class="section-copy">Here are the most common questions before starting an automation audit.</p>
+        <div class="faq-head observe">
+          <h2>Frequently Asked Questions</h2>
+          <p>Have questions? Here are the most common questions before starting an automation audit.</p>
         </div>
         <div class="faq observe">
           <details open>
             <summary>What kind of work will MacroLogic do?</summary>
-            <p>We build automation flows that connect your tools, route work, sync data, trigger follow-ups, alert your team, and report outcomes.</p>
+            <p>We build automations that connect your tools, route work, sync data, trigger follow-ups, alert your team, and report outcomes.</p>
           </details>
           <details>
             <summary>What kind of projects are available?</summary>
@@ -1101,25 +1264,24 @@
             <p>This is for growing teams with repeated operational work that is too important to keep handling manually.</p>
           </details>
           <details>
-            <summary>Do we need to replace our current tools?</summary>
+            <summary>Do we need to replace our current software?</summary>
             <p>No. The first goal is to make your existing stack behave like one connected system.</p>
           </details>
         </div>
       </div>
     </section>
 
-    <section id="contact" class="final-cta">
-      <div class="container final-grid">
+    <section id="contact" class="cta-section">
+      <div class="container cta-grid">
         <div class="observe">
           <h2>Get ahead in a changing workforce.</h2>
-          <p>No bloated rebuild. No vague transformation project. Just meaningful automation work that removes repeated manual effort from your business.</p>
-          <a class="btn btn-primary" href="#contact-form">Start now</a>
+          <p>No bloated rebuild. No vague transformation project. Just meaningful automation work and real operational leverage.</p>
         </div>
         <form id="contact-form" class="observe">
           <input type="text" placeholder="Your name" required />
           <input type="email" placeholder="Your email" required />
           <textarea placeholder="What workflow should MacroLogic automate?"></textarea>
-          <button type="submit">Submit workflow</button>
+          <button type="submit">Apply now</button>
         </form>
       </div>
     </section>
@@ -1129,10 +1291,9 @@
     <div class="container footer-grid">
       <div>
         <a class="brand" href="#hero">
-          <span class="brand-mark">M</span>
-          <span>MacroLogic</span>
+          <span class="brand-symbol">ML</span>
+          <span>MACRO<br />LOGIC</span>
         </a>
-        <span>Automation systems for operators.</span>
       </div>
       <div>
         <h4>Company</h4>
@@ -1141,9 +1302,9 @@
       </div>
       <div>
         <h4>Automation Domains</h4>
-        <a href="#work">Sales</a>
-        <a href="#work">Finance</a>
-        <a href="#work">Operations</a>
+        <a href="#areas">Operations</a>
+        <a href="#areas">Sales</a>
+        <a href="#areas">Finance</a>
       </div>
       <div>
         <h4>Location</h4>
@@ -1163,7 +1324,7 @@
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.16 });
+      }, { threshold: 0.14 });
 
       document.querySelectorAll(".observe").forEach(el => observer.observe(el));
 
@@ -1182,6 +1343,76 @@
           button.setAttribute("aria-expanded", "false");
         });
       });
+
+      const pixelBands = document.querySelectorAll("[data-pixels]");
+      const workScroll = document.querySelector(".work-scroll");
+      const workSteps = [...document.querySelectorAll(".work-step")];
+      const consoleEl = document.getElementById("console");
+      const consoleMode = document.getElementById("console-mode");
+      const consoleStatus = document.getElementById("console-status");
+      const promptLabel = document.getElementById("prompt-label");
+      const promptBox = document.getElementById("prompt-box");
+      const consoleBody = document.getElementById("console-body");
+
+      const panels = [
+        {
+          mode: "Evaluation - workflow accuracy",
+          status: "In progress",
+          label: "Current workflow",
+          prompt: "Route every new lead from the website form into the CRM, enrich it, assign an owner, and alert the team if no one follows up within 15 minutes.",
+          body: "<p class=\"console-label\">System output</p><div class=\"response-box\">Lead source captured. Company field enriched. Deal created. Owner assigned based on territory and capacity. Slack alert queued. SLA timer started.</div><p class=\"console-label\">Review notes</p><div class=\"notes-box\">The main path is correct. Add a fallback owner if territory is missing and log enrichment failures for review.</div><span class=\"tiny-pill active\">Accuracy</span><span class=\"tiny-pill\">Completeness</span><span class=\"tiny-pill\">Clarity</span>"
+        },
+        {
+          mode: "Comparison - routing logic",
+          status: "Needs ranking",
+          label: "Manual path",
+          prompt: "A lead comes in after hours with no territory field. Compare the current manual process against the automated fallback route.",
+          body: "<div class=\"split\"><div><p class=\"console-label\">Response A</p><div class=\"response-box\">Create the lead, wait for admin review, then assign next morning.</div></div><div><p class=\"console-label\">Response B</p><div class=\"response-box\">Create the lead, assign fallback owner, send alert, and flag territory as missing.</div></div></div><p class=\"console-label\">Your ranking</p><span class=\"tiny-pill active\">B > A</span><span class=\"tiny-pill\">Faster and safer</span>"
+        },
+        {
+          mode: "Gold standard - launch notes",
+          status: "Ready",
+          label: "Approved system",
+          prompt: "Launch the workflow with monitoring, documented ownership, fallback paths, and reporting for exceptions.",
+          body: "<p class=\"console-label\">Final automation</p><div class=\"response-box\">Webhook intake, enrichment, routing rules, fallback owner, SLA timer, Slack alert, CRM note, and weekly exception report are live.</div><p class=\"console-label\">Launch notes</p><div class=\"notes-box\">Team has owner docs, rollback path, monitoring dashboard, and first-week review scheduled.</div><span class=\"tiny-pill active\">Approved</span><span class=\"tiny-pill\">Documented</span><span class=\"tiny-pill\">Monitored</span>"
+        }
+      ];
+
+      let currentPanel = 0;
+
+      function setPanel(index) {
+        if (index === currentPanel) return;
+        currentPanel = index;
+        workSteps.forEach((step, stepIndex) => {
+          step.classList.toggle("active", stepIndex === index);
+        });
+        consoleEl.classList.add("fade");
+        window.setTimeout(() => {
+          const panel = panels[index];
+          consoleMode.textContent = panel.mode;
+          consoleStatus.textContent = panel.status;
+          promptLabel.textContent = panel.label;
+          promptBox.textContent = panel.prompt;
+          consoleBody.innerHTML = panel.body;
+          consoleEl.classList.remove("fade");
+        }, 120);
+      }
+
+      function onScroll() {
+        const y = window.scrollY;
+        pixelBands.forEach((band, index) => {
+          band.style.setProperty("--phase", Math.round((y * (index + 1) * 0.28) % 288));
+        });
+
+        if (!workScroll) return;
+        const rect = workScroll.getBoundingClientRect();
+        const scrollable = Math.max(1, rect.height - window.innerHeight);
+        const progress = Math.min(0.999, Math.max(0, -rect.top / scrollable));
+        setPanel(Math.min(2, Math.floor(progress * 3)));
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
     });
   </script>
 </body>
